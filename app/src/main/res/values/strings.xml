@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">PetMonsters</string>
+    <string name="bad_user_password">Bad user or password</string>
+    <string name="email_not_valid">Email not valid</string>
+    <string name="birthadte_not_valid">Birthdate not valid</string>
+    <string name="username_not_valid">Username not valid</string>
+    <string name="username_not_available">Username not available</string>
+    <string name="password_not_valid">Password not valid</string>
 </resources>
