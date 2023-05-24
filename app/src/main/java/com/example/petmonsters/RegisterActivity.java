@@ -15,7 +15,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText nameEt;
     private EditText surnameEt;
     private EditText emailEt;
-    private EditText birthdateEt;
+    private EditText ageEt;
     private EditText usernameEt;
     private EditText passwordEt;
     private Button registerBtn;
@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         nameEt = findViewById(R.id.name_et);
         surnameEt = findViewById(R.id.surname_et);
         emailEt = findViewById(R.id.email_et);
-        birthdateEt = findViewById(R.id.birthdate_et);
+        ageEt = findViewById(R.id.age_et);
         usernameEt = findViewById(R.id.username_et);
         passwordEt = findViewById(R.id.password_et);
         registerBtn = findViewById(R.id.register_btn);
@@ -112,13 +112,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         String name = nameEt.getText().toString();
         String surname = surnameEt.getText().toString();
-        //Date date = format.parse(birthdateEt.getText().toString();
-        //newUser.setBirthdate(date);
+        int age = Integer.parseInt(ageEt.getText().toString());
         String email = emailEt.getText().toString();
         String username = usernameEt.getText().toString();
         String password = passwordEt.getText().toString();
 
-        User newUser = new User(name, surname, email, username, password);
+        User newUser = new User(name, surname, email, username, password, age, null);
 
         return newUser;
     }

@@ -1,23 +1,26 @@
 package com.example.petmonsters;
 
-import java.util.Date;
+import java.util.ArrayList;
 
 public class User {
     private String name;
     private String surname;
     private String email;
-    private int birthdate;
+    private int age;
     private String username;
     private String password;
     private int money;
+    private ArrayList<Item> items = new ArrayList<Item>();
 
-    public User(String name, String surname, String email, String username, String password){
+    public User(String name, String surname, String email, String username, String password, int age, ArrayList<Item> items){
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.username = username;
         this.password = password;
         this.money = 0;
+        this.age = age;
+        this.items = items;
     }
 
     public void setName(String name){
@@ -41,11 +44,11 @@ public class User {
         return email;
     }
 
-    public void setBirthdate(int birthdate){
-        birthdate = birthdate;
+    public void setAge(int age){
+        age = age;
     }
-    public int getBirthdate(){
-        return birthdate;
+    public int getAge(){
+        return age;
     }
 
     public void setUsername(String username){
