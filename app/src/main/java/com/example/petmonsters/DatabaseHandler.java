@@ -29,7 +29,7 @@ public class DatabaseHandler {
             System.out.println(Constants.no_documents_found);
         }
 
-        User user = new User("a", "a", "a", "a", "a");
+        User user = new User("a", "a", "a", "a", "a", 0, null);
         return user;
     }
 
