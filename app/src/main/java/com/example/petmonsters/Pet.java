@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 public class Pet {
     private String owner;
     private Bitmap sprite;
-    private int color;
+    private int color; // color para el estudio de big data
     private Item shoes;
     private Item hat;
     private Item accesory;
