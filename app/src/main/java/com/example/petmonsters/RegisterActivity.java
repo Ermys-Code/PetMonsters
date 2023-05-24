@@ -57,26 +57,25 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void register() throws ParseException {
         if(!validateEmail()){
-            Utilities.ShowShortToast(getApplicationContext(), getString(R.string.email_not_valid));
+            Utilities.ShowShortToast(getApplicationContext(), Constants.email_not_valid);
             return;
         }
 
         if (!validateBirthday()){
-            Utilities.ShowShortToast(getApplicationContext(), getString(R.string.birthadte_not_valid));
+            Utilities.ShowShortToast(getApplicationContext(), Constants.birthadte_not_valid);
             return;
         }
 
         if (!validateUsername()){
-            Utilities.ShowShortToast(getApplicationContext(), getString(R.string.username_not_valid));
+            Utilities.ShowShortToast(getApplicationContext(),Constants.username_not_valid);
             return;
         }
         if (!usernameExists()){
-            Utilities.ShowShortToast(getApplicationContext(), getString(R.string.username_not_available));
+            Utilities.ShowShortToast(getApplicationContext(), Constants.username_not_available);
             return;
         }
-
         if (!validatePassword()){
-            Utilities.ShowShortToast(getApplicationContext(), getString(R.string.password_not_valid));
+            Utilities.ShowShortToast(getApplicationContext(), Constants.password_not_valid);
             return;
         }
 

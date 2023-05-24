@@ -15,18 +15,18 @@ import java.util.Iterator;
 
 public class DatabaseHandler {
 
-    private static MongoClientURI uri = new MongoClientURI("mongodb+srv://raulrtnataliamm:aaO5YMhSu9ZasKaV@clubnopenguin.cbdgr6l.mongodb.net/ClubNoPenguin");
+    private static MongoClientURI uri = new MongoClientURI(Constants.ddbb_uri);
     private static MongoClient mongoClient = new MongoClient(uri);
     private static MongoDatabase db = mongoClient.getDatabase(uri.getDatabase());
 
     public static User readUser(String username){
-        MongoCollection<Document> collection = db.getCollection("user");
-        Document doc = collection.find(eq("username", username)).first();
+        MongoCollection<Document> collection = db.getCollection(Constants.collection_user);
+        Document doc = collection.find(eq(Constants.user_parameter_username, username)).first();
 
         if (doc != null) {
             System.out.println(doc.toJson());
         } else {
-            System.out.println("No matching documents found.");
+            System.out.println(Constants.no_documents_found);
         }
 
         User user = new User("a", "a", "a", "a", "a");
@@ -40,7 +40,7 @@ public class DatabaseHandler {
     public static ArrayList<Model> getModels(){
         ArrayList<Model> modelsArray = new ArrayList<>();
 
-        MongoCollection<Document> collection = db.getCollection("user");
+        MongoCollection<Document> collection = db.getCollection(Constants.collection_user);
         FindIterable<Document> docs = collection.find();
         Iterator it = docs.iterator();
         while (it.hasNext()) {

@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login(){
         if (!validateCredentials()){
-            Utilities.ShowShortToast(getApplicationContext(), getString(R.string.bad_user_password));
+            Utilities.ShowShortToast(getApplicationContext(), Constants.bad_user_password);
             return;
         }
 

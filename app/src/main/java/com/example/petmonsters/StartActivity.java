@@ -16,10 +16,6 @@ public class StartActivity extends AppCompatActivity {
     private Button loginBtn;
     private Button registerBtn;
 
-    MongoClientURI uri = new MongoClientURI("mongodb://raulrtnataliamm:aaO5YMhSu9ZasKaV@clubnopenguin.cbdgr6l.mongodb.net:27017/test");
-    MongoClient mongoClient = new MongoClient(uri);
-    MongoDatabase db = mongoClient.getDatabase(uri.getDatabase());
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
