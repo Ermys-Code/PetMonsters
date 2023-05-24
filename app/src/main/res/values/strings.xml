@@ -1,5 +1,8 @@
 <resources>
+    <!-- Default strings -->
     <string name="app_name">PetMonsters</string>
+
+    <!-- Register activity -->
     <string name="bad_user_password">Bad user or password</string>
     <string name="email_not_valid">Email not valid</string>
     <string name="birthadte_not_valid">Birthdate not valid</string>

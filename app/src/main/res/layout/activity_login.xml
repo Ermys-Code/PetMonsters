@@ -12,12 +12,12 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/email_et"
+            android:id="@+id/username_et"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="200dp"
-            android:hint="Email"/>
+            android:hint="Username"/>
 
         <EditText
             android:id="@+id/password_et"

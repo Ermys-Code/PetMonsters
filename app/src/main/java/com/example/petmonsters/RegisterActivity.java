@@ -13,13 +13,13 @@ import java.util.Date;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    final private EditText nameEt = findViewById(R.id.name_et);
-    final private EditText surnameEt = findViewById(R.id.surname_et);
-    final private EditText emailEt = findViewById(R.id.email_et);
-    final private EditText birthdateEt = findViewById(R.id.birthdate_et);
-    final private EditText usernameEt = findViewById(R.id.username_et);
-    final private EditText passwordEt = findViewById(R.id.password_et);
-    final private Button registerBtn = findViewById(R.id.register_btn);
+    private EditText nameEt;
+    private EditText surnameEt;
+    private EditText emailEt;
+    private EditText birthdateEt;
+    private EditText usernameEt;
+    private EditText passwordEt;
+    private Button registerBtn;
 
     final private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
@@ -28,7 +28,19 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        getScreenElements();
+
         setButtonListeners();
+    }
+
+    private void getScreenElements(){
+        nameEt = findViewById(R.id.name_et);
+        surnameEt = findViewById(R.id.surname_et);
+        emailEt = findViewById(R.id.email_et);
+        birthdateEt = findViewById(R.id.birthdate_et);
+        usernameEt = findViewById(R.id.username_et);
+        passwordEt = findViewById(R.id.password_et);
+        registerBtn = findViewById(R.id.register_btn);
     }
 
     private void setButtonListeners(){
@@ -99,14 +111,16 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private User createUser() throws ParseException {
-        User newUser = new User();
 
-        newUser.setName(nameEt.getText().toString());
-        newUser.setSurname(surnameEt.getText().toString());
-        Date date = format.parse(birthdateEt.getText().toString());
-        newUser.setBirthdate(date);
-        newUser.setEmail(emailEt.getText().toString());
-        newUser.setUsername(usernameEt.getText().toString());
+        String name = nameEt.getText().toString();
+        String surname = surnameEt.getText().toString();
+        //Date date = format.parse(birthdateEt.getText().toString();
+        //newUser.setBirthdate(date);
+        String email = emailEt.getText().toString();
+        String username = usernameEt.getText().toString();
+        String password = passwordEt.getText().toString();
+
+        User newUser = new User(name, surname, email, username, password);
 
         return newUser;
     }

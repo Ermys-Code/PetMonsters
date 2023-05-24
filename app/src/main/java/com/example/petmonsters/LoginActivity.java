@@ -12,16 +12,24 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
-    final private EditText emailEt = findViewById(R.id.email_et);
-    final private EditText passwordEt = findViewById(R.id.password_et);
-    final private Button loginBtn = findViewById(R.id.login_btn);
+    private EditText usernameEt;
+    private EditText passwordEt;
+    private Button loginBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        getScreenElements();
+
         setOnClickListeners();
+    }
+
+    private void getScreenElements(){
+        usernameEt = findViewById(R.id.username_et);
+        passwordEt = findViewById(R.id.password_et);
+        loginBtn =  findViewById(R.id.login_btn);
     }
 
     private void setOnClickListeners(){
@@ -41,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
         updateUserData();
 
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.this, GameActivity.class);
+        Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
@@ -57,8 +65,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUserData(){
         PetMonstersApplication app = (PetMonstersApplication) getApplicationContext();
-        User user = UserCRUD.getUser();
-
+        User user = UserCRUD.readUser(usernameEt.getText().toString());
+        System.out.println(user);
         app.setUser(user);
     }
 }
