@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -108,14 +109,14 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
 
-    private User createUser() throws ParseException {
+    private User createUser() throws NoSuchAlgorithmException {
 
         String name = nameEt.getText().toString();
         String surname = surnameEt.getText().toString();
         int age = Integer.parseInt(ageEt.getText().toString());
         String email = emailEt.getText().toString();
         String username = usernameEt.getText().toString();
-        String password = passwordEt.getText().toString();
+        String password = Utilities.md5(passwordEt.getText().toString());
 
         User newUser = new User(name, surname, email, username, password, age, null);
 

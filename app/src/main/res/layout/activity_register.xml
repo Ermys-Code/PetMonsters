@@ -37,7 +37,7 @@
             android:hint="Email"/>
 
         <EditText
-            android:id="@+id/birthdate_et"
+            android:id="@+id/age_et"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
