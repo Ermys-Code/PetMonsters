@@ -37,6 +37,22 @@ public class DatabaseHandler {
 
     }
 
+    public static Boolean checkUsername(String username){
+        MongoCollection<Document> collection = db.getCollection(Constants.collection_user);
+        Document doc = collection.find(eq(Constants.user_parameter_username, username)).first();
+        //if (doc != null) return true;
+        //else return false;
+        return true;
+    }
+
+    public static Boolean checkPassword(String username, String password){
+        MongoCollection<Document> collection = db.getCollection(Constants.collection_user);
+        Document doc = collection.find(eq(Constants.user_parameter_username, username)).first();
+        //if (doc.getValue("password") == password) return true;
+        //else return false;
+        return true;
+    }
+
     public static ArrayList<Model> getModels(){
         ArrayList<Model> modelsArray = new ArrayList<>();
 

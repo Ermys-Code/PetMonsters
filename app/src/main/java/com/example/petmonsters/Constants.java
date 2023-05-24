@@ -1,6 +1,9 @@
 package com.example.petmonsters;
 
 public class Constants {
+    //-- Utilities --//
+    public static final String hash_algorithm = "MD5";
+
     //-- Database --//
     public static final String ddbb_uri = "mongodb+srv://raulrtnataliamm:aaO5YMhSu9ZasKaV@clubnopenguin.cbdgr6l.mongodb.net/ClubNoPenguin";
     public static final String collection_user = "user";

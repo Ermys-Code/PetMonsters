@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.security.NoSuchAlgorithmException;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText usernameEt;
@@ -52,12 +54,9 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    private boolean validateCredentials(){
-        //connect to database
-        //check if email exist
-            //if not return false
-        //check if password is correct
-            //if not return false
+    private boolean validateCredentials() throws NoSuchAlgorithmException {
+        if(!DatabaseHandler.checkUsername(usernameEt.getText().toString())) return false;
+        if(!DatabaseHandler.checkPassword(usernameEt.getText().toString(), Utilities.md5(passwordEt.getText().toString()))) return false;
         return true;
     }
 
