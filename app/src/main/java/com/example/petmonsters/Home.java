@@ -6,20 +6,24 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+
+import org.w3c.dom.Text;
 
 public class Home extends AppCompatActivity {
 
     private ImageView play, store, friends, board; // Buttons
-
-    private ImageView pet; //model
+    private ImageView pet, shoes, accessory, hat; //sprites
 
     private View.OnClickListener playListener;
     private View.OnClickListener storeListener;
     private View.OnClickListener friendsListener;
     private View.OnClickListener boardListener;
 
-    PetMonstersApplication app = (PetMonstersApplication) getApplicationContext();
+    private EditText name;
+
+    private PetMonstersApplication app = (PetMonstersApplication) getApplicationContext();
 
 
     @Override
@@ -68,14 +72,34 @@ public class Home extends AppCompatActivity {
     }
 
     private void assignViewFields(){
-        play.findViewById(R.id.play);
-        store.findViewById(R.id.store);
-        friends.findViewById(R.id.friends);
-        board.findViewById(R.id.board);
+        play = findViewById(R.id.play);
+        store = findViewById(R.id.store);
+        friends = findViewById(R.id.friends);
+        board = findViewById(R.id.board);
+        pet = findViewById(R.id.pet);
+        accessory = findViewById(R.id.accessory);
+        hat = findViewById(R.id.hat);
+        shoes = findViewById(R.id.shoes);
+        name = findViewById(R.id.name);
+
     }
 
     private void showPet(){
+        name.setText(app.getPet().getName());
+
         pet.setImageBitmap(app.getPet().getSprite());
+
+        if(app.getPet().getAccesory() != null){
+            accessory.setImageBitmap(app.getPet().getAccesory().getSprite());
+        }
+
+        if(app.getPet().getHat() != null){
+            hat.setImageBitmap(app.getPet().getHat().getSprite());
+        }
+
+        if(app.getPet().getHat() != null){
+            shoes.setImageBitmap(app.getPet().getShoes().getSprite());
+        }
     }
 
     private void playGame(){
