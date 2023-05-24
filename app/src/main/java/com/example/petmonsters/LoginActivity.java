@@ -36,12 +36,13 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                login();
+                try {login();}
+                catch (NoSuchAlgorithmException e) { e.printStackTrace(); }
             }
         });
     }
 
-    private void login(){
+    private void login() throws NoSuchAlgorithmException {
         if (!validateCredentials()){
             Utilities.ShowShortToast(getApplicationContext(), Constants.bad_user_password);
             return;
