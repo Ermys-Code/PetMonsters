@@ -1,17 +1,14 @@
 package com.example.petmonsters;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-public class Home extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     private ImageView play, store, friends, board; // Buttons
     private ImageView pet, shoes, accessory, hat; //sprites
@@ -21,7 +18,12 @@ public class Home extends AppCompatActivity {
     private View.OnClickListener friendsListener;
     private View.OnClickListener boardListener;
 
-    private EditText name;
+    private TextView name;
+    private TextView money;
+
+    private BoardFragment boardFragment;
+    private StoreFragment storeFragment;
+    private FragmentTransaction fragmentTransaction;
 
     private PetMonstersApplication app = (PetMonstersApplication) getApplicationContext();
 
@@ -31,11 +33,17 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        assignFragments();
         assignViewFields();
         createListeners();
         assignListeners();
 
         showPet();
+    }
+
+    private void assignFragments(){
+        boardFragment = new BoardFragment();
+        storeFragment = new StoreFragment();
     }
 
     private void createListeners() {
@@ -81,11 +89,14 @@ public class Home extends AppCompatActivity {
         hat = findViewById(R.id.hat);
         shoes = findViewById(R.id.shoes);
         name = findViewById(R.id.name);
+        money = findViewById(R.id.money);
 
     }
 
     private void showPet(){
         name.setText(app.getPet().getName());
+
+        money.setText(Integer.toString(app.getUser().getMoney()));
 
         pet.setImageBitmap(app.getPet().getSprite());
 
