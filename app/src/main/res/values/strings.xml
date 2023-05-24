@@ -2,6 +2,9 @@
     <!-- Default strings -->
     <string name="app_name">PetMonsters</string>
 
+    <!-- Database -->
+    <string name="ddbb_uri">mongodb+srv://raulrtnataliamm:aaO5YMhSu9ZasKaV@clubnopenguin.cbdgr6l.mongodb.net/ClubNoPenguin</string>
+
     <!-- Register activity -->
     <string name="bad_user_password">Bad user or password</string>
     <string name="email_not_valid">Email not valid</string>

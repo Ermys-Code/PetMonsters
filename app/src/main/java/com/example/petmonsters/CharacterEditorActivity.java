@@ -2,6 +2,7 @@ package com.example.petmonsters;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -29,8 +30,11 @@ public class CharacterEditorActivity extends AppCompatActivity {
     private ArrayList<Bitmap> modelSprites = new ArrayList<>();
     private int currentSprite = 0;
     private ArrayList<Integer> modelColors = new ArrayList<>();
+    private int currentColor = 0;
 
     private int currentPet = 0;
+
+    private PetMonstersApplication app = (PetMonstersApplication) getApplicationContext();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +104,13 @@ public class CharacterEditorActivity extends AppCompatActivity {
                 changeColor(3);
             }
         });
+
+        savePetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                savePet();
+            }
+        });
     }
 
     private void getModelsData(){
@@ -114,6 +125,7 @@ public class CharacterEditorActivity extends AppCompatActivity {
     }
 
     private void changeColor(int num){
+        currentColor = num;
         currentSprite = num;
         petIv.setImageBitmap(modelSprites.get(currentSprite));
     }
@@ -126,6 +138,7 @@ public class CharacterEditorActivity extends AppCompatActivity {
         modelColors = model.getColors();
 
         currentSprite = 0;
+        currentColor = 0;
 
         setModelData();
     }
@@ -137,5 +150,15 @@ public class CharacterEditorActivity extends AppCompatActivity {
         color2Iv.setColorFilter(modelColors.get(1));
         color3Iv.setColorFilter(modelColors.get(2));
         color4Iv.setColorFilter(modelColors.get(3));
+    }
+
+    private void savePet(){
+        Pet pet = new Pet(app.getUser().getUsername(), modelSprites.get(currentSprite), modelColors.get(currentColor), null, null, null, namePetEt.getText().toString());
+        app.setPet(pet);
+        DatabaseHandler.setPet(pet);
+
+        Intent intent = new Intent(CharacterEditorActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -50,4 +50,8 @@ public class DatabaseHandler {
 
         return modelsArray;
     }
+
+    public static void setPet(Pet pet){
+        //Guardar pet en base de datos
+    }
 }
