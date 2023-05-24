@@ -7,17 +7,17 @@ import java.util.List;
 
 public class Model {
     private String name;
-    private Bitmap sprite;
-    private ArrayList<Integer> colors = new ArrayList<Integer>();
+    private ArrayList<Bitmap> sprites = new ArrayList<Bitmap>(); // todos los diferentes modelos con su color
+    private ArrayList<Integer> colors = new ArrayList<Integer>(); //color para el boton
 
-    Model(String name, Bitmap sprite, ArrayList<Integer> colors ){
-        this.sprite = sprite;
+    Model(String name, ArrayList<Bitmap> sprites, ArrayList<Integer> colors ){
+        this.sprites = sprites;
         this.colors = colors;
         this.name = name;
     }
 
-    public Bitmap getSprite() {
-        return sprite;
+    public ArrayList<Bitmap> getSprites() {
+        return sprites;
     }
 
     public ArrayList<Integer> getColors() {
