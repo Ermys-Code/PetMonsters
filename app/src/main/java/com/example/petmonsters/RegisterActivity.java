@@ -9,7 +9,6 @@ import android.widget.EditText;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -82,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         User newUser = createUser();
-        UserCRUD.createUser(newUser);
+        DatabaseHandler.createUser(newUser);
     }
 
     private boolean validateEmail(){

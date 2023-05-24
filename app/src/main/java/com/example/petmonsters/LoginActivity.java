@@ -3,12 +3,10 @@ package com.example.petmonsters;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.LocusId;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -65,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUserData(){
         PetMonstersApplication app = (PetMonstersApplication) getApplicationContext();
-        User user = UserCRUD.readUser(usernameEt.getText().toString());
+        User user = DatabaseHandler.readUser(usernameEt.getText().toString());
         System.out.println(user);
         app.setUser(user);
     }
