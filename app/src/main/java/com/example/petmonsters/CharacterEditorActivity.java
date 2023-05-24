@@ -32,8 +32,6 @@ public class CharacterEditorActivity extends AppCompatActivity {
 
     private int currentPet = 0;
 
-    private Pet pet;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,7 +114,8 @@ public class CharacterEditorActivity extends AppCompatActivity {
     }
 
     private void changeColor(int num){
-
+        currentSprite += num;
+        if (currentSprite >= modelSprites.size()) currentSprite = 0;
     }
 
     private void loadModelData(int pet){

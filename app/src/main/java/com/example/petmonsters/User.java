@@ -6,9 +6,10 @@ public class User {
     private String name;
     private String surname;
     private String email;
-    //private Date birthdate;
+    private int birthdate;
     private String username;
     private String password;
+    private int money;
 
     public User(String name, String surname, String email, String username, String password){
         this.name = name;
@@ -16,6 +17,7 @@ public class User {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.money = 0;
     }
 
     public void setName(String name){
@@ -39,12 +41,12 @@ public class User {
         return email;
     }
 
-    //public void setBirthdate(Date birthdate){
-        //birthdate = birthdate;
-    //}
-    //public Date getBirthdate(){
-        //return birthdate;
-    //}
+    public void setBirthdate(int birthdate){
+        birthdate = birthdate;
+    }
+    public int getBirthdate(){
+        return birthdate;
+    }
 
     public void setUsername(String username){
         username = username;
@@ -62,6 +64,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "Movie [\n  name=" + name + ",\n  surname=" + surname + ",\n  email=" + email + "username=" + username + "\n password=" + password + "\n]";
+        return "User [\n  name=" + name + ",\n  surname=" + surname + ",\n  email=" + email + "\n username=" + username + "\n password=" + password + "\n money=" + money + "\n]";
     }
 }
