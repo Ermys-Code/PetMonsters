@@ -62,6 +62,13 @@ public class User {
         return password;
     }
 
+    public void setMoney(int money){
+        this.money = money;
+    }
+    public int getMoney(){
+        return money;
+    }
+
     @Override
     public String toString() {
         return "User [\n  name=" + name + ",\n  surname=" + surname + ",\n  email=" + email + "\n username=" + username + "\n password=" + password + "\n money=" + money + "\n]";

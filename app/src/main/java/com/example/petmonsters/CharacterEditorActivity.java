@@ -114,8 +114,8 @@ public class CharacterEditorActivity extends AppCompatActivity {
     }
 
     private void changeColor(int num){
-        currentSprite += num;
-        if (currentSprite >= modelSprites.size()) currentSprite = 0;
+        currentSprite = num;
+        petIv.setImageBitmap(modelSprites.get(currentSprite));
     }
 
     private void loadModelData(int pet){
