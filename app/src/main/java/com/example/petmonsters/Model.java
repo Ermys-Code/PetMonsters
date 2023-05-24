@@ -6,12 +6,14 @@ import java.util.List;
 
 
 public class Model {
+    private String name;
     private Bitmap sprite;
     private ArrayList<Integer> colors = new ArrayList<Integer>();
 
-    Model(Bitmap sprite, ArrayList<Integer> colors ){
+    Model(String name, Bitmap sprite, ArrayList<Integer> colors ){
         this.sprite = sprite;
         this.colors = colors;
+        this.name = name;
     }
 
     public Bitmap getSprite() {
@@ -20,5 +22,9 @@ public class Model {
 
     public ArrayList<Integer> getColors() {
         return colors;
+    }
+
+    public String getName() {
+        return name;
     }
 }
