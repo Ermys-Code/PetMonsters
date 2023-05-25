@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,12 +36,14 @@ public class CharacterEditorActivity extends AppCompatActivity {
 
     private int currentPet = 0;
 
-    private PetMonstersApplication app = (PetMonstersApplication) getApplicationContext();
+    private PetMonstersApplication app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_editor);
+
+        getAppContext();
 
         getScreenElements();
 
@@ -48,6 +52,13 @@ public class CharacterEditorActivity extends AppCompatActivity {
         getModelsData();
 
         loadModelData(currentPet);
+
+        //color1Iv.setColorFilter(Color.rgb(173, 216, 230), PorterDuff.Mode.MULTIPLY);
+        //color2Iv.setColorFilter(Color.rgb(139, 0, 0), PorterDuff.Mode.MULTIPLY);
+    }
+
+    private void getAppContext(){
+        app = (PetMonstersApplication) getApplicationContext();
     }
 
     private void getScreenElements(){

@@ -64,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUserData(){
         PetMonstersApplication app = (PetMonstersApplication) getApplicationContext();
         User user = DatabaseHandler.readUser(usernameEt.getText().toString());
-        System.out.println(user);
         app.setUser(user);
     }
 }

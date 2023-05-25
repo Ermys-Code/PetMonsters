@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.material.slider.Slider;
+
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,12 +18,10 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText nameEt;
     private EditText surnameEt;
     private EditText emailEt;
-    private EditText ageEt;
+    private Slider ageSli;
     private EditText usernameEt;
     private EditText passwordEt;
     private Button registerBtn;
-
-    final private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         nameEt = findViewById(R.id.name_et);
         surnameEt = findViewById(R.id.surname_et);
         emailEt = findViewById(R.id.email_et);
-        ageEt = findViewById(R.id.age_et);
+        ageSli = findViewById(R.id.age_sli);
         usernameEt = findViewById(R.id.username_et);
         passwordEt = findViewById(R.id.password_et);
         registerBtn = findViewById(R.id.register_btn);
@@ -47,16 +47,13 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    register();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                try { register(); }
+                catch (NoSuchAlgorithmException e) { e.printStackTrace(); }
             }
         });
     }
 
-    private void register() throws ParseException {
+    private void register() throws NoSuchAlgorithmException {
         if(!validateEmail()){
             Utilities.ShowShortToast(getApplicationContext(), Constants.email_not_valid);
             return;
@@ -113,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         String name = nameEt.getText().toString();
         String surname = surnameEt.getText().toString();
-        int age = Integer.parseInt(ageEt.getText().toString());
+        int age = (int)ageSli.getValue();
         String email = emailEt.getText().toString();
         String username = usernameEt.getText().toString();
         String password = Utilities.md5(passwordEt.getText().toString());

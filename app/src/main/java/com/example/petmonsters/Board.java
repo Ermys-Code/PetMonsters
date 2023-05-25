@@ -6,6 +6,6 @@ import java.util.ArrayList;
 
 public class Board {
     private String owner;
-    private ArrayList<Sticky> notes = new ArrayList<Sticky>();
+    //private ArrayList<Sticky> notes = new ArrayList<Sticky>();
 
 }

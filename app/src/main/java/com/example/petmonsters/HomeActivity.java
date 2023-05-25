@@ -10,22 +10,22 @@ import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private ImageView play, store, friends, board; // Buttons
-    private ImageView pet, shoes, accessory, hat; //sprites
+    private ImageView play_iv, store_iv, friends_iv, board_iv; // Buttons
+    private ImageView pet_iv, shoes_iv, accessory_iv, hat_iv; //sprites
 
     private View.OnClickListener playListener;
     private View.OnClickListener storeListener;
     private View.OnClickListener friendsListener;
     private View.OnClickListener boardListener;
 
-    private TextView name;
-    private TextView money;
+    private TextView name_tv;
+    private TextView money_tv;
 
     private BoardFragment boardFragment;
     private StoreFragment storeFragment;
     private FragmentTransaction fragmentTransaction;
 
-    private PetMonstersApplication app = (PetMonstersApplication) getApplicationContext();
+    private PetMonstersApplication app;
 
 
     @Override
@@ -33,12 +33,18 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        getAppContext();
+
         assignFragments();
         assignViewFields();
         createListeners();
         assignListeners();
 
         showPet();
+    }
+
+    private void getAppContext(){
+        app = (PetMonstersApplication) getApplicationContext();
     }
 
     private void assignFragments(){
@@ -73,43 +79,42 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void assignListeners(){
-        play.setOnClickListener(playListener);
-        store.setOnClickListener(storeListener);
-        friends.setOnClickListener(friendsListener);
-        board.setOnClickListener(boardListener);
+        play_iv.setOnClickListener(playListener);
+        store_iv.setOnClickListener(storeListener);
+        friends_iv.setOnClickListener(friendsListener);
+        board_iv.setOnClickListener(boardListener);
     }
 
     private void assignViewFields(){
-        play = findViewById(R.id.play);
-        store = findViewById(R.id.store);
-        friends = findViewById(R.id.friends);
-        board = findViewById(R.id.board);
-        pet = findViewById(R.id.pet);
-        accessory = findViewById(R.id.accessory);
-        hat = findViewById(R.id.hat);
-        shoes = findViewById(R.id.shoes);
-        name = findViewById(R.id.name);
-        money = findViewById(R.id.money);
-
+        play_iv = findViewById(R.id.play_iv);
+        store_iv = findViewById(R.id.store_iv);
+        friends_iv = findViewById(R.id.friends_iv);
+        board_iv = findViewById(R.id.board_iv);
+        pet_iv = findViewById(R.id.pet_iv);
+        accessory_iv = findViewById(R.id.accessory_iv);
+        hat_iv = findViewById(R.id.hat_iv);
+        shoes_iv = findViewById(R.id.shoes_iv);
+        name_tv = findViewById(R.id.name_tv);
+        money_tv = findViewById(R.id.money_tv);
     }
 
     private void showPet(){
-        name.setText(app.getPet().getName());
+        name_tv.setText(app.getPet().getName());
 
-        money.setText(Integer.toString(app.getUser().getMoney()));
+        money_tv.setText(Integer.toString(app.getUser().getMoney()));
 
-        pet.setImageBitmap(app.getPet().getSprite());
+        pet_iv.setImageBitmap(app.getPet().getSprite());
 
         if(app.getPet().getAccesory() != null){
-            accessory.setImageBitmap(app.getPet().getAccesory().getSprite());
+            accessory_iv.setImageBitmap(app.getPet().getAccesory().getSprite());
         }
 
         if(app.getPet().getHat() != null){
-            hat.setImageBitmap(app.getPet().getHat().getSprite());
+            hat_iv.setImageBitmap(app.getPet().getHat().getSprite());
         }
 
         if(app.getPet().getHat() != null){
-            shoes.setImageBitmap(app.getPet().getShoes().getSprite());
+            shoes_iv.setImageBitmap(app.getPet().getShoes().getSprite());
         }
     }
 
