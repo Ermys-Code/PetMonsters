@@ -72,6 +72,13 @@ public class User {
         return money;
     }
 
+    public void setItems(ArrayList<Item> itemArray){
+        this.items = itemArray ;
+    }
+    public ArrayList<Item> getItems(){
+        return items;
+    }
+
     @Override
     public String toString() {
         return "User [\n  name=" + name + ",\n  surname=" + surname + ",\n  email=" + email + "\n username=" + username + "\n password=" + password + "\n money=" + money + "\n]";

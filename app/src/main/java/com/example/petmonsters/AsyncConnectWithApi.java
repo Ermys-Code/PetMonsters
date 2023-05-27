@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -21,7 +22,9 @@ public class AsyncConnectWithApi  extends AsyncTask<String, String, String> {
     protected String doInBackground(String... params) {
         try {
             OkHttpClient client = new OkHttpClient().newBuilder().build();
-            MediaType mediaType = MediaType.parse("application/json");
+            //MediaType mediaType = MediaType.parse("application/json");
+            //RequestBody reqBody = RequestBody.create(a.getBytes(StandardCharsets.UTF_8));
+            MediaType mediaType = MediaType.parse("");
             RequestBody body = RequestBody.create(mediaType, params[0]);
             Request request = new Request.Builder()
                     .url("https://eu-west-2.aws.data.mongodb-api.com/app/data-okkbs/endpoint/data/v1/action/" + params[1])
@@ -41,6 +44,8 @@ public class AsyncConnectWithApi  extends AsyncTask<String, String, String> {
             return response.body().string();
 
         } catch (IOException e) {
+            System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+            System.out.println(e.getMessage());
             return e.getMessage();
         }
     }

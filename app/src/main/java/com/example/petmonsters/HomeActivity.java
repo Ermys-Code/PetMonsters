@@ -44,7 +44,7 @@ public class HomeActivity extends AppCompatActivity {
         System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         System.out.println(app.getUser().getName());
 
-        showPet();
+        //showPet();
     }
 
     private void getAppContext(){
@@ -131,7 +131,7 @@ public class HomeActivity extends AppCompatActivity {
        fragmentTransaction = getSupportFragmentManager().beginTransaction();
        if (boardFragment.isAdded()) { fragmentTransaction.remove(boardFragment);}
        if (storeFragment.isAdded()) { fragmentTransaction.remove(storeFragment);}
-       else{fragmentTransaction.add(R.id.fragmentContainer, storeFragment);
+       else{fragmentTransaction.add(R.id.fragment_container, storeFragment);
            fragmentTransaction.show(storeFragment);}
         fragmentTransaction.commit();
 
@@ -146,7 +146,7 @@ public class HomeActivity extends AppCompatActivity {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (storeFragment.isAdded()) { fragmentTransaction.remove(storeFragment);}
         if (boardFragment.isAdded()) { fragmentTransaction.remove(boardFragment);}
-        else{fragmentTransaction.add(R.id.fragmentContainer, boardFragment);
+        else{fragmentTransaction.add(R.id.fragment_container, boardFragment);
             fragmentTransaction.show(boardFragment);}
         fragmentTransaction.commit();
 

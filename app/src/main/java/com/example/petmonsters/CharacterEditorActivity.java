@@ -51,7 +51,7 @@ public class CharacterEditorActivity extends AppCompatActivity {
 
         getModelsData();
 
-        loadModelData(currentPet);
+        //loadModelData(currentPet);
 
         //color1Iv.setColorFilter(Color.rgb(173, 216, 230), PorterDuff.Mode.MULTIPLY);
         //color2Iv.setColorFilter(Color.rgb(139, 0, 0), PorterDuff.Mode.MULTIPLY);

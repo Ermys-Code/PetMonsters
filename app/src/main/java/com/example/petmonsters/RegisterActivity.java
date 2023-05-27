@@ -2,6 +2,7 @@ package com.example.petmonsters;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,9 +10,10 @@ import android.widget.EditText;
 
 import com.google.android.material.slider.Slider;
 
+import org.json.JSONException;
+
 import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.concurrent.ExecutionException;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -48,18 +50,18 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try { register(); }
-                catch (NoSuchAlgorithmException e) { e.printStackTrace(); }
+                catch (NoSuchAlgorithmException | ExecutionException | InterruptedException e) { e.printStackTrace(); }
             }
         });
     }
 
-    private void register() throws NoSuchAlgorithmException {
+    private void register() throws NoSuchAlgorithmException, ExecutionException, InterruptedException {
         if(!validateEmail()){
             Utilities.ShowShortToast(getApplicationContext(), Constants.email_not_valid);
             return;
         }
 
-        if (!validateBirthday()){
+        if (!validateAge()){
             Utilities.ShowShortToast(getApplicationContext(), Constants.birthadte_not_valid);
             return;
         }
@@ -78,7 +80,20 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         User newUser = createUser();
-        DatabaseHandler.createUser(newUser);
+        if(!DatabaseHandler.createUser(newUser)){
+            Utilities.ShowShortToast(getApplicationContext(), "Failed to create user");
+            return;
+        } else {
+            Utilities.ShowShortToast(getApplicationContext(), "User created succesfully");
+
+            PetMonstersApplication app = (PetMonstersApplication) getApplicationContext();
+            app.setUser(newUser);
+
+            Intent intent = new Intent(RegisterActivity.this, CharacterEditorActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
     private boolean validateEmail(){
@@ -86,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean validateBirthday(){
+    private boolean validateAge(){
         //if
         return true;
     }
@@ -97,8 +112,12 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean usernameExists(){
-        //if
-        return true;
+        try {
+            DatabaseHandler.readUser(usernameEt.getText().toString());
+            return false;
+        } catch (JSONException | ExecutionException | InterruptedException e) {
+            return true;
+        }
     }
 
     private boolean validatePassword(){

@@ -51,11 +51,11 @@ public class DatabaseHandler {
         int age = doc.getInt("age");
         int money = doc.getInt("age");
 
-        JSONArray jsonArray = doc.getJSONArray("items");
+        /*JSONArray jsonArray = doc.getJSONArray("items");
         ArrayList<String> stringArray = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++){
             stringArray.add(jsonArray.getString(i));
-        }
+        }*/
 
         ArrayList<Item> itemsArray = new ArrayList<>();
 
@@ -63,11 +63,36 @@ public class DatabaseHandler {
 
         return user;
 
-    }
-
-    public static void createUser(User user){
 
     }
+
+    public static Boolean createUser(User user) throws ExecutionException, InterruptedException {
+        /*String items = "[";
+        ArrayList<Item> itemArray = user.getItems();
+        for (int i = 0; i < itemArray.size(); i++) {
+            items += "\"" + i + "\":\"" + itemArray.get(i).getName() + "\"";
+            if (i < itemArray.size() - 1) items += ", ";
+        }
+        items += "]";*/
+
+        String userDocument = "\"name\":\"" + user.getName() + "\", \"surname\":\"" + user.getSurname() + "\", \"email\":\"" + user.getEmail() + "\", \"username\":\"" + user.getUsername() + "\", \"password\":\"" + user.getPassword() + "\", \"money\":\"" + user.getMoney() + "\", \"items\":\"[]\", \"age\":\"" + user.getAge() + "\"";
+        String query = "{\"collection\":\"user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + userDocument + "}}";
+        String queryAction = "insertOne";
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
+
+        try{
+            System.out.println(jsonData);
+            JSONObject jsonObject = new JSONObject(jsonData);
+            jsonObject.getString("insertedId");
+            return true;
+        } catch (JSONException e) {
+            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            System.out.println(e.getCause() + " - " + e.getMessage());
+            return false;
+        }
+    }
+
+    //String petDocument = "\"owner\":\"" + owner + "\", \"sprite\":\"" + sprite + "\", \"color\":\"" + color + "\", \"shoes\":\"" + shoes + "\", \"hat\":\"" + hat + "\", \"accesory\":\"" + accesory + "\", \"name\":\"" + name + "\"";
 
     public static Pet readPet(String _owner) throws ExecutionException, InterruptedException, JSONException {
         String query = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"owner\":\"" + _owner + "\"}}";
@@ -116,22 +141,11 @@ public class DatabaseHandler {
 
     public static Boolean checkLogin(String username, String password) throws JSONException, ExecutionException, InterruptedException {
         try {
-            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             User user = readUser(username);
-            System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
-            if (!checkUsername(user, username)) return false;
-            System.out.println("ccccccccccccccccccccccccccccccccccccccccccccc");
-            if (!checkPassword(user, password)) return false;
-            System.out.println("ddddddddddddddddddddddddddddddddddddddddddddd");
-            return true;
+            return checkPassword(user, password);
         } catch (Exception e){
             return false;
         }
-    }
-
-    public static Boolean checkUsername(User user, String username) {
-        System.out.println("ddddddddddddddddddddddddddddd = " + user.getUsername() + " --- " + username);
-        return user.getUsername().equals(username);
     }
 
     public static Boolean checkPassword(User user, String password) {
