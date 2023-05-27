@@ -58,6 +58,26 @@ public class DatabaseHandler {
 
     }
 
+    public Pet readPet(String _owner) throws ExecutionException, InterruptedException, JSONException {
+        String query = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"owner\":\"" + _owner + "\"}}";
+        String queryAction = "findOne";
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
+
+        JSONObject jsonObject = new JSONObject(jsonData);
+        JSONObject doc = jsonObject.getJSONObject("document");
+
+        String owner = doc.getString("owner");
+        String sprite = doc.getString("sprite");
+        int color = doc.getInt("color");
+        String shoes = doc.getString("shoes");
+        String hat = doc.getString("hat");
+        String accesory = doc.getString("accesory");
+        String name = doc.getString("name");
+
+        Pet pet = new Pet(owner, sprite, color, shoes, hat, accesory, name);
+        return pet;
+    }
+
     public static Boolean checkLogin(String username, String password) throws JSONException, ExecutionException, InterruptedException {
         try {
             System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");

@@ -164,7 +164,8 @@ public class CharacterEditorActivity extends AppCompatActivity {
     }
 
     private void savePet(){
-        Pet pet = new Pet(app.getUser().getUsername(), modelSprites.get(currentSprite), modelColors.get(currentColor), null, null, null, namePetEt.getText().toString());
+        //Pet pet = new Pet(app.getUser().getUsername(), modelSprites.get(currentSprite), modelColors.get(currentColor), null, null, null, namePetEt.getText().toString());
+        Pet pet = new Pet(app.getUser().getUsername(), Integer.toString(currentSprite), modelColors.get(currentColor), null, null, null, namePetEt.getText().toString());
         app.setPet(pet);
         DatabaseHandler.setPet(pet);
 

@@ -99,7 +99,7 @@ public class HomeActivity extends AppCompatActivity {
         money_tv = findViewById(R.id.money_tv);
     }
 
-    private void showPet(){
+    /*private void showPet(){
         name_tv.setText(app.getPet().getName());
 
         money_tv.setText(Integer.toString(app.getUser().getMoney()));
@@ -117,12 +117,12 @@ public class HomeActivity extends AppCompatActivity {
         if(app.getPet().getHat() != null){
             shoes_iv.setImageBitmap(app.getPet().getShoes().getSprite());
         }
-    }
+    }*/
 
     private void playGame(){
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (storeFragment.isAdded()) { fragmentTransaction.remove(storeFragment).commit();}
-        else{fragmentTransaction.add(R.id.fragmentContainer, boardFragment);}
+        //else{fragmentTransaction.add(R.id.fragmentContainer, boardFragment);}
         fragmentTransaction.show(boardFragment);
         fragmentTransaction.commit();
     }
@@ -130,7 +130,7 @@ public class HomeActivity extends AppCompatActivity {
     private void checkStore(){
        fragmentTransaction = getSupportFragmentManager().beginTransaction();
        if (boardFragment.isAdded()) { fragmentTransaction.remove(boardFragment).commit();}
-       else{fragmentTransaction.add(R.id.fragmentContainer, storeFragment);}
+       //else{fragmentTransaction.add(R.id.fragmentContainer, storeFragment);}
        fragmentTransaction.show(storeFragment);
        fragmentTransaction.commit();
     }
