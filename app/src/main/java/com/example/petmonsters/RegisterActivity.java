@@ -115,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
         String username = usernameEt.getText().toString();
         String password = Utilities.md5(passwordEt.getText().toString());
 
-        User newUser = new User(name, surname, email, username, password, age, null);
+        User newUser = new User(name, surname, email, username, password, age, null, 0);
 
         return newUser;
     }

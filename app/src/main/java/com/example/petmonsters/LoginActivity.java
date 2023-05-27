@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        //updateUserData();
+        updateUserData();
 
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(intent);

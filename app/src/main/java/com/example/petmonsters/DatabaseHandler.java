@@ -38,6 +38,7 @@ public class DatabaseHandler {
         String username = doc.getString("username");
         String password = doc.getString("password");
         int age = doc.getInt("age");
+        int money = doc.getInt("age");
 
         JSONArray jsonArray = doc.getJSONArray("items");
         ArrayList<String> stringArray = new ArrayList<>();
@@ -47,7 +48,7 @@ public class DatabaseHandler {
 
         ArrayList<Item> itemsArray = new ArrayList<>();
 
-        User user = new User(name, surname, email, username, password, age, itemsArray);
+        User user = new User(name, surname, email, username, password, age, itemsArray, money);
 
         return user;
 

@@ -12,7 +12,7 @@ public class User {
     private int money;
     private ArrayList<Item> items = new ArrayList<Item>();
 
-    public User(String name, String surname, String email, String username, String password, int age, ArrayList<Item> items){
+    public User(String name, String surname, String email, String username, String password, int age, ArrayList<Item> items, int money){
         this.name = name;
         this.surname = surname;
         this.email = email;
