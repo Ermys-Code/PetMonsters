@@ -3,6 +3,7 @@ package com.example.petmonsters;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -119,11 +120,19 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void playGame(){
-
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (storeFragment.isAdded()) { fragmentTransaction.remove(storeFragment).commit();}
+        else{fragmentTransaction.add(R.id.fragmentContainer, boardFragment);}
+        fragmentTransaction.show(boardFragment);
+        fragmentTransaction.commit();
     }
 
     private void checkStore(){
-
+       fragmentTransaction = getSupportFragmentManager().beginTransaction();
+       if (boardFragment.isAdded()) { fragmentTransaction.remove(boardFragment).commit();}
+       else{fragmentTransaction.add(R.id.fragmentContainer, storeFragment);}
+       fragmentTransaction.show(storeFragment);
+       fragmentTransaction.commit();
     }
 
     private void visitFriends(){
