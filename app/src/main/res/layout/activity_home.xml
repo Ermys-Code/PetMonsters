@@ -115,7 +115,7 @@
 
     </FrameLayout>
 
-    <!--
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
@@ -127,6 +127,6 @@
 
 
         </androidx.fragment.app.FragmentContainerView>
-    -->
+
 
 </FrameLayout>
