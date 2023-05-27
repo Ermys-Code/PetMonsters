@@ -68,6 +68,8 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUserData() throws ExecutionException, InterruptedException, JSONException {
         PetMonstersApplication app = (PetMonstersApplication) getApplicationContext();
         User user = DatabaseHandler.readUser(usernameEt.getText().toString());
+        Pet pet = DatabaseHandler.readPet(usernameEt.getText().toString());
         app.setUser(user);
+        app.setPet(pet);
     }
 }

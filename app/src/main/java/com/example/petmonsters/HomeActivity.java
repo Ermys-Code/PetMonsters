@@ -41,7 +41,10 @@ public class HomeActivity extends AppCompatActivity {
         createListeners();
         assignListeners();
 
-        //showPet();
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        System.out.println(app.getUser().getName());
+
+        showPet();
     }
 
     private void getAppContext(){
@@ -99,25 +102,25 @@ public class HomeActivity extends AppCompatActivity {
         money_tv = findViewById(R.id.money_tv);
     }
 
-    /*private void showPet(){
+    private void showPet(){
         name_tv.setText(app.getPet().getName());
 
         money_tv.setText(Integer.toString(app.getUser().getMoney()));
 
-        pet_iv.setImageBitmap(app.getPet().getSprite());
+        //pet_iv.setImageBitmap(app.getPet().getSprite());
 
         if(app.getPet().getAccesory() != null){
-            accessory_iv.setImageBitmap(app.getPet().getAccesory().getSprite());
+            //accessory_iv.setImageBitmap(app.getPet().getAccesory().getSprite());
         }
 
         if(app.getPet().getHat() != null){
-            hat_iv.setImageBitmap(app.getPet().getHat().getSprite());
+           // hat_iv.setImageBitmap(app.getPet().getHat().getSprite());
         }
 
         if(app.getPet().getHat() != null){
-            shoes_iv.setImageBitmap(app.getPet().getShoes().getSprite());
+            //shoes_iv.setImageBitmap(app.getPet().getShoes().getSprite());
         }
-    }*/
+    }
 
     private void playGame(){
         fragmentTransaction = getSupportFragmentManager().beginTransaction();

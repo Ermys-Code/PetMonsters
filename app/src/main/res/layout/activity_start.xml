@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/grobold"
+            android:fontFamily="@font/g"
             android:text="Pet Monsters"
             android:textSize="60dp"
             android:textColor="@color/black"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="Under the Bridge \n Studios"
             android:textSize="20dp"
-            android:fontFamily="@font/grobold"
+            android:fontFamily="@font/g"
             android:textColor="@color/black"
             android:textAlignment="center"
             android:layout_marginTop="125dp"/>

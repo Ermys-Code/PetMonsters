@@ -19,7 +19,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="50dp"
-            android:fontFamily="@font/grobold"
+            android:fontFamily="@font/g"
             android:textAlignment="center"
             android:hint="Name"
             android:textSize="50dp"/>

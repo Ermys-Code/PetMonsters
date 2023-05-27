@@ -58,7 +58,7 @@ public class DatabaseHandler {
 
     }
 
-    public Pet readPet(String _owner) throws ExecutionException, InterruptedException, JSONException {
+    public static Pet readPet(String _owner) throws ExecutionException, InterruptedException, JSONException {
         String query = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"owner\":\"" + _owner + "\"}}";
         String queryAction = "findOne";
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
