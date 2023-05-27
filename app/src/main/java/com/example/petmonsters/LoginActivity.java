@@ -11,6 +11,8 @@ import android.widget.EditText;
 import org.json.JSONException;
 
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends AppCompatActivity {
@@ -40,12 +42,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {login();}
-                catch (NoSuchAlgorithmException | ExecutionException | InterruptedException | JSONException e) { e.printStackTrace(); }
+                catch (NoSuchAlgorithmException | ExecutionException | InterruptedException | JSONException | SQLException e) { e.printStackTrace(); }
             }
         });
     }
 
-    private void login() throws NoSuchAlgorithmException, ExecutionException, InterruptedException, JSONException {
+    private void login() throws NoSuchAlgorithmException, ExecutionException, InterruptedException, JSONException, SQLException {
         if (!validateCredentials()){
             Utilities.ShowShortToast(getApplicationContext(), Constants.bad_user_password);
             return;
@@ -65,11 +67,13 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    private void updateUserData() throws ExecutionException, InterruptedException, JSONException {
+    private void updateUserData() throws ExecutionException, InterruptedException, JSONException, SQLException {
         PetMonstersApplication app = (PetMonstersApplication) getApplicationContext();
         User user = DatabaseHandler.readUser(usernameEt.getText().toString());
         Pet pet = DatabaseHandler.readPet(usernameEt.getText().toString());
+        ArrayList<Item> store = DatabaseHandler.readItems();
         app.setUser(user);
         app.setPet(pet);
+        app.setStore(store);
     }
 }

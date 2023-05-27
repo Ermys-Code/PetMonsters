@@ -3,6 +3,9 @@ package com.example.petmonsters;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.in;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import androidx.dynamicanimation.animation.SpringAnimation;
 
 import com.mongodb.MongoClient;
@@ -10,14 +13,22 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.gridfs.GridFSBucket;
+import com.mongodb.client.gridfs.GridFSBuckets;
 
 import org.bson.Document;
+import org.bson.types.Binary;
+import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.PortUnreachableException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
@@ -77,6 +88,31 @@ public class DatabaseHandler {
         Pet pet = new Pet(owner, sprite, color, shoes, hat, accesory, name);
         return pet;
     }
+
+    public static ArrayList<Item> readItems() throws ExecutionException, InterruptedException, JSONException, SQLException {
+        String query = "{\"collection\":\"item\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{}}";
+        String queryAction = "findOne";
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
+
+        JSONObject jsonObject = new JSONObject(jsonData);
+        JSONArray doc = jsonObject.getJSONArray("documents");
+
+        ArrayList<Item> items = new ArrayList<Item>();
+
+        for(int i = 0; i < doc.length(); i++){
+            String itemString = doc.getString(i);
+            JSONObject itemObject = new JSONObject(itemString);
+            int type = itemObject.getInt("type");
+            String name  = itemObject.getString("name");
+            String sprite = itemObject.getString("sprite");
+
+            items.add(new Item(type,name,sprite));
+        }
+
+        return items;
+    }
+
+
 
     public static Boolean checkLogin(String username, String password) throws JSONException, ExecutionException, InterruptedException {
         try {

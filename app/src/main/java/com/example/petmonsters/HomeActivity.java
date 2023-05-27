@@ -123,19 +123,19 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void playGame(){
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if (storeFragment.isAdded()) { fragmentTransaction.remove(storeFragment).commit();}
-        //else{fragmentTransaction.add(R.id.fragmentContainer, boardFragment);}
-        fragmentTransaction.show(boardFragment);
-        fragmentTransaction.commit();
+
+
     }
 
     private void checkStore(){
        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-       if (boardFragment.isAdded()) { fragmentTransaction.remove(boardFragment).commit();}
-       //else{fragmentTransaction.add(R.id.fragmentContainer, storeFragment);}
-       fragmentTransaction.show(storeFragment);
-       fragmentTransaction.commit();
+       if (boardFragment.isAdded()) { fragmentTransaction.remove(boardFragment);}
+       if (storeFragment.isAdded()) { fragmentTransaction.remove(storeFragment);}
+       else{fragmentTransaction.add(R.id.fragmentContainer, storeFragment);
+           fragmentTransaction.show(storeFragment);}
+        fragmentTransaction.commit();
+
+
     }
 
     private void visitFriends(){
@@ -143,6 +143,12 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void useBoard(){
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (storeFragment.isAdded()) { fragmentTransaction.remove(storeFragment);}
+        if (boardFragment.isAdded()) { fragmentTransaction.remove(boardFragment);}
+        else{fragmentTransaction.add(R.id.fragmentContainer, boardFragment);
+            fragmentTransaction.show(boardFragment);}
+        fragmentTransaction.commit();
 
     }
 }

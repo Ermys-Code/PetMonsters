@@ -35,4 +35,12 @@ public class PetMonstersApplication extends Application {
     public Pet getPet() {
         return pet;
     }
+
+    public void setStore(ArrayList<Item> store) {
+        this.store = store;
+    }
+
+    public ArrayList<Item> getStore() {
+        return store;
+    }
 }

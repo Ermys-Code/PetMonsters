@@ -4,9 +4,9 @@ import android.graphics.Bitmap;
 public class Item {
     private int type;
     private String name;
-    private Bitmap sprite;
+    private String sprite;
 
-    Item(int type, String name, Bitmap sprite){
+    Item(int type, String name, String sprite){
         this.type = type;
         this.name = name;
         this.sprite = sprite;
@@ -16,7 +16,7 @@ public class Item {
         return type;
     }
 
-    public Bitmap getSprite() {
+    public String getSprite() {
         return sprite;
     }
 
