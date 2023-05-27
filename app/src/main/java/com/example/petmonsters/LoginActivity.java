@@ -8,7 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.json.JSONException;
+
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -37,31 +40,32 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {login();}
-                catch (NoSuchAlgorithmException e) { e.printStackTrace(); }
+                catch (NoSuchAlgorithmException | ExecutionException | InterruptedException | JSONException e) { e.printStackTrace(); }
             }
         });
     }
 
-    private void login() throws NoSuchAlgorithmException {
+    private void login() throws NoSuchAlgorithmException, ExecutionException, InterruptedException, JSONException {
         if (!validateCredentials()){
             Utilities.ShowShortToast(getApplicationContext(), Constants.bad_user_password);
             return;
         }
 
-        updateUserData();
+        //updateUserData();
 
-        Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
     }
 
-    private boolean validateCredentials() throws NoSuchAlgorithmException {
-        if(!DatabaseHandler.checkUsername(usernameEt.getText().toString())) return false;
-        if(!DatabaseHandler.checkPassword(usernameEt.getText().toString(), Utilities.md5(passwordEt.getText().toString()))) return false;
+    private boolean validateCredentials() throws NoSuchAlgorithmException, JSONException, ExecutionException, InterruptedException {
+        if(!DatabaseHandler.checkLogin(usernameEt.getText().toString(), passwordEt.getText().toString())) return false;
+        //if(!DatabaseHandler.checkPassword(usernameEt.getText().toString(), Utilities.md5(passwordEt.getText().toString()))) return false;
+
         return true;
     }
 
-    private void updateUserData(){
+    private void updateUserData() throws ExecutionException, InterruptedException, JSONException {
         PetMonstersApplication app = (PetMonstersApplication) getApplicationContext();
         User user = DatabaseHandler.readUser(usernameEt.getText().toString());
         app.setUser(user);

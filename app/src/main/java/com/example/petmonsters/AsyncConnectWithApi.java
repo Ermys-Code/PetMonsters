@@ -18,42 +18,29 @@ import okhttp3.ResponseBody;
 public class AsyncConnectWithApi  extends AsyncTask<String, String, String> {
 
     @Override
-    protected String doInBackground(String... strings) {
+    protected String doInBackground(String... params) {
         try {
             OkHttpClient client = new OkHttpClient().newBuilder().build();
             MediaType mediaType = MediaType.parse("application/json");
-            RequestBody body = RequestBody.create(mediaType, "{\n    \"collection\":\"user\",\n    \"database\":\"ClubNoPenguin\",\n    \"dataSource\":\"ClubNoPenguin\",\n    \"filter\": {\"username\": \"ddd\"}\n\n}");
+            RequestBody body = RequestBody.create(mediaType, params[0]);
             Request request = new Request.Builder()
-                    .url("https://eu-west-2.aws.data.mongodb-api.com/app/data-okkbs/endpoint/data/v1/action/findOne")
+                    .url("https://eu-west-2.aws.data.mongodb-api.com/app/data-okkbs/endpoint/data/v1/action/" + params[1])
                     .method("POST", body)
                     .addHeader("Content-Type", "application/json")
                     .addHeader("Access-Control-Request-Headers", "*")
                     .addHeader("api-key", "sucE6UfBivnhG4Iwg6sNPhluANRUqrDWApBAxpV7hG0SKOYmWWBXBlRcni1ehqOU")
                     .build();
-            Response response = null;
+            Response response;
+
             try {
                 response = client.newCall(request).execute();
             } catch (IOException e) {
-                e.printStackTrace();
                 return e.getMessage();
             }
 
-            String jsonData = response.body().string();
-            JSONObject Jobject = new JSONObject(jsonData);
+            return response.body().string();
 
-            /*JSONArray Jarray = Jobject.getJSONArray("employees");
-
-            for (int i = 0; i < Jarray.length(); i++) {
-                JSONObject object = Jarray.getJSONObject(i);
-            }*/
-
-            return Jobject.getJSONObject("document").getString("password");
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return e.getMessage();
         } catch (IOException e) {
-            e.printStackTrace();
             return e.getMessage();
         }
     }

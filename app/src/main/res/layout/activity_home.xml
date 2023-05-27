@@ -71,6 +71,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
+            android:fontFamily="@font/grobold"
             android:text="NAME"
             android:gravity="center"
             android:textAlignment="center"
@@ -80,10 +81,11 @@
             android:id="@+id/money_tv"
             android:layout_width="100dp"
             android:layout_height="50dp"
+            android:fontFamily="@font/grobold"
             android:layout_marginTop="20dp"
             android:layout_marginRight="70dp"
             android:layout_gravity="right"
-            android:text="000000"
+            android:text="00000"
             android:textSize="25dp"
             android:gravity="center"
             android:textAlignment="center"/>
@@ -98,7 +100,7 @@
         <ImageView
             android:id="@+id/play_iv"
             android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_height="100dp"
             android:layout_gravity="bottom"
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="20dp"/>
@@ -106,7 +108,7 @@
         <ImageView
             android:id="@+id/store_iv"
             android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_height="100dp"
             android:layout_gravity="bottom|right"
             android:layout_marginBottom="20dp"
             android:layout_marginRight="20dp"/>

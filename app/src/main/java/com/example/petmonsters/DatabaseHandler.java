@@ -1,6 +1,9 @@
 package com.example.petmonsters;
 
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.in;
+
+import androidx.dynamicanimation.animation.SpringAnimation;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -9,60 +12,85 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import org.bson.Document;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.PortUnreachableException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.ExecutionException;
 
 public class DatabaseHandler {
 
-    private static MongoClientURI uri = new MongoClientURI(Constants.ddbb_uri);
-    private static MongoClient mongoClient = new MongoClient(uri);
-    private static MongoDatabase db = mongoClient.getDatabase(uri.getDatabase());
+    public static User readUser(String _username) throws ExecutionException, InterruptedException, JSONException {
+        String query = "{\"collection\":\"user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"username\":\"" + _username + "\"}}";
+        String queryAction = "findOne";
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
-    public static User readUser(String username){
-        MongoCollection<Document> collection = db.getCollection(Constants.collection_user);
-        Document doc = collection.find(eq(Constants.user_parameter_username, username)).first();
+        JSONObject jsonObject = new JSONObject(jsonData);
+        JSONObject doc = jsonObject.getJSONObject("document");
 
-        if (doc != null) {
-            System.out.println(doc.toJson());
-        } else {
-            System.out.println(Constants.no_documents_found);
+        String name = doc.getString("name");
+        String surname = doc.getString("surname");
+        String email = doc.getString("email");
+        String username = doc.getString("username");
+        String password = doc.getString("password");
+        int age = doc.getInt("age");
+
+        JSONArray jsonArray = doc.getJSONArray("items");
+        ArrayList<String> stringArray = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++){
+            stringArray.add(jsonArray.getString(i));
         }
 
-        User user = new User("a", "a", "a", "a", "a", 0, null);
+        ArrayList<Item> itemsArray = new ArrayList<>();
+
+        User user = new User(name, surname, email, username, password, age, itemsArray);
+
         return user;
+
     }
 
     public static void createUser(User user){
 
     }
 
-    public static Boolean checkUsername(String username){
-        MongoCollection<Document> collection = db.getCollection(Constants.collection_user);
-        Document doc = collection.find(eq(Constants.user_parameter_username, username)).first();
-        //if (doc != null) return true;
-        //else return false;
-        return true;
+    public static Boolean checkLogin(String username, String password) throws JSONException, ExecutionException, InterruptedException {
+        try {
+            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            User user = readUser(username);
+            System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+            if (!checkUsername(user, username)) return false;
+            System.out.println("ccccccccccccccccccccccccccccccccccccccccccccc");
+            if (!checkPassword(user, password)) return false;
+            System.out.println("ddddddddddddddddddddddddddddddddddddddddddddd");
+            return true;
+        } catch (Exception e){
+            return false;
+        }
     }
 
-    public static Boolean checkPassword(String username, String password){
-        MongoCollection<Document> collection = db.getCollection(Constants.collection_user);
-        Document doc = collection.find(eq(Constants.user_parameter_username, username)).first();
-        //if (doc.getValue("password") == password) return true;
-        //else return false;
-        return true;
+    public static Boolean checkUsername(User user, String username) {
+        System.out.println("ddddddddddddddddddddddddddddd = " + user.getUsername() + " --- " + username);
+        return user.getUsername().equals(username);
+    }
+
+    public static Boolean checkPassword(User user, String password) {
+        return user.getPassword().equals(password);
     }
 
     public static ArrayList<Model> getModels(){
         ArrayList<Model> modelsArray = new ArrayList<>();
 
-        MongoCollection<Document> collection = db.getCollection(Constants.collection_user);
+        /*MongoCollection<Document> collection = db.getCollection(Constants.collection_user);
         FindIterable<Document> docs = collection.find();
         Iterator it = docs.iterator();
         while (it.hasNext()) {
             //transformar it.next() a objeto de class Model
             //Añadir Model a array
-        }
+        }*/
 
         return modelsArray;
     }

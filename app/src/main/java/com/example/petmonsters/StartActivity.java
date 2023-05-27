@@ -21,7 +21,6 @@ public class StartActivity extends AppCompatActivity {
 
     private Button loginBtn;
     private Button registerBtn;
-    private PetMonstersApplication app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +30,6 @@ public class StartActivity extends AppCompatActivity {
         getScreenElements();
 
         setButtonListeners();
-        app = (PetMonstersApplication) getApplicationContext();
-
-        AsyncConnectWithApi api = new AsyncConnectWithApi();
-
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        try {
-            System.out.println(api.execute().get());
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
     }
 

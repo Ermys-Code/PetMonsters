@@ -40,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
         createListeners();
         assignListeners();
 
-        showPet();
+        //showPet();
     }
 
     private void getAppContext(){

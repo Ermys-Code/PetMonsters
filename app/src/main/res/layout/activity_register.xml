@@ -13,6 +13,7 @@
 
         <EditText
             android:id="@+id/name_et"
+            android:fontFamily="@font/grobold"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
@@ -21,6 +22,7 @@
 
         <EditText
             android:id="@+id/surname_et"
+            android:fontFamily="@font/grobold"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
@@ -29,6 +31,7 @@
 
         <EditText
             android:id="@+id/email_et"
+            android:fontFamily="@font/grobold"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
@@ -38,6 +41,7 @@
 
         <TextView
             android:layout_width="300dp"
+            android:fontFamily="@font/grobold"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="25dp"
@@ -56,6 +60,7 @@
 
         <EditText
             android:id="@+id/username_et"
+            android:fontFamily="@font/grobold"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
@@ -64,6 +69,7 @@
 
         <EditText
             android:id="@+id/password_et"
+            android:fontFamily="@font/grobold"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
@@ -74,7 +80,7 @@
         <Button
             android:id="@+id/register_btn"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:text="Register"
