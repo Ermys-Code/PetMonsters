@@ -2,8 +2,6 @@ package com.example.petmonsters;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -15,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 

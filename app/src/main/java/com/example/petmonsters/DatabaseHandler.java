@@ -110,8 +110,29 @@ public class DatabaseHandler {
         }
     }
 
+    public static Boolean updateUserFriends(String _username, ArrayList<String> _friends) throws ExecutionException, InterruptedException {
+        String friends = "";
+        for(int i = 0; i < _friends.size(); i++){
+            friends += _friends.get(i);
+            if (i != _friends.size()-1) friends += ", ";
+        }
+
+        String query = "{\"collection\":\"user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"username\":\"" + _username + "\"}, \"update\":{\"$set\":{\"friends\":[" + friends + "]}}}";
+        String queryAction = "updateOne";
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
+
+        try{
+            JSONObject jsonObject = new JSONObject(jsonData);
+            int count = jsonObject.getInt("modifiedCount");
+            if (count <= 0) return false;
+            return true;
+        } catch (JSONException e) {
+            return false;
+        }
+    }
+
     public static Boolean createPet(Pet pet) throws ExecutionException, InterruptedException {
-        String userDocument = "\"owner\":\"" + pet.getOwner() + "\", \"sprite\":\"" + pet.getSprite() + "\", \"color\":\"" + pet.getColor() + "\", \"shoes\":" + pet.getShoes() + ", \"hat\":" + pet.getHat() + ", \"name\":\"" + pet.getName() + "\"";
+        String userDocument = "\"owner\":\"" + pet.getOwner() + "\", \"sprite\":\"" + pet.getSprite() + "\", \"color\":\"" + pet.getColor() + "\", \"shoes\":\"\", \"hat\":\"\", \"name\":\"" + pet.getName() + "\"";
         String query = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + userDocument + "}}";
         String queryAction = "insertOne";
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
@@ -123,6 +144,39 @@ public class DatabaseHandler {
         } catch (JSONException e) {
             return false;
         }
+    }
+
+    public static Boolean CreateRequest(Request request) throws ExecutionException, InterruptedException {
+        String requestDocument = "\"from\":\"" + request.getFrom() + "\", \"to\":\"" + request.getTo() + "\"";
+        String query = "{\"collection\":\"request\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + requestDocument + "}}";
+        String queryAction = "insertOne";
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
+
+        try{
+            JSONObject jsonObject = new JSONObject(jsonData);
+            jsonObject.getString("insertedId");
+            return true;
+        } catch (JSONException e) {
+            return false;
+        }
+    }
+
+    public static  ArrayList<Request> readRequest(String recipient) throws ExecutionException, InterruptedException, JSONException {
+        String query = "{\"collection\":\"request\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"to\":\"" + recipient + "\"}}";
+        String queryAction = "find";
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
+
+        JSONObject jsonObject = new JSONObject(jsonData);
+        JSONArray doc = jsonObject.getJSONArray("documents");
+
+        ArrayList<Request> requests = new ArrayList<>();
+
+        for(int i = 0; i < doc.length(); i++){
+            JSONObject req = doc.getJSONObject(i);
+            requests.add(new Request(req.getString("from"), req.getString("to")));
+        }
+
+        return requests;
     }
 
     public static Pet readPet(String _owner) throws ExecutionException, InterruptedException, JSONException {
