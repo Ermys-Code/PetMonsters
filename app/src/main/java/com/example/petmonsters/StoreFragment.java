@@ -25,7 +25,6 @@ import java.io.File;
 public class StoreFragment extends Fragment {
 
     private LinearLayout layout, currentBox;
-    private File path;
     private PetMonstersApplication app;
 
     // TODO: Rename parameter arguments, choose names that match
