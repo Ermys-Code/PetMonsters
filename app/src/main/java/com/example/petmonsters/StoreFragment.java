@@ -98,7 +98,6 @@ public class StoreFragment extends Fragment {
 
     private void getAppContext(){
         app = (PetMonstersApplication) getActivity().getApplicationContext();
-        //TODO:HOME CONTEXT
     }
 
     public void generateImage(int drawable, int index, Context context, String name, int type) {
