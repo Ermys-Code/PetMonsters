@@ -1,5 +1,10 @@
 package com.example.petmonsters;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +12,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import java.io.File;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +23,10 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class StoreFragment extends Fragment {
+
+    private LinearLayout layout, currentBox;
+    private File path;
+    private PetMonstersApplication app;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +72,82 @@ public class StoreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_store, container, false);
+        View view = inflater.inflate(R.layout.fragment_store, container, false);
+
+        getAppContext();
+
+        layout = view.findViewById(R.id.store_main_layout);
+
+        generateItems();
+
+        return view;
+    }
+
+    private void generateItems(){
+        for(int i = 0; i < app.getStore().toArray().length; i++){
+            String sprite = app.getStore().get(i).getSprite();
+            String name = app.getStore().get(i).getName();
+            System.out.println(name);
+            int type =  app.getStore().get(i).getType();
+
+            Resources res = app.getContext().getResources();
+            int resourceId = res.getIdentifier(sprite, "drawable", getContext().getApplicationContext().getPackageName());
+
+            generateImage(resourceId, i, app.getContext(), name, type);
+        }
+    }
+
+    private void getAppContext(){
+        app = (PetMonstersApplication) getActivity().getApplicationContext();
+        //TODO:HOME CONTEXT
+    }
+
+    public void generateImage(int drawable, int index, Context context, String name, int type) {
+
+        if (index % 3 == 0) {
+            currentBox = new LinearLayout(context);
+            LinearLayout.LayoutParams boxParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
+            currentBox.setLayoutParams(boxParameters);
+            boxParameters.setMargins(0, 10, 0, 10);
+            boxParameters.setLayoutDirection(LinearLayout.HORIZONTAL);
+            layout.addView(currentBox);
+
+        }
+
+        Drawable img = app.getContext().getResources().getDrawable(drawable);
+        ImageView image = new ImageView(context);
+        LinearLayout.LayoutParams contentParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
+        image.setLayoutParams(contentParameters);
+        image.setImageDrawable(img);
+        image.isClickable();
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (type){
+                    case 0:
+                        app.getPet().setHat(drawable);
+                        break;
+                    case 1:
+                        app.getPet().setShoes(drawable);
+                        break;
+                }
+
+                //TODO:actualizar pet en BBDDD
+
+                if(!app.getUser().getItems().contains(name)){
+                    app.getUser().getItems().add(name);
+
+                    //TODO:Actualizar user en bbdd
+                }
+
+                ((HomeActivity) getActivity()).showPet();
+
+            }
+        });
+
+        contentParameters.width = 500;
+        contentParameters.height = 500;
+
+        currentBox.addView(image);
     }
 }

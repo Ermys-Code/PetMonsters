@@ -57,7 +57,7 @@ public class DatabaseHandler {
             stringArray.add(jsonArray.getString(i));
         }*/
 
-        ArrayList<Item> itemsArray = new ArrayList<>();
+        ArrayList<String> itemsArray = new ArrayList<>();
 
         User user = new User(name, surname, email, username, password, age, itemsArray, money);
 
@@ -101,8 +101,8 @@ public class DatabaseHandler {
         String owner = doc.getString("owner");
         int sprite = doc.getInt("sprite");
         String color = doc.getString("color");
-        String shoes = doc.getString("shoes");
-        String hat = doc.getString("hat");
+        int shoes = doc.getInt("shoes");
+        int hat = doc.getInt("hat");
         String name = doc.getString("name");
 
         Pet pet = new Pet(owner, sprite, color, shoes, hat, name);
@@ -111,8 +111,8 @@ public class DatabaseHandler {
     }
 
     public static ArrayList<Item> readItems() throws ExecutionException, InterruptedException, JSONException, SQLException {
-        String query = "{\"collection\":\"item\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{}}";
-        String queryAction = "findOne";
+        String query = "{\"collection\":\"item\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\"}";
+        String queryAction = "find";
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
         JSONObject jsonObject = new JSONObject(jsonData);

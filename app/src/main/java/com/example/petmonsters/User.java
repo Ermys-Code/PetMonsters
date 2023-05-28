@@ -10,9 +10,9 @@ public class User {
     private String username;
     private String password;
     private int money;
-    private ArrayList<Item> items = new ArrayList<Item>();
+    private ArrayList<String> items = new ArrayList<String>();
 
-    public User(String name, String surname, String email, String username, String password, int age, ArrayList<Item> items, int money){
+    public User(String name, String surname, String email, String username, String password, int age, ArrayList<String> items, int money){
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -72,10 +72,10 @@ public class User {
         return money;
     }
 
-    public void setItems(ArrayList<Item> itemArray){
+    public void setItems(ArrayList<String> itemArray){
         this.items = itemArray ;
     }
-    public ArrayList<Item> getItems(){
+    public ArrayList<String> getItems(){
         return items;
     }
 

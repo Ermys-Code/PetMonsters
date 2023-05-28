@@ -168,7 +168,7 @@ public class CharacterEditorActivity extends AppCompatActivity {
 
 
     private void savePet() throws ExecutionException, InterruptedException {
-        Pet pet = new Pet(app.getUser().getUsername(), modelSprites.get(currentSprite), modelColors.get(currentColor), null, null, namePetEt.getText().toString());
+        Pet pet = new Pet(app.getUser().getUsername(), modelSprites.get(currentSprite), modelColors.get(currentColor), -1, -1, namePetEt.getText().toString());
         if(DatabaseHandler.createPet(pet)){
             Utilities.ShowShortToast(getApplicationContext(), "Pet created successfully");
             app.setPet(pet);

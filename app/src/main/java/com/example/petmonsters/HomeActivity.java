@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.FragmentManager;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -41,9 +43,7 @@ public class HomeActivity extends AppCompatActivity {
         createListeners();
         assignListeners();
 
-        System.out.println(app.getUser().getName());
-
-        //showPet();
+        showPet();
     }
 
     private void getAppContext(){
@@ -101,19 +101,19 @@ public class HomeActivity extends AppCompatActivity {
         money_tv = findViewById(R.id.money_tv);
     }
 
-    private void showPet(){
+    public void showPet(){
         name_tv.setText(app.getPet().getName());
 
         money_tv.setText(Integer.toString(app.getUser().getMoney()));
 
-        //pet_iv.setImageBitmap(app.getPet().getSprite());
+        pet_iv.setImageDrawable(getResources().getDrawable(app.getPet().getSprite()));
 
-        if(app.getPet().getHat() != null){
-           // hat_iv.setImageBitmap(app.getPet().getHat().getSprite());
+        if(app.getPet().getHat() != -1){
+           hat_iv.setImageDrawable(getResources().getDrawable(app.getPet().getHat()));
         }
 
-        if(app.getPet().getHat() != null){
-            //shoes_iv.setImageBitmap(app.getPet().getShoes().getSprite());
+        if(app.getPet().getShoes() != -1){
+            shoes_iv.setImageDrawable(getResources().getDrawable(app.getPet().getShoes()));
         }
     }
 

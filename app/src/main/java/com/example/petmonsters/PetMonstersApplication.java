@@ -1,6 +1,7 @@
 package com.example.petmonsters;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.AsyncTask;
 
 import java.io.IOException;
@@ -20,6 +21,16 @@ public class PetMonstersApplication extends Application {
     private Pet pet;
     private Board board;
     private ArrayList<Item> store = new ArrayList<Item>();
+
+    private static PetMonstersApplication instance;
+
+    public PetMonstersApplication() {
+        instance = this;
+    }
+
+    public static Context getContext() {
+        return instance;
+    }
 
     public void setUser(User user){
         this.user = user;

@@ -5,12 +5,12 @@ public class Pet {
     private String owner;
     private int sprite;
     private String color; // color para el estudio de big data
-    private String shoes;
-    private String hat;
+    private int shoes;
+    private int hat;
     private String name;
 
 
-    Pet(String owner, int sprite, String color, String shoes, String hat, String name){
+    Pet(String owner, int sprite, String color, int shoes, int hat, String name){
         this.owner = owner;
         this.sprite = sprite;
         this.color = color;
@@ -43,19 +43,19 @@ public class Pet {
         this.color = color;
     }
 
-    public String getHat() {
+    public int getHat() {
         return hat;
     }
 
-    public void setHat(String hat) {
+    public void setHat(int hat) {
         this.hat = hat;
     }
 
-    public String getShoes() {
+    public int getShoes() {
         return shoes;
     }
 
-    public void setShoes(String shoes) {
+    public void setShoes(int shoes) {
         this.shoes = shoes;
     }
 
