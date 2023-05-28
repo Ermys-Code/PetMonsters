@@ -84,6 +84,27 @@ public class DatabaseHandler {
         }
     }
 
+    public static Boolean updateUser(String _username, String itemName, ArrayList<String> _items) throws ExecutionException, InterruptedException {
+        String items = "";
+        for(int i = 0; i < _items.size(); i++){
+            items += _items.get(i);
+            if (i != _items.size()-1) items += ", ";
+        }
+
+        String query = "{\"collection\":\"user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"username\":\"" + _username + "\"}, \"update\":{\"$set\":{\"items\":[" + items + "]}}}";
+        String queryAction = "updateOne";
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
+
+        try{
+            JSONObject jsonObject = new JSONObject(jsonData);
+            int count = jsonObject.getInt("modifiedCount");
+            if (count <= 0) return false;
+            return true;
+        } catch (JSONException e) {
+            return false;
+        }
+    }
+
     public static Boolean createPet(Pet pet) throws ExecutionException, InterruptedException {
         String userDocument = "\"owner\":\"" + pet.getOwner() + "\", \"sprite\":\"" + pet.getSprite() + "\", \"color\":\"" + pet.getColor() + "\", \"shoes\":" + pet.getShoes() + ", \"hat\":" + pet.getHat() + ", \"name\":\"" + pet.getName() + "\"";
         String query = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + userDocument + "}}";
@@ -119,7 +140,7 @@ public class DatabaseHandler {
         return pet;
     }
 
-    public static Boolean updatePet(String _owner, int _type, String _name) throws ExecutionException, InterruptedException {
+    public static Boolean updatePet(String _owner, int _type, String _spriteName) throws ExecutionException, InterruptedException {
         String type = "";
         switch (_type){
             case 0:
@@ -130,7 +151,7 @@ public class DatabaseHandler {
                 break;
         }
 
-        String query = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"owner\":\"" + _owner + "\"}, \"update\":{\"$set\":{\"" + type + "\":\"" + _name + "\"}}}";
+        String query = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"owner\":\"" + _owner + "\"}, \"update\":{\"$set\":{\"" + type + "\":\"" + _spriteName + "\"}}}";
         String queryAction = "updateOne";
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 

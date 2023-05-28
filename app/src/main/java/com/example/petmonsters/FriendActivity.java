@@ -93,15 +93,14 @@ public class FriendActivity extends AppCompatActivity {
             hat_iv.setImageDrawable(getResources().getDrawable(hatId));
         }
 
-        if(!app.getPet().getShoes().equals("")){
+        if(!app.getCurrentFriendPet().getShoes().equals("")){
             int shoesId = res.getIdentifier(app.getCurrentFriendPet().getShoes(), "drawable", getApplicationContext().getPackageName());
             shoes_iv.setImageDrawable(getResources().getDrawable(shoesId));
         }
     }
 
     private void visitFriends(){
-        Intent intent = new Intent(FriendActivity.this, SocialActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     private void useBoard(){

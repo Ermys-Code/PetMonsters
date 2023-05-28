@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -123,19 +125,22 @@ public class StoreFragment extends Fragment {
                 switch (type){
                     case 0:
                         app.getPet().setHat(sprite);
-                        //update current pet, set hat
+
+
                         break;
                     case 1:
                         app.getPet().setShoes(sprite);
-                        //update current pet, set shoes
                         break;
                 }
 
+                try { UpdatePet(app.getPet().getOwner(), type, sprite); }
+                catch (ExecutionException |InterruptedException e) { e.printStackTrace(); }
 
                 if(!app.getUser().getItems().contains(name)){
                     app.getUser().getItems().add(name);
 
-                    //TODO:Actualizar user en bbdd
+                    try { UpdateUser(app.getUser().getUsername(), name, app.getUser().getItems()); }
+                    catch (ExecutionException | InterruptedException e) { e.printStackTrace(); }
                 }
 
                 ((HomeActivity) getActivity()).showPet();
@@ -147,5 +152,15 @@ public class StoreFragment extends Fragment {
         contentParameters.height = 500;
 
         currentBox.addView(image);
+    }
+
+    private void UpdatePet(String owner, int type, String sprite) throws ExecutionException, InterruptedException {
+        if(DatabaseHandler.updatePet(owner, type, sprite)) Utilities.ShowShortToast(getContext().getApplicationContext(), "Item saved");
+        else Utilities.ShowShortToast(getContext().getApplicationContext(), "Item not saved");
+    }
+
+    private void UpdateUser(String username, String name, ArrayList<String> items) throws ExecutionException, InterruptedException {
+        if(DatabaseHandler.updateUser(username, name, items)) Utilities.ShowShortToast(getContext().getApplicationContext(), "Item purchased");
+        else Utilities.ShowShortToast(getContext().getApplicationContext(), "Item not purchased");
     }
 }
