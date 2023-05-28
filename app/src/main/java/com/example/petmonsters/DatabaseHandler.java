@@ -35,6 +35,22 @@ import java.util.concurrent.ExecutionException;
 
 public class DatabaseHandler {
 
+    public static Boolean createUser(User user) throws ExecutionException, InterruptedException {
+        String userDocument = "\"name\":\"" + user.getName() + "\", \"surname\":\"" + user.getSurname() + "\", \"email\":\"" + user.getEmail() + "\", \"username\":\"" + user.getUsername() + "\", \"password\":\"" + user.getPassword() + "\", \"money\":\"" + user.getMoney() + "\", \"items\":[], \"age\":\"" + user.getAge() + "\", \"friends\":[]";
+        String query = "{\"collection\":\"user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + userDocument + "}}";
+        String queryAction = "insertOne";
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
+
+        try{
+            System.out.println(jsonData);
+            JSONObject jsonObject = new JSONObject(jsonData);
+            jsonObject.getString("insertedId");
+            return true;
+        } catch (JSONException e) {
+            return false;
+        }
+    }
+
     public static User readUser(String _username, Boolean getFriends) throws ExecutionException, InterruptedException, JSONException {
         String query = "{\"collection\":\"user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"username\":\"" + _username + "\"}}";
         String queryAction = "findOne";
@@ -66,36 +82,15 @@ public class DatabaseHandler {
             User user = new User(name, surname, email, username, password, age, itemsArray, money, usersArray);
             return user;
         }
-
-
-        /*JSONArray jsonArray = doc.getJSONArray("items");
-        ArrayList<String> stringArray = new ArrayList<>();
-        for (int i = 0; i < jsonArray.length(); i++){
-            stringArray.add(jsonArray.getString(i));
-        }*/
-
-
-
-
-
     }
 
-    public static Boolean createUser(User user) throws ExecutionException, InterruptedException {
-        /*String items = "[";
-        ArrayList<Item> itemArray = user.getItems();
-        for (int i = 0; i < itemArray.size(); i++) {
-            items += "\"" + i + "\":\"" + itemArray.get(i).getName() + "\"";
-            if (i < itemArray.size() - 1) items += ", ";
-        }
-        items += "]";*/
-
-        String userDocument = "\"name\":\"" + user.getName() + "\", \"surname\":\"" + user.getSurname() + "\", \"email\":\"" + user.getEmail() + "\", \"username\":\"" + user.getUsername() + "\", \"password\":\"" + user.getPassword() + "\", \"money\":\"" + user.getMoney() + "\", \"items\":[], \"age\":\"" + user.getAge() + "\", \"friends\":[]";
-        String query = "{\"collection\":\"user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + userDocument + "}}";
+    public static Boolean createPet(Pet pet) throws ExecutionException, InterruptedException {
+        String userDocument = "\"owner\":\"" + pet.getOwner() + "\", \"sprite\":\"" + pet.getSprite() + "\", \"color\":\"" + pet.getColor() + "\", \"shoes\":" + pet.getShoes() + ", \"hat\":" + pet.getHat() + ", \"name\":\"" + pet.getName() + "\"";
+        String query = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + userDocument + "}}";
         String queryAction = "insertOne";
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
         try{
-            System.out.println(jsonData);
             JSONObject jsonObject = new JSONObject(jsonData);
             jsonObject.getString("insertedId");
             return true;
@@ -115,13 +110,38 @@ public class DatabaseHandler {
         String owner = doc.getString("owner");
         String sprite = doc.getString("sprite");
         String color = doc.getString("color");
-        int shoes = doc.getInt("shoes");
-        int hat = doc.getInt("hat");
+        String shoes = doc.getString("shoes");
+        String hat = doc.getString("hat");
         String name = doc.getString("name");
 
         Pet pet = new Pet(owner, sprite, color, shoes, hat, name);
 
         return pet;
+    }
+
+    public static Boolean updatePet(String _owner, int _type, String _name) throws ExecutionException, InterruptedException {
+        String type = "";
+        switch (_type){
+            case 0:
+                type = "hat";
+                break;
+            case 1:
+                type = "shoes";
+                break;
+        }
+
+        String query = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"owner\":\"" + _owner + "\"}, \"update\":{\"$set\":{\"" + type + "\":\"" + _name + "\"}}}";
+        String queryAction = "updateOne";
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
+
+        try{
+            JSONObject jsonObject = new JSONObject(jsonData);
+            int count = jsonObject.getInt("modifiedCount");
+            if (count <= 0) return false;
+            return true;
+        } catch (JSONException e) {
+            return false;
+        }
     }
 
     public static ArrayList<Item> readItems() throws ExecutionException, InterruptedException, JSONException, SQLException {
@@ -198,19 +218,5 @@ public class DatabaseHandler {
         return modelsArray;
     }
 
-    public static Boolean createPet(Pet pet) throws ExecutionException, InterruptedException {
-        String userDocument = "\"owner\":\"" + pet.getOwner() + "\", \"sprite\":\"" + pet.getSprite() + "\", \"color\":\"" + pet.getColor() + "\", \"shoes\":" + pet.getShoes() + ", \"hat\":" + pet.getHat() + ", \"name\":\"" + pet.getName() + "\"";
-        String query = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + userDocument + "}}";
-        String queryAction = "insertOne";
-        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
-        try{
-            System.out.println(jsonData);
-            JSONObject jsonObject = new JSONObject(jsonData);
-            jsonObject.getString("insertedId");
-            return true;
-        } catch (JSONException e) {
-            return false;
-        }
-    }
 }

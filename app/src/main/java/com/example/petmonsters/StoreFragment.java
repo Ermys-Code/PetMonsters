@@ -89,10 +89,7 @@ public class StoreFragment extends Fragment {
             System.out.println(name);
             int type =  app.getStore().get(i).getType();
 
-            Resources res = app.getContext().getResources();
-            int resourceId = res.getIdentifier(sprite, "drawable", getContext().getApplicationContext().getPackageName());
-
-            generateImage(resourceId, i, app.getContext(), name, type);
+            generateImage(sprite, i, app.getContext(), name, type);
         }
     }
 
@@ -100,7 +97,7 @@ public class StoreFragment extends Fragment {
         app = (PetMonstersApplication) getActivity().getApplicationContext();
     }
 
-    public void generateImage(int drawable, int index, Context context, String name, int type) {
+    public void generateImage(String sprite, int index, Context context, String name, int type) {
 
         if (index % 3 == 0) {
             currentBox = new LinearLayout(context);
@@ -112,7 +109,9 @@ public class StoreFragment extends Fragment {
 
         }
 
-        Drawable img = app.getContext().getResources().getDrawable(drawable);
+        Resources res = app.getResources();
+        int drawableId = res.getIdentifier(sprite, "drawable", getContext().getApplicationContext().getPackageName());
+        Drawable img = app.getContext().getResources().getDrawable(drawableId);
         ImageView image = new ImageView(context);
         LinearLayout.LayoutParams contentParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
         image.setLayoutParams(contentParameters);
@@ -123,14 +122,15 @@ public class StoreFragment extends Fragment {
             public void onClick(View view) {
                 switch (type){
                     case 0:
-                        app.getPet().setHat(drawable);
+                        app.getPet().setHat(sprite);
+                        //update current pet, set hat
                         break;
                     case 1:
-                        app.getPet().setShoes(drawable);
+                        app.getPet().setShoes(sprite);
+                        //update current pet, set shoes
                         break;
                 }
 
-                //TODO:actualizar pet en BBDDD
 
                 if(!app.getUser().getItems().contains(name)){
                     app.getUser().getItems().add(name);

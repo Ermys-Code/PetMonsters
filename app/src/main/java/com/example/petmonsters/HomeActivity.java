@@ -114,12 +114,14 @@ public class HomeActivity extends AppCompatActivity {
         int drawableId = res.getIdentifier(app.getPet().getSprite(), "drawable", getApplicationContext().getPackageName());
         pet_iv.setImageDrawable(getResources().getDrawable(drawableId));
 
-        if(app.getPet().getHat() != -1){
-           hat_iv.setImageDrawable(getResources().getDrawable(app.getPet().getHat()));
+        if(!app.getPet().getHat().equals("")){
+            int hatId = res.getIdentifier(app.getPet().getHat(), "drawable", getApplicationContext().getPackageName());
+            hat_iv.setImageDrawable(getResources().getDrawable(hatId));
         }
 
-        if(app.getPet().getShoes() != -1){
-            shoes_iv.setImageDrawable(getResources().getDrawable(app.getPet().getShoes()));
+        if(!app.getPet().getShoes().equals("")){
+            int shoesId = res.getIdentifier(app.getPet().getShoes(), "drawable", getApplicationContext().getPackageName());
+            shoes_iv.setImageDrawable(getResources().getDrawable(shoesId));
         }
     }
 

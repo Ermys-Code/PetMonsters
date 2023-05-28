@@ -88,12 +88,14 @@ public class FriendActivity extends AppCompatActivity {
         int drawableId = res.getIdentifier(app.getCurrentFriendPet().getSprite(), "drawable", getApplicationContext().getPackageName());
         pet_iv.setImageDrawable(getResources().getDrawable(drawableId));
 
-        if(app.getCurrentFriendPet().getHat() != -1){
-            hat_iv.setImageDrawable(getResources().getDrawable(app.getCurrentFriendPet().getHat()));
+        if(!app.getCurrentFriendPet().getHat().equals("")){
+            int hatId = res.getIdentifier(app.getCurrentFriendPet().getHat(), "drawable", getApplicationContext().getPackageName());
+            hat_iv.setImageDrawable(getResources().getDrawable(hatId));
         }
 
-        if(app.getPet().getShoes() != -1){
-            shoes_iv.setImageDrawable(getResources().getDrawable(app.getCurrentFriendPet().getShoes()));
+        if(!app.getPet().getShoes().equals("")){
+            int shoesId = res.getIdentifier(app.getCurrentFriendPet().getShoes(), "drawable", getApplicationContext().getPackageName());
+            shoes_iv.setImageDrawable(getResources().getDrawable(shoesId));
         }
     }
 
