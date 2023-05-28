@@ -68,7 +68,17 @@ public class SocialActivity extends AppCompatActivity {
 
     private void createListeners() {
         requestListener = new View.OnClickListener() {
-            public void onClick(View view) {openRequests();}
+            public void onClick(View view) {
+                try {
+                    openRequests();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         };
 
         addFriendListener = new View.OnClickListener() {
@@ -204,9 +214,13 @@ public class SocialActivity extends AppCompatActivity {
         app.setCurrentFriendPet(pet);
     }
 
-    private void openRequests(){
+    private void openRequests() throws JSONException, ExecutionException, InterruptedException {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if (requestsFragment.isAdded()) { fragmentTransaction.remove(requestsFragment);}
+        if (requestsFragment.isAdded()) {
+            fragmentTransaction.remove(requestsFragment);
+            layout.removeAllViews();
+
+            generateFriends();}
         else{fragmentTransaction.add(R.id.fragment_container, requestsFragment);
             fragmentTransaction.show(requestsFragment);}
         fragmentTransaction.commit();

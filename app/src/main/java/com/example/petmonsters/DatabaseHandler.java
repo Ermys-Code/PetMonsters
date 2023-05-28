@@ -113,7 +113,7 @@ public class DatabaseHandler {
     public static Boolean updateUserFriends(String _username, ArrayList<String> _friends) throws ExecutionException, InterruptedException {
         String friends = "";
         for(int i = 0; i < _friends.size(); i++){
-            friends += _friends.get(i);
+            friends += "\"" + _friends.get(i) + "\"";
             if (i != _friends.size()-1) friends += ", ";
         }
 
@@ -338,5 +338,21 @@ public class DatabaseHandler {
         }
     }
 
+    public static Boolean deleteRequest(String from, String to) throws ExecutionException, InterruptedException, JSONException {
+
+        String query = "{\"collection\":\"request\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"from\":\"" + from + "\", \"to\":\"" + to + "\"}}";
+        String queryAction = "deleteOne";
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
+
+
+        try{
+            JSONObject jsonObject = new JSONObject(jsonData);
+            int count = jsonObject.getInt("deletedCount");
+            if (count <= 0) return false;
+            return true;
+        } catch (JSONException e) {
+            return false;
+        }
+    }
 
 }

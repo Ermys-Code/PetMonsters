@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Layout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import org.json.JSONException;
 
@@ -126,7 +128,17 @@ public class RequestsFragment extends Fragment {
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    addFriend(from);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
+                deleteRequest(from);
 
             }
         });
@@ -140,7 +152,7 @@ public class RequestsFragment extends Fragment {
         deny.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                deleteRequest(from);
 
             }
         });
@@ -152,5 +164,39 @@ public class RequestsFragment extends Fragment {
         container.addView(accept);
         container.addView(deny);
         layout.addView(container);
+    }
+
+    public void deleteRequest(String from){
+        try {
+            DatabaseHandler.deleteRequest(from, app.getUser().getUsername());
+            layout.removeAllViews();
+            getRequests();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addFriend(String newFriend) throws JSONException, ExecutionException, InterruptedException {
+        User friend = DatabaseHandler.readUser(newFriend,true);
+        app.getUser().getFriends().add(friend);
+        friend.getFriends().add(app.getUser());
+
+        ArrayList<String> friends = new ArrayList<>();
+        ArrayList<String> friendsOfFriend = new ArrayList<>();
+
+        for( int i = 0; i < app.getUser().getFriends().size(); i++){
+            friends.add(app.getUser().getFriends().get(i).getUsername());
+        }
+
+        for( int i = 0; i < friend.getFriends().size(); i++){
+            friendsOfFriend.add(friend.getFriends().get(i).getUsername());
+        }
+
+        DatabaseHandler.updateUserFriends(app.getUser().getUsername(), friends);
+        DatabaseHandler.updateUserFriends(friend.getUsername(), friendsOfFriend);
     }
 }
