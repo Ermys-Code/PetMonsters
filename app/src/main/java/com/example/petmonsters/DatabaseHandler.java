@@ -6,6 +6,7 @@ import static com.mongodb.client.model.Filters.in;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.dynamicanimation.animation.SpringAnimation;
 
 import com.mongodb.MongoClient;
@@ -66,11 +67,15 @@ public class DatabaseHandler {
         String password = doc.getString("password");
         int age = doc.getInt("age");
         int money = doc.getInt("money");
+        JSONArray itemsArray = doc.getJSONArray("items");
 
-        ArrayList<String> itemsArray = new ArrayList<>();
+        ArrayList<String> items = new ArrayList<>();
+        for (int i = 0; i < itemsArray.length(); i++){
+            items.add(itemsArray.getString(i));
+        }
 
         if(!getFriends){
-            User user = new User(name, surname, email, username, password, age, itemsArray, money, null);
+            User user = new User(name, surname, email, username, password, age, items, money, null);
             return user;
         } else {
             JSONArray friendsArray = doc.getJSONArray("friends");
@@ -79,16 +84,16 @@ public class DatabaseHandler {
                 String friendUsername = friendsArray.getString(i);
                 usersArray.add(readUser(friendUsername, false));
             }
-            User user = new User(name, surname, email, username, password, age, itemsArray, money, usersArray);
+            User user = new User(name, surname, email, username, password, age, items, money, usersArray);
             return user;
         }
     }
 
-    public static Boolean updateUser(String _username, String itemName, ArrayList<String> _items) throws ExecutionException, InterruptedException {
+    public static Boolean updateUser(String _username, ArrayList<String> _items) throws ExecutionException, InterruptedException {
         String items = "";
         for(int i = 0; i < _items.size(); i++){
-            items += _items.get(i);
-            if (i != _items.size()-1) items += ", ";
+            items += "\"" + _items.get(i) + "\"";
+            if (i < _items.size()-1) items += ", ";
         }
 
         String query = "{\"collection\":\"user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"username\":\"" + _username + "\"}, \"update\":{\"$set\":{\"items\":[" + items + "]}}}";
@@ -237,6 +242,46 @@ public class DatabaseHandler {
         }
 
         return modelsArray;
+    }
+
+    public static ArrayList<Message> readMessages(String _to) throws ExecutionException, InterruptedException, JSONException {
+        ArrayList<Message> messagesArray = new ArrayList<>();
+
+        String query = "{\"collection\":\"message\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"to\":\"" + _to + "\"}}";
+        String queryAction = "find";
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
+
+        JSONObject jsonObject = new JSONObject(jsonData);
+        JSONArray docs = jsonObject.getJSONArray("documents");
+
+        for (int i = 0; i < docs.length(); i++){
+            JSONObject doc = docs.getJSONObject(i);
+            String from = doc.getString("from");
+            String to = doc.getString("to");
+            String title = doc.getString("title");
+            String message = doc.getString("message");
+
+            messagesArray.add(new Message(from, to, title, message));
+        }
+
+        return messagesArray;
+    }
+
+    public static Boolean deleteMessage(String from, String to, String title, String message) throws ExecutionException, InterruptedException, JSONException {
+
+        String query = "{\"collection\":\"message\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"from\":\"" + from + "\", \"to\":\"" + to + "\", \"title\":\"" + title + "\", \"message\":\"" + message + "\"}}";
+        String queryAction = "deleteOne";
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
+
+
+        try{
+            JSONObject jsonObject = new JSONObject(jsonData);
+            int count = jsonObject.getInt("deletedCount");
+            if (count <= 0) return false;
+            return true;
+        } catch (JSONException e) {
+            return false;
+        }
     }
 
 

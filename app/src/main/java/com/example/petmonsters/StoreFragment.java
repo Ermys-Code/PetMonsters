@@ -136,10 +136,10 @@ public class StoreFragment extends Fragment {
                 try { UpdatePet(app.getPet().getOwner(), type, sprite); }
                 catch (ExecutionException |InterruptedException e) { e.printStackTrace(); }
 
-                if(!app.getUser().getItems().contains(name)){
-                    app.getUser().getItems().add(name);
+                if(!app.getUser().getItems().contains(sprite)){
+                    app.getUser().getItems().add(sprite);
 
-                    try { UpdateUser(app.getUser().getUsername(), name, app.getUser().getItems()); }
+                    try { UpdateUser(app.getUser().getUsername(), app.getUser().getItems()); }
                     catch (ExecutionException | InterruptedException e) { e.printStackTrace(); }
                 }
 
@@ -159,8 +159,8 @@ public class StoreFragment extends Fragment {
         else Utilities.ShowShortToast(getContext().getApplicationContext(), "Item not saved");
     }
 
-    private void UpdateUser(String username, String name, ArrayList<String> items) throws ExecutionException, InterruptedException {
-        if(DatabaseHandler.updateUser(username, name, items)) Utilities.ShowShortToast(getContext().getApplicationContext(), "Item purchased");
+    private void UpdateUser(String username, ArrayList<String> items) throws ExecutionException, InterruptedException {
+        if(DatabaseHandler.updateUser(username, items)) Utilities.ShowShortToast(getContext().getApplicationContext(), "Item purchased");
         else Utilities.ShowShortToast(getContext().getApplicationContext(), "Item not purchased");
     }
 }
