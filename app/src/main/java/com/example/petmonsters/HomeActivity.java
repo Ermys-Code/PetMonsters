@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -138,7 +139,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void visitFriends(){
-
+        Intent intent = new Intent(HomeActivity.this, SocialActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void useBoard(){
