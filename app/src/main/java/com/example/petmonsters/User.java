@@ -11,8 +11,9 @@ public class User {
     private String password;
     private int money;
     private ArrayList<String> items = new ArrayList<String>();
+    private ArrayList<User> friends = new ArrayList<>();
 
-    public User(String name, String surname, String email, String username, String password, int age, ArrayList<String> items, int money){
+    public User(String name, String surname, String email, String username, String password, int age, ArrayList<String> items, int money, ArrayList<User> friends){
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -21,6 +22,7 @@ public class User {
         this.money = 0;
         this.age = age;
         this.items = items;
+        this.friends = friends;
     }
 
     public void setName(String name){
@@ -79,8 +81,10 @@ public class User {
         return items;
     }
 
-    @Override
-    public String toString() {
-        return "User [\n  name=" + name + ",\n  surname=" + surname + ",\n  email=" + email + "\n username=" + username + "\n password=" + password + "\n money=" + money + "\n]";
+    public void setFriends(ArrayList<User> friendsArray){
+        this.friends = friendsArray;
+    }
+    public ArrayList<User> getFriends() {
+        return friends;
     }
 }

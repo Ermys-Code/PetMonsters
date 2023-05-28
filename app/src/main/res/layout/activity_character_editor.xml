@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CharacterEditorActivity">
+    tools:context=".CharacterEditorActivity"
+    android:background="@color/main_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,10 +33,12 @@
 
             <ImageView
                 android:id="@+id/formerPet_iv"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
+                android:src="@drawable/change_pet_left"
                 android:layout_gravity="center"/>
+
 
             <View
                 android:layout_width="0dp"
@@ -45,8 +48,8 @@
 
             <ImageView
                 android:id="@+id/pet_iv"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
+                android:layout_width="210dp"
+                android:layout_height="210dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_gravity="fill_horizontal"/>
@@ -58,9 +61,10 @@
 
             <ImageView
                 android:id="@+id/nextPet_iv"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginRight="20dp"
+                android:src="@drawable/change_pet_right"
                 android:layout_gravity="center"/>
 
         </LinearLayout>

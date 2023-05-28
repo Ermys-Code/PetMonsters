@@ -35,7 +35,7 @@ import java.util.concurrent.ExecutionException;
 
 public class DatabaseHandler {
 
-    public static User readUser(String _username) throws ExecutionException, InterruptedException, JSONException {
+    public static User readUser(String _username, Boolean getFriends) throws ExecutionException, InterruptedException, JSONException {
         String query = "{\"collection\":\"user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"username\":\"" + _username + "\"}}";
         String queryAction = "findOne";
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
@@ -49,7 +49,24 @@ public class DatabaseHandler {
         String username = doc.getString("username");
         String password = doc.getString("password");
         int age = doc.getInt("age");
-        int money = doc.getInt("age");
+        int money = doc.getInt("money");
+
+        ArrayList<String> itemsArray = new ArrayList<>();
+
+        if(!getFriends){
+            User user = new User(name, surname, email, username, password, age, itemsArray, money, null);
+            return user;
+        } else {
+            JSONArray friendsArray = doc.getJSONArray("friends");
+            ArrayList<User> usersArray = new ArrayList<>();
+            for (int i = 0; i < friendsArray.length(); i++){
+                String friendUsername = friendsArray.getString(i);
+                usersArray.add(readUser(friendUsername, false));
+            }
+            User user = new User(name, surname, email, username, password, age, itemsArray, money, usersArray);
+            return user;
+        }
+
 
         /*JSONArray jsonArray = doc.getJSONArray("items");
         ArrayList<String> stringArray = new ArrayList<>();
@@ -57,11 +74,8 @@ public class DatabaseHandler {
             stringArray.add(jsonArray.getString(i));
         }*/
 
-        ArrayList<String> itemsArray = new ArrayList<>();
 
-        User user = new User(name, surname, email, username, password, age, itemsArray, money);
 
-        return user;
 
 
     }
@@ -75,7 +89,7 @@ public class DatabaseHandler {
         }
         items += "]";*/
 
-        String userDocument = "\"name\":\"" + user.getName() + "\", \"surname\":\"" + user.getSurname() + "\", \"email\":\"" + user.getEmail() + "\", \"username\":\"" + user.getUsername() + "\", \"password\":\"" + user.getPassword() + "\", \"money\":\"" + user.getMoney() + "\", \"items\":[], \"age\":\"" + user.getAge() + "\"";
+        String userDocument = "\"name\":\"" + user.getName() + "\", \"surname\":\"" + user.getSurname() + "\", \"email\":\"" + user.getEmail() + "\", \"username\":\"" + user.getUsername() + "\", \"password\":\"" + user.getPassword() + "\", \"money\":\"" + user.getMoney() + "\", \"items\":[], \"age\":\"" + user.getAge() + "\", \"friends\":[]";
         String query = "{\"collection\":\"user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + userDocument + "}}";
         String queryAction = "insertOne";
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
@@ -137,7 +151,7 @@ public class DatabaseHandler {
 
     public static Boolean checkLogin(String username, String password) throws JSONException, ExecutionException, InterruptedException {
         try {
-            User user = readUser(username);
+            User user = readUser(username, false);
             return checkPassword(user, password);
         } catch (Exception e){
             return false;

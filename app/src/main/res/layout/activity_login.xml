@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@color/main_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,12 +33,13 @@
             android:hint="Password"
             android:inputType="textPassword" />
 
-        <Button
-            android:id="@+id/login_btn"
+        <ImageView
+            android:id="@+id/login_iv"
             android:layout_width="300dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:layout_marginTop="100dp"
+            android:src="@drawable/login_button"
             android:text="LOGIN"
             android:textSize="40dp" />
 

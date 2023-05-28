@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import org.json.JSONException;
 
@@ -19,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText usernameEt;
     private EditText passwordEt;
-    private Button loginBtn;
+    private ImageView loginBtn;
 
     private PetMonstersApplication app;
 
@@ -28,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         getApp();
 
@@ -43,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private void getScreenElements(){
         usernameEt = findViewById(R.id.username_et);
         passwordEt = findViewById(R.id.password_et);
-        loginBtn =  findViewById(R.id.login_btn);
+        loginBtn =  findViewById(R.id.login_iv);
     }
 
     private void setOnClickListeners(){
@@ -86,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUserData() throws ExecutionException, InterruptedException, JSONException, SQLException {
-        User user = DatabaseHandler.readUser(usernameEt.getText().toString());
+        User user = DatabaseHandler.readUser(usernameEt.getText().toString(), true);
         ArrayList<Item> store = DatabaseHandler.readItems();
         app.setUser(user);
         app.setStore(store);

@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.google.android.material.slider.Slider;
 
@@ -23,12 +25,13 @@ public class RegisterActivity extends AppCompatActivity {
     private Slider ageSli;
     private EditText usernameEt;
     private EditText passwordEt;
-    private Button registerBtn;
+    private ImageView registerBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         getScreenElements();
 
@@ -42,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
         ageSli = findViewById(R.id.age_sli);
         usernameEt = findViewById(R.id.username_et);
         passwordEt = findViewById(R.id.password_et);
-        registerBtn = findViewById(R.id.register_btn);
+        registerBtn = findViewById(R.id.register_iv);
     }
 
     private void setButtonListeners(){
@@ -113,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean usernameExists(){
         try {
-            DatabaseHandler.readUser(usernameEt.getText().toString());
+            DatabaseHandler.readUser(usernameEt.getText().toString(), false);
             return false;
         } catch (JSONException | ExecutionException | InterruptedException e) {
             return true;
@@ -135,7 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
         String password = Utilities.md5(passwordEt.getText().toString());
 
 
-        User newUser = new User(name, surname, email, username, password, age, null, 0);
+        User newUser = new User(name, surname, email, username, password, age, null, 0, null);
 
         return newUser;
     }

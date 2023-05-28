@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterActivity"
+    android:background="@color/main_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -77,12 +78,13 @@
             android:inputType="textPassword"
             android:hint="Password"/>
 
-        <Button
-            android:id="@+id/register_btn"
+        <ImageView
+            android:id="@+id/register_iv"
             android:layout_width="300dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
+            android:src="@drawable/register_button"
             android:text="Register"
             android:textSize="40dp"/>
 

@@ -3,7 +3,9 @@ package com.example.petmonsters;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,13 +21,14 @@ import okhttp3.Response;
 
 public class StartActivity extends AppCompatActivity {
 
-    private Button loginBtn;
-    private Button registerBtn;
+    private ImageView loginBtn;
+    private ImageView registerBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         getScreenElements();
 
@@ -36,8 +39,8 @@ public class StartActivity extends AppCompatActivity {
 
 
     private void getScreenElements(){
-        loginBtn = findViewById(R.id.login_btn);
-        registerBtn = findViewById(R.id.register_btn);
+        loginBtn = findViewById(R.id.login_iv);
+        registerBtn = findViewById(R.id.register_iv);
     }
 
     private void setButtonListeners(){
