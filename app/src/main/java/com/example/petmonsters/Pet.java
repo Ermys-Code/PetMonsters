@@ -3,14 +3,14 @@ import android.graphics.Bitmap;
 
 public class Pet {
     private String owner;
-    private int sprite;
+    private String sprite;
     private String color; // color para el estudio de big data
     private int shoes;
     private int hat;
     private String name;
 
 
-    Pet(String owner, int sprite, String color, int shoes, int hat, String name){
+    Pet(String owner, String sprite, String color, int shoes, int hat, String name){
         this.owner = owner;
         this.sprite = sprite;
         this.color = color;
@@ -27,11 +27,11 @@ public class Pet {
         this.owner = owner;
     }
 
-    public int getSprite() {
+    public String getSprite() {
         return sprite;
     }
 
-    public void setSprite(int sprite) {
+    public void setSprite(String sprite) {
         this.sprite = sprite;
     }
 

@@ -32,7 +32,7 @@ public class SocialActivity extends AppCompatActivity {
     }
 
     private void assignViewFields(){
-        layout = findViewById();
+        //layout = findViewById();
     }
 
     private void generateFriends(){

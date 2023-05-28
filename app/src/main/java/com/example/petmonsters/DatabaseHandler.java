@@ -113,7 +113,7 @@ public class DatabaseHandler {
         JSONObject doc = jsonObject.getJSONObject("document");
 
         String owner = doc.getString("owner");
-        int sprite = doc.getInt("sprite");
+        String sprite = doc.getString("sprite");
         String color = doc.getString("color");
         int shoes = doc.getInt("shoes");
         int hat = doc.getInt("hat");

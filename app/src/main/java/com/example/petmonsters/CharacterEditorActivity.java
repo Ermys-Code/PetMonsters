@@ -3,6 +3,7 @@ package com.example.petmonsters;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -35,7 +36,7 @@ public class CharacterEditorActivity extends AppCompatActivity {
     private ArrayList<Model> modelsArray = new ArrayList<>();
 
     private String modelName;
-    private ArrayList<Integer> modelSprites = new ArrayList<>();
+    private ArrayList<String> modelSprites = new ArrayList<>();
     private int currentSprite = 0;
     private ArrayList<String> modelColors = new ArrayList<>();
     private int currentColor = 0;
@@ -143,7 +144,9 @@ public class CharacterEditorActivity extends AppCompatActivity {
     private void changeColor(int num){
         currentColor = num;
         currentSprite = num;
-        petIv.setImageDrawable(getResources().getDrawable(modelSprites.get(currentSprite)));
+        Resources res = app.getResources();
+        int drawableId = res.getIdentifier(modelSprites.get(currentSprite), "drawable", getApplicationContext().getPackageName());
+        petIv.setImageDrawable(getResources().getDrawable(drawableId));
     }
 
     private void loadModelData(int pet){
@@ -161,7 +164,9 @@ public class CharacterEditorActivity extends AppCompatActivity {
 
     private void setModelData(){
         namePetEt.setText(modelName);
-        petIv.setImageDrawable(getResources().getDrawable(modelSprites.get(currentSprite)));
+        Resources res = app.getResources();
+        int drawableId = res.getIdentifier(modelSprites.get(currentSprite), "drawable", getApplicationContext().getPackageName());
+        petIv.setImageDrawable(getResources().getDrawable(drawableId));
         color1Iv.setColorFilter(Color.parseColor(modelColors.get(0)), PorterDuff.Mode.MULTIPLY);
         color2Iv.setColorFilter(Color.parseColor(modelColors.get(1)), PorterDuff.Mode.MULTIPLY);
         color3Iv.setColorFilter(Color.parseColor(modelColors.get(2)), PorterDuff.Mode.MULTIPLY);
@@ -170,6 +175,8 @@ public class CharacterEditorActivity extends AppCompatActivity {
 
 
     private void savePet() throws ExecutionException, InterruptedException {
+
+
         Pet pet = new Pet(app.getUser().getUsername(), modelSprites.get(currentSprite), modelColors.get(currentColor), -1, -1, namePetEt.getText().toString());
         if(DatabaseHandler.createPet(pet)){
             Utilities.ShowShortToast(getApplicationContext(), "Pet created successfully");

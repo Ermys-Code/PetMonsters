@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Model {
     private String name;
-    private ArrayList<Integer> sprites = new ArrayList<>();
+    private ArrayList<String> sprites = new ArrayList<>();
     private ArrayList<String> colors = new ArrayList<>();
 
     Model(String name, ArrayList<String> colors ){
@@ -16,35 +16,35 @@ public class Model {
 
         switch (name){
             case "e":
-                sprites.add(R.drawable.e_0);
-                sprites.add(R.drawable.e_1);
-                sprites.add(R.drawable.e_2);
-                sprites.add(R.drawable.e_3);
+                sprites.add("e_0");
+                sprites.add("e_1");
+                sprites.add("e_2");
+                sprites.add("e_3");
                 break;
             case "bea":
-                sprites.add(R.drawable.bea_0);
-                sprites.add(R.drawable.bea_1);
-                sprites.add(R.drawable.bea_2);
-                sprites.add(R.drawable.bea_3);
+                sprites.add("bea_0");
+                sprites.add("bea_1");
+                sprites.add("bea_2");
+                sprites.add("bea_3");
                 break;
             case "bob":
-                sprites.add(R.drawable.bob_0);
-                sprites.add(R.drawable.bob_1);
-                sprites.add(R.drawable.bob_2);
-                sprites.add(R.drawable.bob_3);
+                sprites.add("bob_0");
+                sprites.add("bob_1");
+                sprites.add("bob_2");
+                sprites.add("bob_3");
                 break;
             case "carlos":
-                sprites.add(R.drawable.carlos_0);
-                sprites.add(R.drawable.carlos_1);
-                sprites.add(R.drawable.carlos_2);
-                sprites.add(R.drawable.carlos_3);
+                sprites.add("carlos_0");
+                sprites.add("carlos_1");
+                sprites.add("carlos_2");
+                sprites.add("carlos_3");
                 break;
         }
 
         this.colors = colors;
     }
 
-    public ArrayList<Integer> getSprites() {
+    public ArrayList<String> getSprites() {
         return sprites;
     }
 

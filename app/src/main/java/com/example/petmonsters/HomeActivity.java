@@ -111,7 +111,9 @@ public class HomeActivity extends AppCompatActivity {
 
         money_tv.setText(Integer.toString(app.getUser().getMoney()));
 
-        pet_iv.setImageDrawable(getResources().getDrawable(app.getPet().getSprite()));
+        Resources res = app.getResources();
+        int drawableId = res.getIdentifier(app.getPet().getSprite(), "drawable", getApplicationContext().getPackageName());
+        pet_iv.setImageDrawable(getResources().getDrawable(drawableId));
 
         if(app.getPet().getHat() != -1){
            hat_iv.setImageDrawable(getResources().getDrawable(app.getPet().getHat()));
