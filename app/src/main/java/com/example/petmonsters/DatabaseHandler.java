@@ -75,7 +75,7 @@ public class DatabaseHandler {
         }
         items += "]";*/
 
-        String userDocument = "\"name\":\"" + user.getName() + "\", \"surname\":\"" + user.getSurname() + "\", \"email\":\"" + user.getEmail() + "\", \"username\":\"" + user.getUsername() + "\", \"password\":\"" + user.getPassword() + "\", \"money\":\"" + user.getMoney() + "\", \"items\":\"[]\", \"age\":\"" + user.getAge() + "\"";
+        String userDocument = "\"name\":\"" + user.getName() + "\", \"surname\":\"" + user.getSurname() + "\", \"email\":\"" + user.getEmail() + "\", \"username\":\"" + user.getUsername() + "\", \"password\":\"" + user.getPassword() + "\", \"money\":\"" + user.getMoney() + "\", \"items\":[], \"age\":\"" + user.getAge() + "\"";
         String query = "{\"collection\":\"user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + userDocument + "}}";
         String queryAction = "insertOne";
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
@@ -89,8 +89,6 @@ public class DatabaseHandler {
             return false;
         }
     }
-
-    //String petDocument = "\"owner\":\"" + owner + "\", \"sprite\":\"" + sprite + "\", \"color\":\"" + color + "\", \"shoes\":\"" + shoes + "\", \"hat\":\"" + hat + "\", \"accesory\":\"" + accesory + "\", \"name\":\"" + name + "\"";
 
     public static Pet readPet(String _owner) throws ExecutionException, InterruptedException, JSONException {
         String query = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"owner\":\"" + _owner + "\"}}";
@@ -187,7 +185,7 @@ public class DatabaseHandler {
     }
 
     public static Boolean createPet(Pet pet) throws ExecutionException, InterruptedException {
-        String userDocument = "\"owner\":\"" + pet.getOwner() + "\", \"sprite\":\"" + pet.getSprite() + "\", \"color\":\"" + pet.getColor() + "\", \"shoes\":\"" + pet.getShoes() + "\", \"hat\":\"" + pet.getHat() + "\", \"name\":\"" + pet.getName() + "\"";
+        String userDocument = "\"owner\":\"" + pet.getOwner() + "\", \"sprite\":\"" + pet.getSprite() + "\", \"color\":\"" + pet.getColor() + "\", \"shoes\":" + pet.getShoes() + ", \"hat\":" + pet.getHat() + ", \"name\":\"" + pet.getName() + "\"";
         String query = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + userDocument + "}}";
         String queryAction = "insertOne";
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();

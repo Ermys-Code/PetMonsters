@@ -57,9 +57,6 @@ public class CharacterEditorActivity extends AppCompatActivity {
         try { getModelsData(); } catch (ExecutionException | InterruptedException | JSONException e) { e.printStackTrace(); }
 
         loadModelData(currentPet);
-
-        //color1Iv.setColorFilter(Color.rgb(173, 216, 230), PorterDuff.Mode.MULTIPLY);
-        //color2Iv.setColorFilter(Color.rgb(139, 0, 0), PorterDuff.Mode.MULTIPLY);
     }
 
     private void getAppContext(){

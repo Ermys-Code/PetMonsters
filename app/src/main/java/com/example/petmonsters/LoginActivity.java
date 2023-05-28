@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         return DatabaseHandler.checkPet(username);
     }
 
-    private void updateUserData() throws ExecutionException, InterruptedException, JSONException, SQLException {
+    private void updateUserData() throws ExecutionException, InterruptedException, JSONException {
         User user = DatabaseHandler.readUser(usernameEt.getText().toString());
         //ArrayList<Item> store = DatabaseHandler.readItems();
         app.setUser(user);
