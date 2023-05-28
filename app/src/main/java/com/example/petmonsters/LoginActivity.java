@@ -21,14 +21,23 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordEt;
     private Button loginBtn;
 
+    private PetMonstersApplication app;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        getApp();
+
         getScreenElements();
 
         setOnClickListeners();
+    }
+
+    private void getApp(){
+        app = (PetMonstersApplication) getApplicationContext();
     }
 
     private void getScreenElements(){
@@ -48,37 +57,42 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login() throws NoSuchAlgorithmException, ExecutionException, InterruptedException, JSONException, SQLException {
-        if (!validateCredentials()){
+        if (!validateCredentials()) {
             Utilities.ShowShortToast(getApplicationContext(), Constants.bad_user_password);
             return;
         }
 
         updateUserData();
 
-        //buscar mascota
-            //if exist
+        if (searchPet(app.getUser().getUsername())){
             updatePetData();
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
-            //else
-            //ir creador
+        } else {
+            Intent intent = new Intent(LoginActivity.this, CharacterEditorActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
     private boolean validateCredentials() throws NoSuchAlgorithmException, JSONException, ExecutionException, InterruptedException {
         return DatabaseHandler.checkLogin(usernameEt.getText().toString(), Utilities.md5(passwordEt.getText().toString()));
     }
 
+    private Boolean searchPet(String username){
+        return DatabaseHandler.checkPet(username);
+    }
+
     private void updateUserData() throws ExecutionException, InterruptedException, JSONException, SQLException {
-        PetMonstersApplication app = (PetMonstersApplication) getApplicationContext();
         User user = DatabaseHandler.readUser(usernameEt.getText().toString());
-        ArrayList<Item> store = DatabaseHandler.readItems();
+        //ArrayList<Item> store = DatabaseHandler.readItems();
         app.setUser(user);
-        app.setStore(store);
+        //app.setStore(store);
     }
 
     private void updatePetData() throws JSONException, ExecutionException, InterruptedException {
-        PetMonstersApplication app = (PetMonstersApplication) getApplicationContext();
         Pet pet = DatabaseHandler.readPet(usernameEt.getText().toString());
         app.setPet(pet);
     }

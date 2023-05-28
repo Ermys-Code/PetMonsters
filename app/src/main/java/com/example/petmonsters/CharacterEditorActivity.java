@@ -6,13 +6,18 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.DragAndDropPermissions;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class CharacterEditorActivity extends AppCompatActivity {
 
@@ -29,9 +34,9 @@ public class CharacterEditorActivity extends AppCompatActivity {
     private ArrayList<Model> modelsArray = new ArrayList<>();
 
     private String modelName;
-    private ArrayList<Bitmap> modelSprites = new ArrayList<>();
+    private ArrayList<Integer> modelSprites = new ArrayList<>();
     private int currentSprite = 0;
-    private ArrayList<Integer> modelColors = new ArrayList<>();
+    private ArrayList<String> modelColors = new ArrayList<>();
     private int currentColor = 0;
 
     private int currentPet = 0;
@@ -49,9 +54,9 @@ public class CharacterEditorActivity extends AppCompatActivity {
 
         setOnClickListeners();
 
-        getModelsData();
+        try { getModelsData(); } catch (ExecutionException | InterruptedException | JSONException e) { e.printStackTrace(); }
 
-        //loadModelData(currentPet);
+        loadModelData(currentPet);
 
         //color1Iv.setColorFilter(Color.rgb(173, 216, 230), PorterDuff.Mode.MULTIPLY);
         //color2Iv.setColorFilter(Color.rgb(139, 0, 0), PorterDuff.Mode.MULTIPLY);
@@ -119,12 +124,12 @@ public class CharacterEditorActivity extends AppCompatActivity {
         savePetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                savePet();
+                //savePet();
             }
         });
     }
 
-    private void getModelsData(){
+    private void getModelsData() throws ExecutionException, InterruptedException, JSONException {
         modelsArray = DatabaseHandler.getModels();
     }
 
@@ -138,7 +143,7 @@ public class CharacterEditorActivity extends AppCompatActivity {
     private void changeColor(int num){
         currentColor = num;
         currentSprite = num;
-        petIv.setImageBitmap(modelSprites.get(currentSprite));
+        //petIv.setImageBitmap(modelSprites.get(currentSprite));
     }
 
     private void loadModelData(int pet){
@@ -156,13 +161,14 @@ public class CharacterEditorActivity extends AppCompatActivity {
 
     private void setModelData(){
         namePetEt.setText(modelName);
-        petIv.setImageBitmap(modelSprites.get(currentSprite));
-        color1Iv.setColorFilter(modelColors.get(0));
-        color2Iv.setColorFilter(modelColors.get(1));
-        color3Iv.setColorFilter(modelColors.get(2));
-        color4Iv.setColorFilter(modelColors.get(3));
+        petIv.setImageDrawable(getResources().getDrawable(modelSprites.get(currentSprite)));
+        color1Iv.setColorFilter(Color.parseColor(modelColors.get(0)), PorterDuff.Mode.MULTIPLY);
+        color2Iv.setColorFilter(Color.parseColor(modelColors.get(1)), PorterDuff.Mode.MULTIPLY);
+        color3Iv.setColorFilter(Color.parseColor(modelColors.get(2)), PorterDuff.Mode.MULTIPLY);
+        color4Iv.setColorFilter(Color.parseColor(modelColors.get(3)), PorterDuff.Mode.MULTIPLY);
     }
 
+    /*
     private void savePet(){
         //Pet pet = new Pet(app.getUser().getUsername(), modelSprites.get(currentSprite), modelColors.get(currentColor), null, null, null, namePetEt.getText().toString());
         Pet pet = new Pet(app.getUser().getUsername(), Integer.toString(currentSprite), modelColors.get(currentColor), null, null, null, namePetEt.getText().toString());
@@ -173,4 +179,5 @@ public class CharacterEditorActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+     */
 }

@@ -86,8 +86,6 @@ public class DatabaseHandler {
             jsonObject.getString("insertedId");
             return true;
         } catch (JSONException e) {
-            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            System.out.println(e.getCause() + " - " + e.getMessage());
             return false;
         }
     }
@@ -111,6 +109,7 @@ public class DatabaseHandler {
         String name = doc.getString("name");
 
         Pet pet = new Pet(owner, sprite, color, shoes, hat, accesory, name);
+
         return pet;
     }
 
@@ -152,16 +151,38 @@ public class DatabaseHandler {
         return user.getPassword().equals(password);
     }
 
-    public static ArrayList<Model> getModels(){
+    public static Boolean checkPet(String username){
+        try{
+            Pet pet = readPet(username);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+
+    public static ArrayList<Model> getModels() throws ExecutionException, InterruptedException, JSONException {
         ArrayList<Model> modelsArray = new ArrayList<>();
 
-        /*MongoCollection<Document> collection = db.getCollection(Constants.collection_user);
-        FindIterable<Document> docs = collection.find();
-        Iterator it = docs.iterator();
-        while (it.hasNext()) {
-            //transformar it.next() a objeto de class Model
-            //Añadir Model a array
-        }*/
+        String query = "{\"collection\":\"pet_selector\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\"}";
+        String queryAction = "find";
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
+
+        JSONObject jsonObject = new JSONObject(jsonData);
+        JSONArray docs = jsonObject.getJSONArray("documents");
+
+        for (int i = 0; i < docs.length(); i++){
+            JSONObject doc = docs.getJSONObject(i);
+
+            String name = doc.getString("name");
+            JSONArray colorsArray = doc.getJSONArray("colors");
+            ArrayList<String> colors = new ArrayList<>();
+            for (int j = 0; j < colorsArray.length(); j++){
+                colors.add(colorsArray.getString(j));
+            }
+
+            Model newModel = new Model(name, colors);
+            modelsArray.add(newModel);
+        }
 
         return modelsArray;
     }

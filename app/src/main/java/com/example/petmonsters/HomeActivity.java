@@ -41,7 +41,6 @@ public class HomeActivity extends AppCompatActivity {
         createListeners();
         assignListeners();
 
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         System.out.println(app.getUser().getName());
 
         //showPet();
