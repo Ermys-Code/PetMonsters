@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity {
 
     private ImageView play_iv, store_iv, friends_iv, board_iv; // Buttons
-    private ImageView pet_iv, shoes_iv, accessory_iv, hat_iv; //sprites
+    private ImageView pet_iv, shoes_iv, hat_iv; //sprites
 
     private View.OnClickListener playListener;
     private View.OnClickListener storeListener;
@@ -99,7 +99,6 @@ public class HomeActivity extends AppCompatActivity {
         friends_iv = findViewById(R.id.friends_iv);
         board_iv = findViewById(R.id.board_iv);
         pet_iv = findViewById(R.id.pet_iv);
-        accessory_iv = findViewById(R.id.accessory_iv);
         hat_iv = findViewById(R.id.hat_iv);
         shoes_iv = findViewById(R.id.shoes_iv);
         name_tv = findViewById(R.id.name_tv);
@@ -143,7 +142,6 @@ public class HomeActivity extends AppCompatActivity {
     private void visitFriends(){
         Intent intent = new Intent(HomeActivity.this, SocialActivity.class);
         startActivity(intent);
-        finish();
     }
 
     private void useBoard(){

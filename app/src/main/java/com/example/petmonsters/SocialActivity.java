@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -25,6 +26,8 @@ public class SocialActivity extends AppCompatActivity {
         getAppContext();
 
         assignViewFields();
+
+        generateFriends();
     }
 
     private void getAppContext(){
@@ -32,15 +35,12 @@ public class SocialActivity extends AppCompatActivity {
     }
 
     private void assignViewFields(){
-        //layout = findViewById();
+        layout = findViewById(R.id.social_layout);
     }
 
     private void generateFriends(){
-
-        ArrayList<User> friends = new ArrayList<User>();
-
-        for(int i = 0; i < friends.toArray().length; i++) {
-            String name = friends.get(i).getUsername();
+        for(int i = 0; i < app.getUser().getFriends().toArray().length; i++) {
+            String name = app.getUser().getFriends().get(i).getUsername();
             //TODO:recoger imagen del pet
             generateHouse(i, name);
         }
@@ -59,10 +59,10 @@ public class SocialActivity extends AppCompatActivity {
 
         }
         currentHouse = new LinearLayout(this);
-        LinearLayout.LayoutParams boxParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
-        currentBox.setLayoutParams(boxParameters);
-        boxParameters.setMargins(5, 0, 5, 0);
-        boxParameters.setLayoutDirection(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams houseParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+        currentHouse.setLayoutParams(houseParameters);
+        houseParameters.setMargins(5, 0, 5, 0);
+        currentHouse.setOrientation(LinearLayout.VERTICAL);
 
         currentHouse.isClickable();
         currentHouse.setOnClickListener(new View.OnClickListener() {
@@ -72,24 +72,28 @@ public class SocialActivity extends AppCompatActivity {
 
             }
         });
-        currentBox.addView(currentHouse);
+
 
 
         TextView friendName = new TextView(this);
         friendName.setText(name);
-        LinearLayout.LayoutParams contentParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
-        friendName.setLayoutParams(contentParameters);
+        LinearLayout.LayoutParams textParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        friendName.setLayoutParams(textParameters);
+        friendName.setGravity(Gravity.CENTER);
 
         Drawable img = getResources().getDrawable(R.drawable.hat_halo);
         ImageView image = new ImageView(this);
+        LinearLayout.LayoutParams contentParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
         image.setLayoutParams(contentParameters);
         image.setImageDrawable(img);
+        contentParameters.gravity = Gravity.CENTER;
 
 
-        contentParameters.width = 500;
-        contentParameters.height = 500;
 
+        currentHouse.addView(friendName);
         currentHouse.addView(image);
+        currentBox.addView(currentHouse);
     }
 
 }

@@ -15,6 +15,8 @@ import com.google.android.material.slider.Slider;
 import org.json.JSONException;
 
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -53,12 +55,12 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try { register(); }
-                catch (NoSuchAlgorithmException | ExecutionException | InterruptedException e) { e.printStackTrace(); }
+                catch (NoSuchAlgorithmException | ExecutionException | InterruptedException | SQLException | JSONException e) { e.printStackTrace(); }
             }
         });
     }
 
-    private void register() throws NoSuchAlgorithmException, ExecutionException, InterruptedException {
+    private void register() throws NoSuchAlgorithmException, ExecutionException, InterruptedException, SQLException, JSONException {
         if(!validateEmail()){
             Utilities.ShowShortToast(getApplicationContext(), Constants.email_not_valid);
             return;
@@ -91,6 +93,9 @@ public class RegisterActivity extends AppCompatActivity {
 
             PetMonstersApplication app = (PetMonstersApplication) getApplicationContext();
             app.setUser(newUser);
+
+            ArrayList<Item> store = DatabaseHandler.readItems();
+            app.setStore(store);
 
             Intent intent = new Intent(RegisterActivity.this, CharacterEditorActivity.class);
             startActivity(intent);
@@ -136,9 +141,12 @@ public class RegisterActivity extends AppCompatActivity {
         String email = emailEt.getText().toString();
         String username = usernameEt.getText().toString();
         String password = Utilities.md5(passwordEt.getText().toString());
+        ArrayList<String> items = new ArrayList<>();
+        ArrayList<User> friends = new ArrayList<>();
 
 
-        User newUser = new User(name, surname, email, username, password, age, null, 0, null);
+
+        User newUser = new User(name, surname, email, username, password, age, items, 0, friends);
 
         return newUser;
     }

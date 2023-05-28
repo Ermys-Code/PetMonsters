@@ -14,6 +14,7 @@
             android:layout_height="250dp"
             android:layout_gravity="left|center_vertical"
             android:layout_marginLeft="40dp"
+            android:src="@drawable/color_selector"
             android:layout_marginBottom="50dp"/>
 
         <ImageView
@@ -59,14 +60,6 @@
             android:layout_gravity="center"
             android:layout_marginLeft="6dp"
             android:layout_marginTop="190dp"/>
-
-        <ImageView
-            android:id="@+id/accessory_iv"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginTop="150dp"
-            android:layout_marginRight="20dp"/>
 
         <TextView
             android:id="@+id/name_tv"
