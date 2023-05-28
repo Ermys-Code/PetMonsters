@@ -124,7 +124,8 @@ public class CharacterEditorActivity extends AppCompatActivity {
         savePetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //savePet();
+                try { savePet(); }
+                catch (ExecutionException | InterruptedException e) { e.printStackTrace(); }
             }
         });
     }
@@ -143,7 +144,7 @@ public class CharacterEditorActivity extends AppCompatActivity {
     private void changeColor(int num){
         currentColor = num;
         currentSprite = num;
-        //petIv.setImageBitmap(modelSprites.get(currentSprite));
+        petIv.setImageDrawable(getResources().getDrawable(modelSprites.get(currentSprite)));
     }
 
     private void loadModelData(int pet){
@@ -168,16 +169,18 @@ public class CharacterEditorActivity extends AppCompatActivity {
         color4Iv.setColorFilter(Color.parseColor(modelColors.get(3)), PorterDuff.Mode.MULTIPLY);
     }
 
-    /*
-    private void savePet(){
-        //Pet pet = new Pet(app.getUser().getUsername(), modelSprites.get(currentSprite), modelColors.get(currentColor), null, null, null, namePetEt.getText().toString());
-        Pet pet = new Pet(app.getUser().getUsername(), Integer.toString(currentSprite), modelColors.get(currentColor), null, null, null, namePetEt.getText().toString());
-        app.setPet(pet);
-        DatabaseHandler.setPet(pet);
 
-        Intent intent = new Intent(CharacterEditorActivity.this, HomeActivity.class);
-        startActivity(intent);
-        finish();
+    private void savePet() throws ExecutionException, InterruptedException {
+        Pet pet = new Pet(app.getUser().getUsername(), modelSprites.get(currentSprite), modelColors.get(currentColor), null, null, namePetEt.getText().toString());
+        if(DatabaseHandler.createPet(pet)){
+            Utilities.ShowShortToast(getApplicationContext(), "Pet created successfully");
+            app.setPet(pet);
+
+            Intent intent = new Intent(CharacterEditorActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Utilities.ShowShortToast(getApplicationContext(), "Error creating pet");
+        }
     }
-     */
 }

@@ -108,10 +108,6 @@ public class HomeActivity extends AppCompatActivity {
 
         //pet_iv.setImageBitmap(app.getPet().getSprite());
 
-        if(app.getPet().getAccesory() != null){
-            //accessory_iv.setImageBitmap(app.getPet().getAccesory().getSprite());
-        }
-
         if(app.getPet().getHat() != null){
            // hat_iv.setImageBitmap(app.getPet().getHat().getSprite());
         }

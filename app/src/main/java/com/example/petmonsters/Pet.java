@@ -3,21 +3,19 @@ import android.graphics.Bitmap;
 
 public class Pet {
     private String owner;
-    private String sprite;
-    private int color; // color para el estudio de big data
+    private int sprite;
+    private String color; // color para el estudio de big data
     private String shoes;
     private String hat;
-    private String accesory;
     private String name;
 
 
-    Pet(String owner, String sprite, int color, String shoes, String hat, String accesory, String name){
+    Pet(String owner, int sprite, String color, String shoes, String hat, String name){
         this.owner = owner;
         this.sprite = sprite;
         this.color = color;
         this.shoes = shoes;
         this.hat = hat;
-        this.accesory = accesory;
         this.name = name;
     }
 
@@ -29,19 +27,19 @@ public class Pet {
         this.owner = owner;
     }
 
-    public String getSprite() {
+    public int getSprite() {
         return sprite;
     }
 
-    public void setSprite(String sprite) {
+    public void setSprite(int sprite) {
         this.sprite = sprite;
     }
 
-    public int getColor() {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(int color) {
+    public void setColor(String color) {
         this.color = color;
     }
 
@@ -51,14 +49,6 @@ public class Pet {
 
     public void setHat(String hat) {
         this.hat = hat;
-    }
-
-    public String getAccesory() {
-        return accesory;
-    }
-
-    public void setAccesory(String accesory) {
-        this.accesory = accesory;
     }
 
     public String getShoes() {

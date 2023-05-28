@@ -101,14 +101,13 @@ public class DatabaseHandler {
         JSONObject doc = jsonObject.getJSONObject("document");
 
         String owner = doc.getString("owner");
-        String sprite = doc.getString("sprite");
-        int color = doc.getInt("color");
+        int sprite = doc.getInt("sprite");
+        String color = doc.getString("color");
         String shoes = doc.getString("shoes");
         String hat = doc.getString("hat");
-        String accesory = doc.getString("accesory");
         String name = doc.getString("name");
 
-        Pet pet = new Pet(owner, sprite, color, shoes, hat, accesory, name);
+        Pet pet = new Pet(owner, sprite, color, shoes, hat, name);
 
         return pet;
     }
@@ -187,7 +186,19 @@ public class DatabaseHandler {
         return modelsArray;
     }
 
-    public static void setPet(Pet pet){
-        //Guardar pet en base de datos
+    public static Boolean createPet(Pet pet) throws ExecutionException, InterruptedException {
+        String userDocument = "\"owner\":\"" + pet.getOwner() + "\", \"sprite\":\"" + pet.getSprite() + "\", \"color\":\"" + pet.getColor() + "\", \"shoes\":\"" + pet.getShoes() + "\", \"hat\":\"" + pet.getHat() + "\", \"name\":\"" + pet.getName() + "\"";
+        String query = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + userDocument + "}}";
+        String queryAction = "insertOne";
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
+
+        try{
+            System.out.println(jsonData);
+            JSONObject jsonObject = new JSONObject(jsonData);
+            jsonObject.getString("insertedId");
+            return true;
+        } catch (JSONException e) {
+            return false;
+        }
     }
 }
