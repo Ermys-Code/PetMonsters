@@ -3,6 +3,7 @@ package com.example.petmonsters;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -12,7 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class SocialActivity extends AppCompatActivity {
 
@@ -68,8 +72,21 @@ public class SocialActivity extends AppCompatActivity {
         currentHouse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                app.setCurrentFriend(app.getUser().getFriends().get(index));
+                //TODO:reaload amigo en cuestión
 
+                try {
+                    updateFriendPetData(name);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
+                Intent intent = new Intent(SocialActivity.this, FriendActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -94,6 +111,11 @@ public class SocialActivity extends AppCompatActivity {
         currentHouse.addView(friendName);
         currentHouse.addView(image);
         currentBox.addView(currentHouse);
+    }
+
+    private void updateFriendPetData(String friendName) throws JSONException, ExecutionException, InterruptedException {
+        Pet pet = DatabaseHandler.readPet(friendName);
+        app.setCurrentFriendPet(pet);
     }
 
 }

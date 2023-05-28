@@ -20,6 +20,8 @@ public class PetMonstersApplication extends Application {
     private User user;
     private Pet pet;
     private Board board;
+    private User currentFriend;
+    private Pet currentFriendPet;
     private ArrayList<Item> store = new ArrayList<Item>();
 
     private static PetMonstersApplication instance;
@@ -53,5 +55,21 @@ public class PetMonstersApplication extends Application {
 
     public ArrayList<Item> getStore() {
         return store;
+    }
+
+    public User getCurrentFriend() {
+        return currentFriend;
+    }
+
+    public void setCurrentFriend(User currentFriend) {
+        this.currentFriend = currentFriend;
+    }
+
+    public Pet getCurrentFriendPet() {
+        return currentFriendPet;
+    }
+
+    public void setCurrentFriendPet(Pet currentFriendPet) {
+        this.currentFriendPet = currentFriendPet;
     }
 }
