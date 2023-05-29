@@ -115,38 +115,23 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean validateEmail(){
-        if(!emailEt.getText().toString().contains(Constants.at)){
-            return false;
-        }
-        return true;
+        return emailEt.getText().toString().contains(Constants.at);
     }
 
     private boolean validateAge(){
-        if(ageSli.getValue() < 1){
-            return false;
-        }
-        return true;
+        return ageSli.getValue() >= 1;
     }
 
     private boolean validateUsername(){
-        if(usernameEt.getText().toString().equals("")){
-            return false;
-        }
-        return true;
+        return !usernameEt.getText().toString().equals("");
     }
 
     private boolean validateName(){
-        if(nameEt.getText().toString().equals("")){
-            return false;
-        }
-        return true;
+        return !nameEt.getText().toString().equals("");
     }
 
     private boolean validateSurname(){
-        if(surnameEt.getText().toString().equals("")){
-            return false;
-        }
-        return true;
+        return !surnameEt.getText().toString().equals("");
     }
 
     private boolean usernameExists(){
@@ -158,14 +143,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean validatePassword(){
-        if(passwordEt.getText().toString().equals("")){
-            return false;
-        }
-        return true;
+        return !passwordEt.getText().toString().equals("");
     }
 
     private User createUser() throws Exception {
-
         String name = nameEt.getText().toString();
         String surname = surnameEt.getText().toString();
         int age = (int)ageSli.getValue();

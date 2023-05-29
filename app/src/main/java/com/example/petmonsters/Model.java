@@ -9,8 +9,8 @@ import java.util.List;
 public class Model {
     private String name;
     private ArrayList<String> sprites = new ArrayList<>();
-    private ArrayList<String> colors = new ArrayList<>();
-    private ArrayList<String> tags = new ArrayList<>();
+    private ArrayList<String> colors;
+    private ArrayList<String> tags;
 
     Model(String name, ArrayList<String> colors, ArrayList<String> tags){
         this.name = name;

@@ -113,16 +113,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean validatePassword(){
-        if(passwordEt.getText().toString().equals("")){
-            return false;
-        }
-        return true;
+        return !passwordEt.getText().toString().equals("");
     }
 
     private boolean validateUsername(){
-        if(usernameEt.getText().toString().equals("")){
-            return false;
-        }
-        return true;
+        return !usernameEt.getText().toString().equals("");
     }
 }
