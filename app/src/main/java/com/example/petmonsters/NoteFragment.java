@@ -102,9 +102,11 @@ public class NoteFragment extends Fragment {
 
     private void PostNote() throws ExecutionException, InterruptedException {
         if (titleEt.getText().toString().equals("")){
+            Utilities.ShowShortToast(app.getContext(), Constants.title_not_valid);
             return;
         }
         if (messageEt.getText().toString().equals("")){
+            Utilities.ShowShortToast(app.getContext(), Constants.message_not_valid);
             return;
         }
 
