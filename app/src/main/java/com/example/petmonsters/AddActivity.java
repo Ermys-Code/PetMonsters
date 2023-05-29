@@ -67,13 +67,8 @@ public class AddActivity extends AppCompatActivity {
     }
 
     private void setOnClickListeners(){
-        closeIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddActivity.this, nextClass);
-                startActivity(intent);
-                finish();
-            }
+        closeIv.setOnClickListener(v -> {
+            Utilities.changeActivityAndFinish(AddActivity.this, nextClass, this);
         });
     }
 

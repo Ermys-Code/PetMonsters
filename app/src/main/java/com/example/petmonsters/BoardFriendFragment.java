@@ -63,15 +63,9 @@ public class BoardFriendFragment extends Fragment {
 
         getAppContext();
 
-        mainLayout = view.findViewById(R.id.board_main_layout);
-        newMessageBtn = view.findViewById(R.id.new_message_btn);
+        getScreenElements(view);
 
-        newMessageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((FriendActivity)getActivity()).addNote();
-            }
-        });
+        setOnClickListeners();
 
         try {
             getMessages();
@@ -85,6 +79,15 @@ public class BoardFriendFragment extends Fragment {
 
     private void getAppContext(){
         app = (PetMonstersApplication) getActivity().getApplicationContext();
+    }
+
+    private void getScreenElements(View view){
+        mainLayout = view.findViewById(R.id.board_main_layout);
+        newMessageBtn = view.findViewById(R.id.new_message_btn);
+    }
+
+    private void setOnClickListeners(){
+        newMessageBtn.setOnClickListener(v -> ((FriendActivity)getActivity()).addNote());
     }
 
     private void getMessages() throws Exception {

@@ -7,11 +7,13 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -56,11 +58,15 @@ public class StoreFragment extends Fragment {
 
         getAppContext();
 
-        layout = view.findViewById(R.id.store_main_layout);
+        getScreenElements(view);
 
         generateItems();
 
         return view;
+    }
+
+    private void getScreenElements(View view){
+        layout = view.findViewById(R.id.store_main_layout);
     }
 
     private void generateItems(){
@@ -91,58 +97,71 @@ public class StoreFragment extends Fragment {
 
         }
 
+        LinearLayout layout = new LinearLayout(context);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(500, 500, 1.0f);
+        params.bottomMargin = 50;
+        layout.setLayoutParams(params);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.isClickable();
+        layout.setOnClickListener(view -> {
+
+            if(!app.getUser().getItems().contains(sprite)){
+                if(app.getUser().getMoney() > value) {
+
+                    try {
+                        app.getUser().setMoney(app.getUser().getMoney() - value);
+                        app.getUser().getItems().add(sprite);
+                        UpdateUser(app.getUser().getUsername(), app.getUser().getItems(), app.getUser().getMoney());
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+                else{
+                    Utilities.ShowShortToast(getContext().getApplicationContext(), Constants.not_enough_currency);
+                }
+            }
+
+            if(app.getUser().getItems().contains(sprite)){
+                try {
+                    UpdatePet(app.getPet().getOwner(), type, sprite);
+                    switch (type){
+                        case 0:
+                            app.getPet().setHat(sprite);
+                            break;
+                        case 1:
+                            app.getPet().setShoes(sprite);
+                            break;
+                    }
+                }
+                catch (Exception e) { System.out.println(e.getMessage()); }
+            }
+
+            ((HomeActivity) getActivity()).showPet();
+
+        });
+
         Resources res = app.getResources();
         int drawableId = res.getIdentifier(sprite, Constants.identifier_type_drawable, getContext().getApplicationContext().getPackageName());
         Drawable img = app.getContext().getResources().getDrawable(drawableId);
         ImageView image = new ImageView(context);
-        LinearLayout.LayoutParams contentParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
+        LinearLayout.LayoutParams contentParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
         image.setLayoutParams(contentParameters);
         image.setImageDrawable(img);
-        image.isClickable();
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                if(!app.getUser().getItems().contains(sprite)){
-                    if(app.getUser().getMoney() > value) {
+        layout.addView(image);
 
-                        try {
-                            UpdateUser(app.getUser().getUsername(), app.getUser().getItems());
-                            app.getUser().setMoney(app.getUser().getMoney() - value);
-                            app.getUser().getItems().add(sprite);
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-                    }
-                    else{
-                        Utilities.ShowShortToast(getContext().getApplicationContext(), Constants.not_enough_currency);
-                    }
-                }
+        TextView valueText = new TextView(context);
+        LinearLayout.LayoutParams valueParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        valueParams.gravity = Gravity.CENTER;
+        valueText.setLayoutParams(valueParams);
+        valueText.setText(Integer.toString(value));
+        valueText.setTextColor(context.getColor(R.color.black));
+        valueText.setTypeface(getResources().getFont(R.font.grobold));
+        valueText.setTextSize(30);
 
-                if(app.getUser().getItems().contains(sprite)){
-                    try {
-                        UpdatePet(app.getPet().getOwner(), type, sprite);
-                        switch (type){
-                            case 0:
-                                app.getPet().setHat(sprite);
-                                break;
-                            case 1:
-                                app.getPet().setShoes(sprite);
-                                break;
-                        }
-                    }
-                    catch (Exception e) { System.out.println(e.getMessage()); }
-                }
+        layout.addView(valueText);
 
-                ((HomeActivity) getActivity()).showPet();
-
-            }
-        });
-
-        contentParameters.width = 500;
-        contentParameters.height = 500;
-
-        currentBox.addView(image);
+        currentBox.addView(layout);
     }
 
     private void UpdatePet(String owner, int type, String sprite) throws Exception {
@@ -150,7 +169,8 @@ public class StoreFragment extends Fragment {
         else Utilities.ShowShortToast(getContext().getApplicationContext(), Constants.item_not_saved);
     }
 
-    private void UpdateUser(String username, ArrayList<String> items) throws Exception {
+    private void UpdateUser(String username, ArrayList<String> items, int money) throws Exception {
+        if(DatabaseHandler.updateUserMoney(username, money)) Utilities.ShowShortToast(getContext().getApplicationContext(), "Money updated");
         if(DatabaseHandler.updateUser(username, items)) Utilities.ShowShortToast(getContext().getApplicationContext(), Constants.item_purchased);
         else Utilities.ShowShortToast(getContext().getApplicationContext(), Constants.item_not_purchased);
     }

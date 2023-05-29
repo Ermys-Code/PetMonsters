@@ -16,6 +16,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.gridfs.GridFSBucket;
 import com.mongodb.client.gridfs.GridFSBuckets;
+import com.mongodb.util.JSON;
 
 import org.bson.Document;
 import org.bson.types.Binary;
@@ -102,8 +103,20 @@ public class DatabaseHandler {
         try{
             JSONObject jsonObject = new JSONObject(jsonData);
             int count = jsonObject.getInt(Constants.json_key_modified_count);
-            if (count <= 0) return false;
-            return true;
+            return count > 0;
+        }
+        catch (Exception e) { return false; }
+    }
+
+    public static Boolean updateUserMoney(String _username, int money) throws Exception {
+        String query = Constants.query_update_user + _username + "\"}, \"update\":{\"$set\":{\"money\":" + money + "}}}";
+        String queryAction = Constants.query_action_update_one;
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonData);
+            int count = jsonObject.getInt(Constants.json_key_modified_count);
+            return count > 0;
         }
         catch (Exception e) { return false; }
     }
@@ -122,8 +135,7 @@ public class DatabaseHandler {
         try{
             JSONObject jsonObject = new JSONObject(jsonData);
             int count = jsonObject.getInt(Constants.json_key_modified_count);
-            if (count <= 0) return false;
-            return true;
+            return count > 0;
         }
         catch (Exception e) { return false; }
     }
@@ -223,8 +235,7 @@ public class DatabaseHandler {
         try{
             JSONObject jsonObject = new JSONObject(jsonData);
             int count = jsonObject.getInt(Constants.json_key_modified_count);
-            if (count <= 0) return false;
-            return true;
+            return count > 0;
         }
         catch (Exception e) { return false; }
     }
@@ -293,7 +304,7 @@ public class DatabaseHandler {
 
     public static Boolean checkPet(String username){
         try{
-            Pet pet = readPet(username);
+            readPet(username);
             return true;
         }
         catch (Exception e) { return false; }
@@ -378,8 +389,7 @@ public class DatabaseHandler {
         try{
             JSONObject jsonObject = new JSONObject(jsonData);
             int count = jsonObject.getInt(Constants.json_key_deleted_count);
-            if (count <= 0) return false;
-            return true;
+            return count > 0;
         }
         catch (Exception e) { return false; }
     }
@@ -394,8 +404,7 @@ public class DatabaseHandler {
         try{
             JSONObject jsonObject = new JSONObject(jsonData);
             int count = jsonObject.getInt(Constants.json_key_deleted_count);
-            if (count <= 0) return false;
-            return true;
+            return count > 0;
         }
         catch (Exception e) { return false; }
     }

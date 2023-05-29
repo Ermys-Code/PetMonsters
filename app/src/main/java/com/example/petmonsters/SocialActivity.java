@@ -58,23 +58,19 @@ public class SocialActivity extends AppCompatActivity {
     }
 
     private void createListeners() {
-        requestListener = new View.OnClickListener() {
-            public void onClick(View view) {
-                try {
-                    openRequests();
-                } catch (Exception e) { System.out.println(); }
-            }
+        requestListener = view -> {
+            try {
+                openRequests();
+            } catch (Exception e) { System.out.println(); }
         };
 
-        addFriendListener = new View.OnClickListener() {
-            public void onClick(View view) {
-                try {
-                    addFriend();
-                }
-                catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    Utilities.ShowShortToast(getApplicationContext(), Constants.unable_to_send_request);
-                }
+        addFriendListener = view -> {
+            try {
+                addFriend();
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+                Utilities.ShowShortToast(getApplicationContext(), Constants.unable_to_send_request);
             }
         };
 
@@ -145,26 +141,16 @@ public class SocialActivity extends AppCompatActivity {
         currentContainer.setGravity(Gravity.CENTER);
 
         currentHouse.isClickable();
-        currentHouse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        currentHouse.setOnClickListener(view -> {
 
-                app.setCurrentFriend(app.getUser().getFriends().get(index));
+            app.setCurrentFriend(app.getUser().getFriends().get(index));
 
-                try {
-                    updateFriendPetData(name);
-                }
-                catch (Exception e) { System.out.println(e.getMessage()); }
-
-                if (Utilities.showAdd()){
-                    Intent a = new Intent(SocialActivity.this, AddActivity.class);
-                    a.putExtra(Constants.next_activity_key, FriendActivity.class);
-                    startActivity(a);
-                } else {
-                    Intent intent = new Intent(SocialActivity.this, FriendActivity.class);
-                    startActivity(intent);
-                }
+            try {
+                updateFriendPetData(name);
             }
+            catch (Exception e) { System.out.println(e.getMessage()); }
+
+            Utilities.changeActivityWithAdd(SocialActivity.this, FriendActivity.class);
         });
 
 

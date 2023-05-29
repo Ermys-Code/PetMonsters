@@ -77,14 +77,11 @@ public class NoteFragment extends Fragment {
     }
 
     private void setOnClickListeners() throws Exception {
-        sendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    PostNote();
-                }
-                catch (Exception e) { System.out.println(e.getMessage()); }
+        sendBtn.setOnClickListener(v -> {
+            try {
+                PostNote();
             }
+            catch (Exception e) { System.out.println(e.getMessage()); }
         });
     }
 

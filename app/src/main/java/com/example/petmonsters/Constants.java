@@ -109,8 +109,8 @@ public class Constants {
     public static final String user_document_email_field = "\", \"email\":\"";
     public static final String user_document_username_field = "\", \"username\":\"";
     public static final String user_document_password_field = "\", \"password\":\"";
-    public static final String user_document_money_field = "\", \"money\":\"";
-    public static final String user_document_items_age_field = "\", \"items\":[], \"age\":\"";
+    public static final String user_document_money_field = "\", \"money\":";
+    public static final String user_document_items_age_field = ", \"items\":[], \"age\":\"";
     public static final String user_document_friends_field = "\", \"friends\":[]";
     public static final String pet_document_owner_field = "\"owner\":\"";
     public static final String pet_document_sprite_field = "\", \"sprite\":\"";
