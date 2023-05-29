@@ -46,16 +46,9 @@ public class AddActivity extends AppCompatActivity {
             getUserTags();
             getFriendsTags();
             map(tagsArray);
+            getAdd(max);
         }
         catch (JSONException | ExecutionException | InterruptedException e) { e.printStackTrace(); }
-
-        input();
-
-        shuffle();
-
-        reduce();
-
-        getAdd(max);
 
         loadAdd(add);
     }
