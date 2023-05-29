@@ -83,54 +83,21 @@ public class CharacterEditorActivity extends AppCompatActivity {
     }
 
     private void setOnClickListeners(){
-        formerPetIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changePet(-1);
-            }
-        });
+        formerPetIv.setOnClickListener(v -> changePet(-1));
 
-        nextPetIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changePet(1);
-            }
-        });
+        nextPetIv.setOnClickListener(v -> changePet(1));
 
-        color1Iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeColor(0);
-            }
-        });
+        color1Iv.setOnClickListener(v -> changeColor(0));
 
-        color2Iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeColor(1);
-            }
-        });
+        color2Iv.setOnClickListener(v -> changeColor(1));
 
-        color3Iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeColor(2);
-            }
-        });
+        color3Iv.setOnClickListener(v -> changeColor(2));
 
-        color4Iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeColor(3);
-            }
-        });
+        color4Iv.setOnClickListener(v -> changeColor(3));
 
-        savePetIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try { savePet(); }
-                catch (Exception e) { System.out.println(e.getMessage()); }
-            }
+        savePetIv.setOnClickListener(v -> {
+            try { savePet(); }
+            catch (Exception e) { System.out.println(e.getMessage()); }
         });
     }
 
@@ -185,9 +152,7 @@ public class CharacterEditorActivity extends AppCompatActivity {
             Utilities.ShowShortToast(getApplicationContext(), Constants.pet_created_succesfully);
             app.setPet(pet);
 
-            Intent intent = new Intent(CharacterEditorActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
+            Utilities.changeActivityAndFinish(CharacterEditorActivity.this, HomeActivity.class, this);
         } else {
             Utilities.ShowShortToast(getApplicationContext(), Constants.error_creating_pet);
         }

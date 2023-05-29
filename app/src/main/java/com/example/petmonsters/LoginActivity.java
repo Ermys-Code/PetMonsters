@@ -4,18 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import org.json.JSONException;
-
-import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -50,14 +43,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setOnClickListeners(){
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    login();
-                }
-                catch (Exception e) { System.out.println(e.getMessage()); }
+        loginBtn.setOnClickListener(v -> {
+            try {
+                login();
             }
+            catch (Exception e) { System.out.println(e.getMessage()); }
         });
     }
 
@@ -81,13 +71,9 @@ public class LoginActivity extends AppCompatActivity {
 
         if (searchPet(app.getUser().getUsername())){
             updatePetData();
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
+            Utilities.changeActivityAndFinish(LoginActivity.this, HomeActivity.class, this);
         } else {
-            Intent intent = new Intent(LoginActivity.this, CharacterEditorActivity.class);
-            startActivity(intent);
-            finish();
+            Utilities.changeActivityAndFinish(LoginActivity.this, CharacterEditorActivity.class, this);
         }
 
     }

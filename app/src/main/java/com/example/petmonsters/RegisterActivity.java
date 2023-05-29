@@ -104,9 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
             ArrayList<Item> store = DatabaseHandler.readItems();
             app.setStore(store);
 
-            Intent intent = new Intent(RegisterActivity.this, CharacterEditorActivity.class);
-            startActivity(intent);
-            finish();
+            Utilities.changeActivityAndFinish(RegisterActivity.this, CharacterEditorActivity.class, this);
         }
 
     }

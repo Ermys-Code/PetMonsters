@@ -54,17 +54,9 @@ public class FriendActivity extends AppCompatActivity {
 
     private void createListeners() {
 
-        friendsListener = new View.OnClickListener() {
-            public void onClick(View view) {
-                visitFriends();
-            }
-        };
+        friendsListener = view -> visitFriends();
 
-        boardListener = new View.OnClickListener() {
-            public void onClick(View view) {
-                useBoard();
-            }
-        };
+        boardListener = view -> useBoard();
     }
 
     private void assignListeners(){

@@ -61,29 +61,13 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void createListeners() {
-        playListener = new View.OnClickListener() {
-            public void onClick(View view) {
-                playGame();
-            }
-        };
+        playListener = view -> playGame();
 
-        storeListener = new View.OnClickListener() {
-            public void onClick(View view) {
-                checkStore();
-            }
-        };
+        storeListener = view -> checkStore();
 
-        friendsListener = new View.OnClickListener() {
-            public void onClick(View view) {
-                visitFriends();
-            }
-        };
+        friendsListener = view -> visitFriends();
 
-        boardListener = new View.OnClickListener() {
-            public void onClick(View view) {
-                useBoard();
-            }
-        };
+        boardListener = view -> useBoard();
     }
 
     private void assignListeners(){
@@ -142,15 +126,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void visitFriends(){
-        if (Utilities.showAdd()){
-            Intent a = new Intent(HomeActivity.this, AddActivity.class);
-            a.putExtra(Constants.next_activity_key, SocialActivity.class);
-            startActivity(a);
-        } else {
-            Intent intent = new Intent(HomeActivity.this, SocialActivity.class);
-            startActivity(intent);
-        }
-
+        Utilities.changeActivityWithAdd(HomeActivity.this, SocialActivity.class);
     }
 
     private void useBoard(){

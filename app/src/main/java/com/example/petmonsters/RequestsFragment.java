@@ -64,7 +64,7 @@ public class RequestsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_requests, container, false);
         getAppContext();
 
-        layout = view.findViewById(R.id.requests_main_layout);
+        getScreenElements(view);
 
         try {
             getRequests();
@@ -76,6 +76,11 @@ public class RequestsFragment extends Fragment {
 
     private void getAppContext(){
         app = (PetMonstersApplication) getActivity().getApplicationContext();
+    }
+
+    private void getScreenElements(View view){
+        layout = view.findViewById(R.id.requests_main_layout);
+
     }
 
     private void getRequests() throws Exception {
@@ -107,18 +112,15 @@ public class RequestsFragment extends Fragment {
         LinearLayout.LayoutParams contentParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         accept.setLayoutParams(contentParameters);
         accept.isClickable();
-        accept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    addFriend(from);
-                }
-                catch (Exception e) { System.out.println(e.getMessage()); }
-
-
-                deleteRequest(from);
-
+        accept.setOnClickListener(view -> {
+            try {
+                addFriend(from);
             }
+            catch (Exception e) { System.out.println(e.getMessage()); }
+
+
+            deleteRequest(from);
+
         });
 
 
@@ -127,12 +129,7 @@ public class RequestsFragment extends Fragment {
         deny.setImageDrawable(b);
         deny.setLayoutParams(contentParameters);
         deny.isClickable();
-        deny.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deleteRequest(from);
-            }
-        });
+        deny.setOnClickListener(view -> deleteRequest(from));
         contentParameters.width = 120;
         contentParameters.height = 120;
         contentParameters.setMargins(10,10,0,0);

@@ -64,7 +64,7 @@ public class BoardFragment extends Fragment {
 
         getAppContext();
 
-        mainLayout = view.findViewById(R.id.board_main_layout);
+        getScreenElements(view);
 
         try {
             getMessages();
@@ -78,6 +78,10 @@ public class BoardFragment extends Fragment {
 
     private void getAppContext(){
         app = (PetMonstersApplication) getActivity().getApplicationContext();
+    }
+
+    private void getScreenElements(View view){
+        mainLayout = view.findViewById(R.id.board_main_layout);
     }
 
     private void getMessages() throws Exception {
@@ -140,19 +144,16 @@ public class BoardFragment extends Fragment {
         deleteIvParams.gravity = Gravity.CENTER;
         deleteIv.setLayoutParams(deleteIvParams);
 
-        deleteIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    DatabaseHandler.deleteMessage(_name, _to, _title, _message);
-                    Utilities.ShowShortToast(app.getContext(), Constants.note_deleted_succesfully);
-                    horizontalLayout.removeView(verticalLayout);
-                    reload();
-                }
-                catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    Utilities.ShowShortToast(app.getContext(), Constants.error_deleting_note);
-                }
+        deleteIv.setOnClickListener(v -> {
+            try {
+                DatabaseHandler.deleteMessage(_name, _to, _title, _message);
+                Utilities.ShowShortToast(app.getContext(), Constants.note_deleted_succesfully);
+                horizontalLayout.removeView(verticalLayout);
+                reload();
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+                Utilities.ShowShortToast(app.getContext(), Constants.error_deleting_note);
             }
         });
 
