@@ -60,6 +60,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login() throws NoSuchAlgorithmException, ExecutionException, InterruptedException, JSONException, SQLException {
+        if (!validateUsername()){
+            Utilities.ShowShortToast(getApplicationContext(),Constants.username_not_valid);
+            return;
+        }
+
+        if (!validatePassword()){
+            Utilities.ShowShortToast(getApplicationContext(),Constants.password_not_valid);
+            return;
+        }
+
         if (!validateCredentials()) {
             Utilities.ShowShortToast(getApplicationContext(), Constants.bad_user_password);
             return;
@@ -98,5 +108,19 @@ public class LoginActivity extends AppCompatActivity {
     private void updatePetData() throws JSONException, ExecutionException, InterruptedException {
         Pet pet = DatabaseHandler.readPet(usernameEt.getText().toString());
         app.setPet(pet);
+    }
+
+    private boolean validatePassword(){
+        if(passwordEt.getText().toString().equals("")){
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateUsername(){
+        if(usernameEt.getText().toString().equals("")){
+            return false;
+        }
+        return true;
     }
 }

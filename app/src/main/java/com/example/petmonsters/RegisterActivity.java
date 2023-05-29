@@ -67,12 +67,20 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (!validateAge()){
-            Utilities.ShowShortToast(getApplicationContext(), Constants.birthadte_not_valid);
+            Utilities.ShowShortToast(getApplicationContext(), Constants.age_not_valid);
             return;
         }
 
         if (!validateUsername()){
             Utilities.ShowShortToast(getApplicationContext(),Constants.username_not_valid);
+            return;
+        }
+        if (!validateName()){
+            Utilities.ShowShortToast(getApplicationContext(),Constants.name_not_valid);
+            return;
+        }
+        if (!validateSurname()){
+            Utilities.ShowShortToast(getApplicationContext(),Constants.surname_not_valid);
             return;
         }
         if (!usernameExists()){
@@ -105,17 +113,37 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean validateEmail(){
-        //if
+        if(!emailEt.getText().toString().contains("@")){
+            return false;
+        }
         return true;
     }
 
     private boolean validateAge(){
-        //if
+        if(ageSli.getValue() < 1){
+            return false;
+        }
         return true;
     }
 
     private boolean validateUsername(){
-        //if
+        if(usernameEt.getText().toString().equals("")){
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateName(){
+        if(nameEt.getText().toString().equals("")){
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateSurname(){
+        if(surnameEt.getText().toString().equals("")){
+            return false;
+        }
         return true;
     }
 
@@ -129,7 +157,9 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean validatePassword(){
-        //if
+        if(passwordEt.getText().toString().equals("")){
+            return false;
+        }
         return true;
     }
 
