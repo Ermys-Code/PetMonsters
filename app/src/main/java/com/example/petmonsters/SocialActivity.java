@@ -3,17 +3,14 @@ package com.example.petmonsters;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.location.GnssAntennaInfo;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -21,7 +18,6 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 
-import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class SocialActivity extends AppCompatActivity {
@@ -112,6 +108,14 @@ public class SocialActivity extends AppCompatActivity {
 
     private void addFriend() throws JSONException, ExecutionException, InterruptedException {
         User tempUser = DatabaseHandler.readUser(addFriend_et.getText().toString(), false);
+
+        for(int i=0; i < app.getUser().getFriends().size(); i++){
+            if(tempUser.getUsername().equals(app.getUser().getFriends().get(i).getUsername())){
+                Utilities.ShowShortToast(this, Constants.already_in_friends);
+                return;
+            }
+        }
+
         DatabaseHandler.CreateRequest(new Request(app.getUser().getUsername(), tempUser.getUsername()));
         Utilities.ShowShortToast(this, Constants.friend_request_sent);
     }
