@@ -3,6 +3,7 @@ package com.example.petmonsters;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
 import android.provider.ContactsContract;
@@ -12,6 +13,9 @@ import android.widget.ImageView;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class AddActivity extends AppCompatActivity {
@@ -20,6 +24,7 @@ public class AddActivity extends AppCompatActivity {
     private ImageView backgroundIv, closeIv;
     private Class<?> nextClass;
     private ArrayList<String> tagsArray = new ArrayList<>();
+    private String max;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +48,9 @@ public class AddActivity extends AppCompatActivity {
 
         input();
 
-        shuffle();
 
-        reduce();
 
-        getAdd();
+        getAdd(max);
 
         loadAdd();
     }
@@ -129,18 +132,36 @@ public class AddActivity extends AppCompatActivity {
 
         ArrayList<String> newTagsList = new ArrayList<>();
         for(int i=0; i < tags.size(); i++){
-            newTagsList.add(new AsyncMap().execute(tags.get(i)).get());
+            String mapped = new AsyncMap().execute(tags.get(i)).get();
+            String somehowShuffled = new AsyncShuffle().execute(mapped).get();
+
+            newTagsList.add(somehowShuffled);
         }
 
-        System.out.println(newTagsList);
-        System.out.println(newTagsList);
+        reduce(newTagsList);
     }
 
-    private void shuffle(){
+    private void reduce(ArrayList<String> tags){
+        String somehowShuffled = String.join("/", tags);
 
-    }
+        HashMap<String,Integer> somehowReduced = new HashMap<String,Integer>();
 
-    private void reduce(){
+        String[] words = somehowShuffled.split("/");
+        for (String w: words){
+            String[] keyValue = w.split(",");
+            if(somehowReduced.containsKey(keyValue[0])){
+                somehowReduced.put(keyValue[0], somehowReduced.get(keyValue[0]) + Integer.parseInt(keyValue[1]));
+            }
+            else{
+                somehowReduced.put(keyValue[0],Integer.parseInt(keyValue[1]));
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            max = Collections.max(somehowReduced.entrySet(), Map.Entry.comparingByValue()).getKey();
+            System.out.println(max);
+        }
+
 
     }
 
