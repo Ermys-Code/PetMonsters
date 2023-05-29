@@ -13,7 +13,7 @@ public class AsyncShuffle extends AsyncTask<String, String, String> {
             for (String w: words){
                 count += 1;
             }
-            wordCount += Constants.coma + Integer.toString(count);
+            wordCount += Constants.coma + count;
             output += wordCount + Constants.slash;
         }
 

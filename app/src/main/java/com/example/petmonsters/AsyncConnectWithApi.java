@@ -33,15 +33,11 @@ public class AsyncConnectWithApi  extends AsyncTask<String, String, String> {
                     .build();
             Response response;
 
-            try {
-                response = client.newCall(request).execute();
-            } catch (IOException e) {
-                return e.getMessage();
-            }
+            response = client.newCall(request).execute();
 
             return response.body().string();
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             return e.getMessage();
         }
     }

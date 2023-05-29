@@ -104,22 +104,24 @@ public class StoreFragment extends Fragment {
                 switch (type){
                     case 0:
                         app.getPet().setHat(sprite);
-
-
                         break;
                     case 1:
                         app.getPet().setShoes(sprite);
                         break;
                 }
 
-                try { UpdatePet(app.getPet().getOwner(), type, sprite); }
-                catch (ExecutionException |InterruptedException e) { e.printStackTrace(); }
+                try {
+                    UpdatePet(app.getPet().getOwner(), type, sprite);
+                }
+                catch (Exception e) { System.out.println(e.getMessage()); }
 
                 if(!app.getUser().getItems().contains(sprite)){
                     app.getUser().getItems().add(sprite);
 
-                    try { UpdateUser(app.getUser().getUsername(), app.getUser().getItems()); }
-                    catch (ExecutionException | InterruptedException e) { e.printStackTrace(); }
+                    try {
+                        UpdateUser(app.getUser().getUsername(), app.getUser().getItems());
+                    }
+                    catch (Exception e) { System.out.println(e.getMessage()); }
                 }
 
                 ((HomeActivity) getActivity()).showPet();
@@ -133,12 +135,12 @@ public class StoreFragment extends Fragment {
         currentBox.addView(image);
     }
 
-    private void UpdatePet(String owner, int type, String sprite) throws ExecutionException, InterruptedException {
+    private void UpdatePet(String owner, int type, String sprite) throws Exception {
         if(DatabaseHandler.updatePet(owner, type, sprite)) Utilities.ShowShortToast(getContext().getApplicationContext(), Constants.item_saved);
         else Utilities.ShowShortToast(getContext().getApplicationContext(), Constants.item_not_saved);
     }
 
-    private void UpdateUser(String username, ArrayList<String> items) throws ExecutionException, InterruptedException {
+    private void UpdateUser(String username, ArrayList<String> items) throws Exception {
         if(DatabaseHandler.updateUser(username, items)) Utilities.ShowShortToast(getContext().getApplicationContext(), Constants.item_purchased);
         else Utilities.ShowShortToast(getContext().getApplicationContext(), Constants.item_not_purchased);
     }

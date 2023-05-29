@@ -48,7 +48,7 @@ public class AddActivity extends AppCompatActivity {
             map(tagsArray);
             getAdd(max);
         }
-        catch (JSONException | ExecutionException | InterruptedException e) { e.printStackTrace(); }
+        catch (Exception e) { System.out.println(e.getMessage()); }
 
         loadAdd(add);
     }
@@ -77,7 +77,7 @@ public class AddActivity extends AppCompatActivity {
         });
     }
 
-    private void getUserTags() throws JSONException, ExecutionException, InterruptedException {
+    private void getUserTags() throws Exception {
         ArrayList<String> itemTags = new ArrayList<>();
         ArrayList<String> petTags = new ArrayList<>();
 
@@ -100,7 +100,7 @@ public class AddActivity extends AppCompatActivity {
 
     }
 
-    private void getFriendsTags() throws JSONException, ExecutionException, InterruptedException {
+    private void getFriendsTags() throws Exception {
         for (User friend : app.getUser().getFriends()){
             Pet pet = DatabaseHandler.readPet(friend.getUsername());
 
@@ -123,7 +123,7 @@ public class AddActivity extends AppCompatActivity {
 
     }
 
-    private void map(ArrayList<String> tags) throws ExecutionException, InterruptedException {
+    private void map(ArrayList<String> tags) throws Exception {
 
         ArrayList<String> newTagsList = new ArrayList<>();
         for(int i=0; i < tags.size(); i++){
@@ -139,7 +139,7 @@ public class AddActivity extends AppCompatActivity {
     private void reduce(ArrayList<String> tags){
         String somehowShuffled = String.join(Constants.slash, tags);
 
-        HashMap<String,Integer> somehowReduced = new HashMap<String,Integer>();
+        HashMap<String,Integer> somehowReduced = new HashMap<>();
 
         String[] words = somehowShuffled.split(Constants.slash);
         for (String w: words){
@@ -152,15 +152,11 @@ public class AddActivity extends AppCompatActivity {
             }
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            max = Collections.max(somehowReduced.entrySet(), Map.Entry.comparingByValue()).getKey();
-            System.out.println(max);
-        }
-
-
+        max = Collections.max(somehowReduced.entrySet(), Map.Entry.comparingByValue()).getKey();
+        System.out.println(max);
     }
 
-    private void getAdd(String theme) throws JSONException, ExecutionException, InterruptedException {
+    private void getAdd(String theme) throws Exception {
         String addString = DatabaseHandler.getAdd(theme);
 
         Resources res = app.getResources();

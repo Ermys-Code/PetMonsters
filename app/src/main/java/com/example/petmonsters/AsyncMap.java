@@ -22,7 +22,7 @@ public class AsyncMap extends AsyncTask<String, String, String> {
             }
 
             if(flag == 0){
-                ArrayList<String> tempString = new ArrayList<String>();
+                ArrayList<String> tempString = new ArrayList<>();
                 tempString.add(s);
                 strings.add(tempString);
             }

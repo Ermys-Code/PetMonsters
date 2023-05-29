@@ -58,8 +58,10 @@ public class NoteFragment extends Fragment {
 
         getScreenElements(view);
 
-        try { setOnClickListeners(); }
-        catch (ExecutionException | InterruptedException e) { e.printStackTrace(); }
+        try {
+            setOnClickListeners();
+        }
+        catch (Exception e) { System.out.println(e.getMessage()); }
 
         return view;
     }
@@ -74,17 +76,19 @@ public class NoteFragment extends Fragment {
         messageEt = view.findViewById(R.id.message_et);
     }
 
-    private void setOnClickListeners() throws ExecutionException, InterruptedException {
+    private void setOnClickListeners() throws Exception {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try { PostNote(); }
-                catch (ExecutionException | InterruptedException e) { e.printStackTrace(); }
+                try {
+                    PostNote();
+                }
+                catch (Exception e) { System.out.println(e.getMessage()); }
             }
         });
     }
 
-    private void PostNote() throws ExecutionException, InterruptedException {
+    private void PostNote() throws Exception {
         if (titleEt.getText().toString().equals("")){
             Utilities.ShowShortToast(app.getContext(), Constants.title_not_valid);
             return;

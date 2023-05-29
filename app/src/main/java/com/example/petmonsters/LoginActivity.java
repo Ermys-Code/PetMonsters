@@ -53,13 +53,15 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {login();}
-                catch (NoSuchAlgorithmException | ExecutionException | InterruptedException | JSONException | SQLException e) { e.printStackTrace(); }
+                try {
+                    login();
+                }
+                catch (Exception e) { System.out.println(e.getMessage()); }
             }
         });
     }
 
-    private void login() throws NoSuchAlgorithmException, ExecutionException, InterruptedException, JSONException, SQLException {
+    private void login() throws Exception {
         if (!validateUsername()){
             Utilities.ShowShortToast(getApplicationContext(),Constants.username_not_valid);
             return;
@@ -90,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private boolean validateCredentials() throws NoSuchAlgorithmException, JSONException, ExecutionException, InterruptedException {
+    private boolean validateCredentials() throws Exception {
         return DatabaseHandler.checkLogin(usernameEt.getText().toString(), Utilities.md5(passwordEt.getText().toString()));
     }
 
@@ -98,14 +100,14 @@ public class LoginActivity extends AppCompatActivity {
         return DatabaseHandler.checkPet(username);
     }
 
-    private void updateUserData() throws ExecutionException, InterruptedException, JSONException, SQLException {
+    private void updateUserData() throws Exception {
         User user = DatabaseHandler.readUser(usernameEt.getText().toString(), true);
         ArrayList<Item> store = DatabaseHandler.readItems();
         app.setUser(user);
         app.setStore(store);
     }
 
-    private void updatePetData() throws JSONException, ExecutionException, InterruptedException {
+    private void updatePetData() throws Exception {
         Pet pet = DatabaseHandler.readPet(usernameEt.getText().toString());
         app.setPet(pet);
     }

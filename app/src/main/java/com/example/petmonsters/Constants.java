@@ -119,10 +119,10 @@ public class Constants {
     public static final String pet_name_carlos = "carlos";
 
     //-- Pet sprites --//
-    public static final String pet_sprite_e_0 = "e-0";
-    public static final String pet_sprite_e_1 = "e-1";
-    public static final String pet_sprite_e_2 = "e-2";
-    public static final String pet_sprite_e_3 = "e-3";
+    public static final String pet_sprite_e_0 = "e_0";
+    public static final String pet_sprite_e_1 = "e_1";
+    public static final String pet_sprite_e_2 = "e_2";
+    public static final String pet_sprite_e_3 = "e_3";
     public static final String pet_sprite_bea_0 = "bea_0";
     public static final String pet_sprite_bea_1 = "bea_1";
     public static final String pet_sprite_bea_2 = "bea_2";

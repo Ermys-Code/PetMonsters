@@ -53,13 +53,8 @@ public class SocialActivity extends AppCompatActivity {
 
         try {
             generateFriends();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
+        catch (Exception e) { System.out.println(e.getMessage()); }
     }
 
     private void assignFragments(){
@@ -71,13 +66,7 @@ public class SocialActivity extends AppCompatActivity {
             public void onClick(View view) {
                 try {
                     openRequests();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                } catch (Exception e) { System.out.println(); }
             }
         };
 
@@ -85,8 +74,9 @@ public class SocialActivity extends AppCompatActivity {
             public void onClick(View view) {
                 try {
                     addFriend();
-                } catch (JSONException | ExecutionException | InterruptedException e) {
-                    e.printStackTrace();
+                }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
                     Utilities.ShowShortToast(getApplicationContext(), Constants.unable_to_send_request);
                 }
             }
@@ -110,13 +100,13 @@ public class SocialActivity extends AppCompatActivity {
         addFriend_et = findViewById(R.id.add_et);
     }
 
-    private void addFriend() throws JSONException, ExecutionException, InterruptedException {
+    private void addFriend() throws Exception {
         User tempUser = DatabaseHandler.readUser(addFriend_et.getText().toString(), false);
         DatabaseHandler.CreateRequest(new Request(app.getUser().getUsername(), tempUser.getUsername()));
         Utilities.ShowShortToast(this, Constants.friend_request_sent);
     }
 
-    private void generateFriends() throws JSONException, ExecutionException, InterruptedException {
+    private void generateFriends() throws Exception {
         for(int i = 0; i < app.getUser().getFriends().toArray().length; i++) {
             String name = app.getUser().getFriends().get(i).getUsername();
             updateFriendPetData(name);
@@ -159,13 +149,8 @@ public class SocialActivity extends AppCompatActivity {
 
                 try {
                     updateFriendPetData(name);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
+                catch (Exception e) { System.out.println(e.getMessage()); }
 
                 if (Utilities.showAdd()){
                     Intent a = new Intent(SocialActivity.this, AddActivity.class);
@@ -215,12 +200,12 @@ public class SocialActivity extends AppCompatActivity {
         currentBox.addView(currentHouse);
     }
 
-    private void updateFriendPetData(String friendName) throws JSONException, ExecutionException, InterruptedException {
+    private void updateFriendPetData(String friendName) throws Exception {
         Pet pet = DatabaseHandler.readPet(friendName);
         app.setCurrentFriendPet(pet);
     }
 
-    private void openRequests() throws JSONException, ExecutionException, InterruptedException {
+    private void openRequests() throws Exception {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (requestsFragment.isAdded()) {
             fragmentTransaction.remove(requestsFragment);

@@ -36,7 +36,7 @@ import java.util.concurrent.ExecutionException;
 
 public class DatabaseHandler {
 
-    public static Boolean createUser(User user) throws ExecutionException, InterruptedException {
+    public static Boolean createUser(User user) throws Exception {
         String userDocument = Constants.user_document_name_field + user.getName() + Constants.user_document_surname_field + user.getSurname() + Constants.user_document_email_field + user.getEmail() + Constants.user_document_username_field + user.getUsername() + Constants.user_document_password_field + user.getPassword() + Constants.user_document_money_field + user.getMoney() + Constants.user_document_items_age_field + user.getAge() + Constants.user_document_friends_field;
         String query = Constants.query_create_user + userDocument + Constants.query_create_user_end;
         String queryAction = Constants.query_action_insert_one;
@@ -47,12 +47,11 @@ public class DatabaseHandler {
             JSONObject jsonObject = new JSONObject(jsonData);
             jsonObject.getString(Constants.json_key_inserted_id);
             return true;
-        } catch (JSONException e) {
-            return false;
         }
+        catch (Exception e) { return false; }
     }
 
-    public static User readUser(String _username, Boolean getFriends) throws ExecutionException, InterruptedException, JSONException {
+    public static User readUser(String _username, Boolean getFriends) throws Exception {
         String query = Constants.query_read_user + _username + Constants.query_read_user_end;
         String queryAction = Constants.query_action_find_one;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
@@ -89,7 +88,7 @@ public class DatabaseHandler {
         }
     }
 
-    public static Boolean updateUser(String _username, ArrayList<String> _items) throws ExecutionException, InterruptedException {
+    public static Boolean updateUser(String _username, ArrayList<String> _items) throws Exception {
         String items = "";
         for(int i = 0; i < _items.size(); i++){
             items += Constants.doblequote + _items.get(i) + Constants.doblequote;
@@ -105,12 +104,11 @@ public class DatabaseHandler {
             int count = jsonObject.getInt(Constants.json_key_modified_count);
             if (count <= 0) return false;
             return true;
-        } catch (JSONException e) {
-            return false;
         }
+        catch (Exception e) { return false; }
     }
 
-    public static Boolean updateUserFriends(String _username, ArrayList<String> _friends) throws ExecutionException, InterruptedException {
+    public static Boolean updateUserFriends(String _username, ArrayList<String> _friends) throws Exception {
         String friends = "";
         for(int i = 0; i < _friends.size(); i++){
             friends += Constants.doblequote + _friends.get(i) + Constants.doblequote;
@@ -126,12 +124,11 @@ public class DatabaseHandler {
             int count = jsonObject.getInt(Constants.json_key_modified_count);
             if (count <= 0) return false;
             return true;
-        } catch (JSONException e) {
-            return false;
         }
+        catch (Exception e) { return false; }
     }
 
-    public static Boolean createPet(Pet pet) throws ExecutionException, InterruptedException {
+    public static Boolean createPet(Pet pet) throws Exception {
         String tags = "";
         for (int i = 0; i < pet.getTags().size(); i++){
             tags += Constants.doblequote + pet.getTags().get(i) + Constants.doblequote;
@@ -147,12 +144,11 @@ public class DatabaseHandler {
             JSONObject jsonObject = new JSONObject(jsonData);
             jsonObject.getString(Constants.json_key_inserted_id);
             return true;
-        } catch (JSONException e) {
-            return false;
         }
+        catch (Exception e) { return false; }
     }
 
-    public static Boolean CreateRequest(Request request) throws ExecutionException, InterruptedException {
+    public static Boolean CreateRequest(Request request) throws Exception {
         String requestDocument = Constants.request_document_from_field + request.getFrom() + Constants.request_document_to_field + request.getTo() + Constants.request_document_to_field_end;
         String query = Constants.query_create_request + requestDocument + Constants.query_create_request_end;
         String queryAction = Constants.query_action_insert_one;
@@ -162,12 +158,11 @@ public class DatabaseHandler {
             JSONObject jsonObject = new JSONObject(jsonData);
             jsonObject.getString(Constants.json_key_inserted_id);
             return true;
-        } catch (JSONException e) {
-            return false;
         }
+        catch (Exception e) { return false; }
     }
 
-    public static  ArrayList<Request> readRequest(String recipient) throws ExecutionException, InterruptedException, JSONException {
+    public static ArrayList<Request> readRequest(String recipient) throws Exception {
         String query = "{\"collection\":\"request\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"to\":\"" + recipient + "\"}}";
         String queryAction = "find";
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
@@ -185,7 +180,7 @@ public class DatabaseHandler {
         return requests;
     }
 
-    public static Pet readPet(String _owner) throws ExecutionException, InterruptedException, JSONException {
+    public static Pet readPet(String _owner) throws Exception {
         String query = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"owner\":\"" + _owner + "\"}}";
         String queryAction = "findOne";
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
@@ -210,7 +205,7 @@ public class DatabaseHandler {
         return pet;
     }
 
-    public static Boolean updatePet(String _owner, int _type, String _spriteName) throws ExecutionException, InterruptedException {
+    public static Boolean updatePet(String _owner, int _type, String _spriteName) throws Exception {
         String type = "";
         switch (_type){
             case 0:
@@ -230,12 +225,11 @@ public class DatabaseHandler {
             int count = jsonObject.getInt("modifiedCount");
             if (count <= 0) return false;
             return true;
-        } catch (JSONException e) {
-            return false;
         }
+        catch (Exception e) { return false; }
     }
 
-    public static ArrayList<Item> readItems() throws ExecutionException, InterruptedException, JSONException, SQLException {
+    public static ArrayList<Item> readItems() throws Exception {
         String query = "{\"collection\":\"item\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\"}";
         String queryAction = "find";
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
@@ -264,7 +258,7 @@ public class DatabaseHandler {
         return items;
     }
 
-    public static ArrayList<String> readItemTags(String sprite) throws ExecutionException, InterruptedException, JSONException {
+    public static ArrayList<String> readItemTags(String sprite) throws Exception {
         String query = "{\"collection\":\"item\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"sprite\":\"" + sprite + "\"}}";
         String queryAction = "findOne";
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
@@ -284,13 +278,12 @@ public class DatabaseHandler {
 
 
 
-    public static Boolean checkLogin(String username, String password) throws JSONException, ExecutionException, InterruptedException {
+    public static Boolean checkLogin(String username, String password) {
         try {
             User user = readUser(username, false);
             return checkPassword(user, password);
-        } catch (Exception e){
-            return false;
         }
+        catch (Exception e) { return false; }
     }
 
     public static Boolean checkPassword(User user, String password) {
@@ -301,12 +294,11 @@ public class DatabaseHandler {
         try{
             Pet pet = readPet(username);
             return true;
-        } catch (Exception e){
-            return false;
         }
+        catch (Exception e) { return false; }
     }
 
-    public static ArrayList<Model> getModels() throws ExecutionException, InterruptedException, JSONException {
+    public static ArrayList<Model> getModels() throws Exception {
         ArrayList<Model> modelsArray = new ArrayList<>();
 
         String query = "{\"collection\":\"pet_selector\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\"}";
@@ -338,7 +330,7 @@ public class DatabaseHandler {
         return modelsArray;
     }
 
-    public static Boolean createMessage(Message message) throws ExecutionException, InterruptedException {
+    public static Boolean createMessage(Message message) throws Exception {
         String messageDocument = "\"from\":\"" + message.getFrom() + "\", \"to\":\"" + message.getTo() + "\", \"title\":\"" + message.getTitle() + "\", \"message\":\""+ message.getMessage() + "\"";
         String query = "{\"collection\":\"message\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + messageDocument + "}}";
         String queryAction = "insertOne";
@@ -348,12 +340,11 @@ public class DatabaseHandler {
             JSONObject jsonObject = new JSONObject(jsonData);
             jsonObject.getString("insertedId");
             return true;
-        } catch (JSONException e) {
-            return false;
         }
+        catch (Exception e) { return false; }
     }
 
-    public static ArrayList<Message> readMessages(String _to) throws ExecutionException, InterruptedException, JSONException {
+    public static ArrayList<Message> readMessages(String _to) throws Exception {
         ArrayList<Message> messagesArray = new ArrayList<>();
 
         String query = "{\"collection\":\"message\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"to\":\"" + _to + "\"}}";
@@ -376,7 +367,7 @@ public class DatabaseHandler {
         return messagesArray;
     }
 
-    public static Boolean deleteMessage(String from, String to, String title, String message) throws ExecutionException, InterruptedException, JSONException {
+    public static Boolean deleteMessage(String from, String to, String title, String message) throws Exception {
 
         String query = "{\"collection\":\"message\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"from\":\"" + from + "\", \"to\":\"" + to + "\", \"title\":\"" + title + "\", \"message\":\"" + message + "\"}}";
         String queryAction = "deleteOne";
@@ -388,12 +379,11 @@ public class DatabaseHandler {
             int count = jsonObject.getInt("deletedCount");
             if (count <= 0) return false;
             return true;
-        } catch (JSONException e) {
-            return false;
         }
+        catch (Exception e) { return false; }
     }
 
-    public static Boolean deleteRequest(String from, String to) throws ExecutionException, InterruptedException, JSONException {
+    public static Boolean deleteRequest(String from, String to) throws Exception {
 
         String query = "{\"collection\":\"request\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"from\":\"" + from + "\", \"to\":\"" + to + "\"}}";
         String queryAction = "deleteOne";
@@ -405,12 +395,11 @@ public class DatabaseHandler {
             int count = jsonObject.getInt("deletedCount");
             if (count <= 0) return false;
             return true;
-        } catch (JSONException e) {
-            return false;
         }
+        catch (Exception e) { return false; }
     }
 
-    public static String getAdd(String theme) throws ExecutionException, InterruptedException, JSONException {
+    public static String getAdd(String theme) throws Exception {
         String query = "{\"collection\":\"advertisement\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"theme\":\"" + theme + "\"}}";
         String queryAction = "findOne";
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();

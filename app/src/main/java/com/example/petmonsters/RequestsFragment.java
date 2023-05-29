@@ -68,13 +68,8 @@ public class RequestsFragment extends Fragment {
 
         try {
             getRequests();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
+        catch (Exception e) { System.out.println(e.getMessage()); }
         return view;
     }
 
@@ -82,7 +77,7 @@ public class RequestsFragment extends Fragment {
         app = (PetMonstersApplication) getActivity().getApplicationContext();
     }
 
-    private void getRequests() throws JSONException, ExecutionException, InterruptedException {
+    private void getRequests() throws Exception {
         ArrayList<Request> requests = DatabaseHandler.readRequest(app.getUser().getUsername());
         for(int i=0; i < requests.size(); i++){
             listRequests(requests.get(i).getFrom(), i, app.getContext());
@@ -116,13 +111,9 @@ public class RequestsFragment extends Fragment {
             public void onClick(View view) {
                 try {
                     addFriend(from);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
+                catch (Exception e) { System.out.println(e.getMessage()); }
+
 
                 deleteRequest(from);
 
@@ -139,7 +130,6 @@ public class RequestsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 deleteRequest(from);
-
             }
         });
         contentParameters.width = 120;
@@ -157,16 +147,11 @@ public class RequestsFragment extends Fragment {
             DatabaseHandler.deleteRequest(from, app.getUser().getUsername());
             layout.removeAllViews();
             getRequests();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
+        catch (Exception e) { System.out.println(e.getMessage()); }
     }
 
-    public void addFriend(String newFriend) throws JSONException, ExecutionException, InterruptedException {
+    public void addFriend(String newFriend) throws Exception {
         User friend = DatabaseHandler.readUser(newFriend,true);
         app.getUser().getFriends().add(friend);
         friend.getFriends().add(app.getUser());

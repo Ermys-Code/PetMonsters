@@ -14,7 +14,7 @@ public class Utilities {
         toast.show();
     }
 
-    public static String md5(String s) throws NoSuchAlgorithmException {
+    public static String md5(String s) throws Exception {
 
         MessageDigest digest = java.security.MessageDigest.getInstance(Constants.hash_algorithm);
         digest.update(s.getBytes());

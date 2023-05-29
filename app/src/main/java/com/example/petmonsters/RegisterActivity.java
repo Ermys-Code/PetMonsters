@@ -54,13 +54,15 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try { register(); }
-                catch (NoSuchAlgorithmException | ExecutionException | InterruptedException | SQLException | JSONException e) { e.printStackTrace(); }
+                try {
+                    register();
+                }
+                catch (Exception e) { System.out.println(e.getMessage()); }
             }
         });
     }
 
-    private void register() throws NoSuchAlgorithmException, ExecutionException, InterruptedException, SQLException, JSONException {
+    private void register() throws Exception {
         if(!validateEmail()){
             Utilities.ShowShortToast(getApplicationContext(), Constants.email_not_valid);
             return;
@@ -151,9 +153,8 @@ public class RegisterActivity extends AppCompatActivity {
         try {
             DatabaseHandler.readUser(usernameEt.getText().toString(), false);
             return false;
-        } catch (JSONException | ExecutionException | InterruptedException e) {
-            return true;
         }
+        catch (Exception e) { return true; }
     }
 
     private boolean validatePassword(){
@@ -163,7 +164,7 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
 
-    private User createUser() throws NoSuchAlgorithmException {
+    private User createUser() throws Exception {
 
         String name = nameEt.getText().toString();
         String surname = surnameEt.getText().toString();

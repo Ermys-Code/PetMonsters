@@ -70,7 +70,7 @@ public class BoardFragment extends Fragment {
             getMessages();
             loadMessages();
         }
-        catch (ExecutionException | InterruptedException | JSONException e) { e.printStackTrace(); }
+        catch (Exception e) { System.out.println(e.getMessage()); }
 
 
         return view;
@@ -80,7 +80,7 @@ public class BoardFragment extends Fragment {
         app = (PetMonstersApplication) getActivity().getApplicationContext();
     }
 
-    private void getMessages() throws ExecutionException, InterruptedException, JSONException {
+    private void getMessages() throws Exception {
         messagesArray = DatabaseHandler.readMessages(app.getUser().getUsername());
     }
 
@@ -96,7 +96,6 @@ public class BoardFragment extends Fragment {
         }
     }
 
-    @SuppressLint("ResourceAsColor")
     private void generateMessage(int index, Context context, String _name, String _to, String _title, String _message){
         if (index % 2 == 0) {
             horizontalLayout = new LinearLayout(context);
@@ -113,7 +112,7 @@ public class BoardFragment extends Fragment {
         verticalLayout.setLayoutParams(verticalLayoutParams);
         verticalLayoutParams.setMargins(5, 0, 5, 0);
         verticalLayout.setOrientation(LinearLayout.VERTICAL);
-        verticalLayout.setBackgroundColor(R.color.purple_700);
+        verticalLayout.setBackgroundColor(getContext().getColor(R.color.purple_700));
 
         ScrollView scrollView = new ScrollView(context);
         LinearLayout.LayoutParams scrollParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -129,7 +128,7 @@ public class BoardFragment extends Fragment {
         LinearLayout.LayoutParams nameParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         name.setLayoutParams(nameParameters);
         name.setGravity(Gravity.CENTER);
-        name.setTextColor(R.color.black);
+        name.setTextColor(getContext().getColor(R.color.black));
         name.setTextSize(20);
 
 
@@ -150,8 +149,8 @@ public class BoardFragment extends Fragment {
                     horizontalLayout.removeView(verticalLayout);
                     reload();
                 }
-                catch (ExecutionException | InterruptedException | JSONException e) {
-                    e.printStackTrace();
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
                     Utilities.ShowShortToast(app.getContext(), Constants.error_deleting_note);
                 }
             }
@@ -166,7 +165,7 @@ public class BoardFragment extends Fragment {
         LinearLayout.LayoutParams titleParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         title.setLayoutParams(titleParameters);
         title.setGravity(Gravity.LEFT);
-        title.setTextColor(R.color.black);
+        title.setTextColor(getContext().getColor(R.color.black));
 
 
         verticalLayout.addView(title);
@@ -176,7 +175,7 @@ public class BoardFragment extends Fragment {
         LinearLayout.LayoutParams messageParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         message.setLayoutParams(messageParameters);
         message.setGravity(Gravity.LEFT);
-        message.setTextColor(R.color.black);
+        message.setTextColor(getContext().getColor(R.color.black));
 
         scrollView.addView(message);
 
@@ -189,7 +188,7 @@ public class BoardFragment extends Fragment {
             getMessages();
             loadMessages();
         }
-        catch (ExecutionException | InterruptedException | JSONException e) { e.printStackTrace(); }
+        catch (Exception e) { System.out.println(e.getMessage()); }
 
     }
 }

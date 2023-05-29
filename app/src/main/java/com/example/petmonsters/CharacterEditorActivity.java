@@ -58,7 +58,10 @@ public class CharacterEditorActivity extends AppCompatActivity {
 
         setOnClickListeners();
 
-        try { getModelsData(); } catch (ExecutionException | InterruptedException | JSONException e) { e.printStackTrace(); }
+        try {
+            getModelsData();
+        }
+        catch (Exception e) { System.out.println(e.getMessage()); }
 
         loadModelData(currentPet);
     }
@@ -126,12 +129,12 @@ public class CharacterEditorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try { savePet(); }
-                catch (ExecutionException | InterruptedException e) { e.printStackTrace(); }
+                catch (Exception e) { System.out.println(e.getMessage()); }
             }
         });
     }
 
-    private void getModelsData() throws ExecutionException, InterruptedException, JSONException {
+    private void getModelsData() throws Exception {
         modelsArray = DatabaseHandler.getModels();
     }
 
@@ -176,7 +179,7 @@ public class CharacterEditorActivity extends AppCompatActivity {
     }
 
 
-    private void savePet() throws ExecutionException, InterruptedException {
+    private void savePet() throws Exception {
 
 
         Pet pet = new Pet(app.getUser().getUsername(), modelSprites.get(currentSprite), modelColors.get(currentColor), "", "", namePetEt.getText().toString(), modelTags);
