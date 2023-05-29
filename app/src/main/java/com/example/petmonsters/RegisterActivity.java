@@ -67,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (!validateAge()){
-            Utilities.ShowShortToast(getApplicationContext(), Constants.birthadte_not_valid);
+            Utilities.ShowShortToast(getApplicationContext(), Constants.age_not_valid);
             return;
         }
 

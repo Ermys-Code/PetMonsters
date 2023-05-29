@@ -146,7 +146,7 @@ public class CharacterEditorActivity extends AppCompatActivity {
         currentColor = num;
         currentSprite = num;
         Resources res = app.getResources();
-        int drawableId = res.getIdentifier(modelSprites.get(currentSprite), "drawable", getApplicationContext().getPackageName());
+        int drawableId = res.getIdentifier(modelSprites.get(currentSprite), Constants.identifier_type_drawable, getApplicationContext().getPackageName());
         petIv.setImageDrawable(getResources().getDrawable(drawableId));
     }
 
@@ -167,7 +167,7 @@ public class CharacterEditorActivity extends AppCompatActivity {
     private void setModelData(){
         namePetEt.setText(modelName);
         Resources res = app.getResources();
-        int drawableId = res.getIdentifier(modelSprites.get(currentSprite), "drawable", getApplicationContext().getPackageName());
+        int drawableId = res.getIdentifier(modelSprites.get(currentSprite), Constants.identifier_type_drawable, getApplicationContext().getPackageName());
         petIv.setImageDrawable(getResources().getDrawable(drawableId));
         color1Iv.setColorFilter(Color.parseColor(modelColors.get(0)), PorterDuff.Mode.MULTIPLY);
         color2Iv.setColorFilter(Color.parseColor(modelColors.get(1)), PorterDuff.Mode.MULTIPLY);
@@ -181,14 +181,14 @@ public class CharacterEditorActivity extends AppCompatActivity {
 
         Pet pet = new Pet(app.getUser().getUsername(), modelSprites.get(currentSprite), modelColors.get(currentColor), "", "", namePetEt.getText().toString(), modelTags);
         if(DatabaseHandler.createPet(pet)){
-            Utilities.ShowShortToast(getApplicationContext(), "Pet created successfully");
+            Utilities.ShowShortToast(getApplicationContext(), Constants.pet_created_succesfully);
             app.setPet(pet);
 
             Intent intent = new Intent(CharacterEditorActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
         } else {
-            Utilities.ShowShortToast(getApplicationContext(), "Error creating pet");
+            Utilities.ShowShortToast(getApplicationContext(), Constants.error_creating_pet);
         }
     }
 }

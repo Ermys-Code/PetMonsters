@@ -16,29 +16,29 @@ public class Model {
         this.name = name;
 
         switch (name){
-            case "e":
-                sprites.add("e_0");
-                sprites.add("e_1");
-                sprites.add("e_2");
-                sprites.add("e_3");
+            case Constants.pet_name_e:
+                sprites.add(Constants.pet_sprite_e_0);
+                sprites.add(Constants.pet_sprite_e_1);
+                sprites.add(Constants.pet_sprite_e_2);
+                sprites.add(Constants.pet_sprite_e_3);
                 break;
-            case "bea":
-                sprites.add("bea_0");
-                sprites.add("bea_1");
-                sprites.add("bea_2");
-                sprites.add("bea_3");
+            case Constants.pet_name_bea:
+                sprites.add(Constants.pet_sprite_bea_0);
+                sprites.add(Constants.pet_sprite_bea_1);
+                sprites.add(Constants.pet_sprite_bea_2);
+                sprites.add(Constants.pet_sprite_bea_3);
                 break;
-            case "bob":
-                sprites.add("bob_0");
-                sprites.add("bob_1");
-                sprites.add("bob_2");
-                sprites.add("bob_3");
+            case Constants.pet_name_bob:
+                sprites.add(Constants.pet_sprite_bob_0);
+                sprites.add(Constants.pet_sprite_bob_1);
+                sprites.add(Constants.pet_sprite_bob_2);
+                sprites.add(Constants.pet_sprite_bob_3);
                 break;
-            case "carlos":
-                sprites.add("carlos_0");
-                sprites.add("carlos_1");
-                sprites.add("carlos_2");
-                sprites.add("carlos_3");
+            case Constants.pet_name_carlos:
+                sprites.add(Constants.pet_sprite_carlos_0);
+                sprites.add(Constants.pet_sprite_carlos_1);
+                sprites.add(Constants.pet_sprite_carlos_2);
+                sprites.add(Constants.pet_sprite_carlos_3);
                 break;
         }
 

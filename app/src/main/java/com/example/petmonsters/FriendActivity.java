@@ -87,16 +87,16 @@ public class FriendActivity extends AppCompatActivity {
         petname_tv.setText(app.getCurrentFriendPet().getName());
 
         Resources res = app.getResources();
-        int drawableId = res.getIdentifier(app.getCurrentFriendPet().getSprite(), "drawable", getApplicationContext().getPackageName());
+        int drawableId = res.getIdentifier(app.getCurrentFriendPet().getSprite(), Constants.identifier_type_drawable, getApplicationContext().getPackageName());
         pet_iv.setImageDrawable(getResources().getDrawable(drawableId));
 
         if(!app.getCurrentFriendPet().getHat().equals("")){
-            int hatId = res.getIdentifier(app.getCurrentFriendPet().getHat(), "drawable", getApplicationContext().getPackageName());
+            int hatId = res.getIdentifier(app.getCurrentFriendPet().getHat(), Constants.identifier_type_drawable, getApplicationContext().getPackageName());
             hat_iv.setImageDrawable(getResources().getDrawable(hatId));
         }
 
         if(!app.getCurrentFriendPet().getShoes().equals("")){
-            int shoesId = res.getIdentifier(app.getCurrentFriendPet().getShoes(), "drawable", getApplicationContext().getPackageName());
+            int shoesId = res.getIdentifier(app.getCurrentFriendPet().getShoes(), Constants.identifier_type_drawable, getApplicationContext().getPackageName());
             shoes_iv.setImageDrawable(getResources().getDrawable(shoesId));
         }
     }

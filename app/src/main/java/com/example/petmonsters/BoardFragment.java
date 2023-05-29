@@ -163,13 +163,13 @@ public class BoardFragment extends Fragment {
             public void onClick(View v) {
                 try {
                     DatabaseHandler.deleteMessage(_name, _to, _title, _message);
-                    Utilities.ShowShortToast(app.getContext(), "Message deleted succesfully");
+                    Utilities.ShowShortToast(app.getContext(), Constants.note_deleted_succesfully);
                     horizontalLayout.removeView(verticalLayout);
                     reload();
                 }
                 catch (ExecutionException | InterruptedException | JSONException e) {
                     e.printStackTrace();
-                    Utilities.ShowShortToast(app.getContext(), "Error deleting message");
+                    Utilities.ShowShortToast(app.getContext(), Constants.error_deleting_note);
                 }
             }
         });
@@ -177,7 +177,6 @@ public class BoardFragment extends Fragment {
 
         verticalLayout.addView(deleteIv);
         verticalLayout.addView(name);
-        //verticalLayout.addView(miniLayout);
 
         TextView title = new TextView(context);
         title.setText(_title);

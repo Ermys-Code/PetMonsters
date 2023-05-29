@@ -111,16 +111,16 @@ public class HomeActivity extends AppCompatActivity {
         money_tv.setText(Integer.toString(app.getUser().getMoney()));
 
         Resources res = app.getResources();
-        int drawableId = res.getIdentifier(app.getPet().getSprite(), "drawable", getApplicationContext().getPackageName());
+        int drawableId = res.getIdentifier(app.getPet().getSprite(), Constants.identifier_type_drawable, getApplicationContext().getPackageName());
         pet_iv.setImageDrawable(getResources().getDrawable(drawableId));
 
         if(!app.getPet().getHat().equals("")){
-            int hatId = res.getIdentifier(app.getPet().getHat(), "drawable", getApplicationContext().getPackageName());
+            int hatId = res.getIdentifier(app.getPet().getHat(), Constants.identifier_type_drawable, getApplicationContext().getPackageName());
             hat_iv.setImageDrawable(getResources().getDrawable(hatId));
         }
 
         if(!app.getPet().getShoes().equals("")){
-            int shoesId = res.getIdentifier(app.getPet().getShoes(), "drawable", getApplicationContext().getPackageName());
+            int shoesId = res.getIdentifier(app.getPet().getShoes(), Constants.identifier_type_drawable, getApplicationContext().getPackageName());
             shoes_iv.setImageDrawable(getResources().getDrawable(shoesId));
         }
     }
@@ -144,7 +144,7 @@ public class HomeActivity extends AppCompatActivity {
     private void visitFriends(){
         if (Utilities.showAdd()){
             Intent a = new Intent(HomeActivity.this, AddActivity.class);
-            a.putExtra("nextActivity", SocialActivity.class);
+            a.putExtra(Constants.next_activity_key, SocialActivity.class);
             startActivity(a);
         } else {
             Intent intent = new Intent(HomeActivity.this, SocialActivity.class);

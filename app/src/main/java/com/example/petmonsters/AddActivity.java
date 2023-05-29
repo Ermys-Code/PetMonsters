@@ -58,7 +58,7 @@ public class AddActivity extends AppCompatActivity {
     }
 
     private void getIntentData(){
-        nextClass = (Class<?>) getIntent().getSerializableExtra("nextActivity");
+        nextClass = (Class<?>) getIntent().getSerializableExtra(Constants.next_activity_key);
     }
 
     private void getScreenElements(){
@@ -92,8 +92,8 @@ public class AddActivity extends AppCompatActivity {
             petTags.addAll(app.getPet().getTags());
         }
 
-        String stringItemTags = String.join(",", itemTags);
-        String stringPetTags = String.join(",", petTags);
+        String stringItemTags = String.join(Constants.coma, itemTags);
+        String stringPetTags = String.join(Constants.coma, petTags);
 
         tagsArray.add(stringItemTags);
         tagsArray.add(stringPetTags);
@@ -114,16 +114,12 @@ public class AddActivity extends AppCompatActivity {
             itemTags.addAll(shoesTags);
             petTags.addAll(pet.getTags());
 
-            String stringItemTags = String.join(",", itemTags);
-            String stringPetTags = String.join(",", petTags);
+            String stringItemTags = String.join(Constants.coma, itemTags);
+            String stringPetTags = String.join(Constants.coma, petTags);
 
             tagsArray.add(stringItemTags);
             tagsArray.add(stringPetTags);
         }
-
-    }
-
-    private void input(){
 
     }
 
@@ -141,13 +137,13 @@ public class AddActivity extends AppCompatActivity {
     }
 
     private void reduce(ArrayList<String> tags){
-        String somehowShuffled = String.join("/", tags);
+        String somehowShuffled = String.join(Constants.slash, tags);
 
         HashMap<String,Integer> somehowReduced = new HashMap<String,Integer>();
 
-        String[] words = somehowShuffled.split("/");
+        String[] words = somehowShuffled.split(Constants.slash);
         for (String w: words){
-            String[] keyValue = w.split(",");
+            String[] keyValue = w.split(Constants.coma);
             if(somehowReduced.containsKey(keyValue[0])){
                 somehowReduced.put(keyValue[0], somehowReduced.get(keyValue[0]) + Integer.parseInt(keyValue[1]));
             }
@@ -168,7 +164,7 @@ public class AddActivity extends AppCompatActivity {
         String addString = DatabaseHandler.getAdd(theme);
 
         Resources res = app.getResources();
-        int drawableId = res.getIdentifier(addString, "drawable", app.getContext().getApplicationContext().getPackageName());
+        int drawableId = res.getIdentifier(addString, Constants.identifier_type_drawable, app.getContext().getApplicationContext().getPackageName());
         add = app.getContext().getResources().getDrawable(drawableId);
     }
 

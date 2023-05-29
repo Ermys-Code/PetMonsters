@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class AsyncMap extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... params){
-        String[] parts = params[0].split(",");
+        String[] parts = params[0].split(Constants.coma);
 
         ArrayList<ArrayList<String>> strings = new ArrayList<>();
 
@@ -31,9 +31,9 @@ public class AsyncMap extends AsyncTask<String, String, String> {
         String output = "";
 
         for(int i = 0; i < strings.size(); i++){
-            String listString = String.join(",", strings.get(i));
+            String listString = String.join(Constants.coma, strings.get(i));
             output += listString;
-            if(i < strings.size()-1) output += "/";
+            if(i < strings.size()-1) output += Constants.slash;
         }
 
         return output;
