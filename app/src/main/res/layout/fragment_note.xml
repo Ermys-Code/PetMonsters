@@ -23,13 +23,13 @@
             android:fontFamily="@font/grobold"
             android:textColor="@color/black"
             android:textSize="30dp"
-            android:hint="Title"/>
+            android:hint="@string/title"/>
 
         <EditText
             android:id="@+id/message_et"
             android:layout_width="300dp"
             android:layout_height="70dp"
-            android:hint="Message"
+            android:hint="@string/message"
             android:fontFamily="@font/grobold"
             android:textColor="@color/black"
             android:layout_marginRight="20dp"

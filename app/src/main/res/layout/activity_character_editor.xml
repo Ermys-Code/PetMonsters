@@ -22,7 +22,7 @@
             android:layout_marginTop="50dp"
             android:fontFamily="@font/g"
             android:textAlignment="center"
-            android:hint="Name"
+            android:hint="@string/name"
             android:textSize="50dp"/>
 
         <LinearLayout
@@ -123,16 +123,14 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/savePet_btn"
+        <ImageView
+            android:id="@+id/savePet_iv"
             android:layout_width="350dp"
             android:layout_height="70dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:text="SAVE"
-            android:textSize="35dp"/>
+            android:layout_marginTop="50dp"/>
 
     </LinearLayout>
 

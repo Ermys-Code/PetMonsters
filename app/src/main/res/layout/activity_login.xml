@@ -21,7 +21,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="200dp"
-            android:hint="Username" />
+            android:hint="@string/username" />
 
         <EditText
             android:id="@+id/password_et"
@@ -30,7 +30,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="100dp"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword" />
 
         <ImageView

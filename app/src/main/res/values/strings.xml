@@ -1,5 +1,20 @@
 <resources>
+    <!-- Defaults -->
     <string name="app_name">PetMonsters</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- user -->
+    <string name="name">Name</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="age_capital">AGE</string>
+    <string name="surname">Surname</string>
+
+    <!-- social -->
+    <string name="add_friend">Add friend</string>
+
+    <!-- note -->
+    <string name="title">Title</string>
+    <string name="message">Message</string>
 </resources>

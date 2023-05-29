@@ -31,7 +31,7 @@ public class CharacterEditorActivity extends AppCompatActivity {
     private ImageView color2Iv;
     private ImageView color3Iv;
     private ImageView color4Iv;
-    private Button savePetBtn;
+    private ImageView savePetIv;
 
     private ArrayList<Model> modelsArray = new ArrayList<>();
 
@@ -76,7 +76,7 @@ public class CharacterEditorActivity extends AppCompatActivity {
         color2Iv = findViewById(R.id.color2_iv);
         color3Iv = findViewById(R.id.color3_iv);
         color4Iv = findViewById(R.id.color4_iv);
-        savePetBtn = findViewById(R.id.savePet_btn);
+        savePetIv = findViewById(R.id.savePet_iv);
     }
 
     private void setOnClickListeners(){
@@ -122,7 +122,7 @@ public class CharacterEditorActivity extends AppCompatActivity {
             }
         });
 
-        savePetBtn.setOnClickListener(new View.OnClickListener() {
+        savePetIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try { savePet(); }

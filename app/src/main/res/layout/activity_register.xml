@@ -19,7 +19,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
-            android:hint="Name"/>
+            android:hint="@string/name"/>
 
         <EditText
             android:id="@+id/surname_et"
@@ -28,7 +28,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="25dp"
-            android:hint="Surname"/>
+            android:hint="@string/surname"/>
 
         <EditText
             android:id="@+id/email_et"
@@ -38,7 +38,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="25dp"
             android:inputType="textEmailAddress"
-            android:hint="Email"/>
+            android:hint="@string/email"/>
 
         <TextView
             android:layout_width="300dp"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="25dp"
-            android:text="AGE"
+            android:text="@string/age_capital"
             android:textSize="15dp"/>
 
         <com.google.android.material.slider.Slider
@@ -66,7 +66,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
-            android:hint="Username"/>
+            android:hint="@string/username"/>
 
         <EditText
             android:id="@+id/password_et"
@@ -76,7 +76,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="25dp"
             android:inputType="textPassword"
-            android:hint="Password"/>
+            android:hint="@string/password"/>
 
         <ImageView
             android:id="@+id/register_iv"
@@ -84,9 +84,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
-            android:src="@drawable/register_button"
-            android:text="Register"
-            android:textSize="40dp"/>
+            android:src="@drawable/register_button"/>
 
     </LinearLayout>
 

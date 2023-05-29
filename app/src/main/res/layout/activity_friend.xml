@@ -68,7 +68,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:fontFamily="@font/g"
-            android:text="NAME"
+            android:text="@string/name"
             android:gravity="center"
             android:textAlignment="center"
             android:textSize="25dp"/>
