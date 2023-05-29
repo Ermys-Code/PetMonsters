@@ -121,9 +121,6 @@ public class AddActivity extends AppCompatActivity {
             tagsArray.add(stringPetTags);
         }
 
-        System.out.println(tagsArray);
-        System.out.println(tagsArray);
-
     }
 
     private void input(){
