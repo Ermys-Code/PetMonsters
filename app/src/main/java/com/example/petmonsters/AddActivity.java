@@ -36,9 +36,13 @@ public class AddActivity extends AppCompatActivity {
 
         getFriendsTags();
 
+        map();
+
         joinTags();
 
-        mapReduce();
+        shuffle();
+
+        reduce();
 
         getAdd();
 
@@ -85,7 +89,21 @@ public class AddActivity extends AppCompatActivity {
 
     }
 
-    private void mapReduce(){
+    private void map(ArrayList<String> tags) throws ExecutionException, InterruptedException {
+
+        ArrayList<String> newTagsList = new ArrayList<>();
+        for(int i=0; i < tags.size(); i++){
+            newTagsList.add(new AsyncMap().execute(tags.get(i)).get());
+        }
+
+        System.out.println(newTagsList);
+    }
+
+    private void shuffle(){
+
+    }
+
+    private void reduce(){
 
     }
 
