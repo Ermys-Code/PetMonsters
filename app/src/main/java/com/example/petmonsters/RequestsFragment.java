@@ -70,6 +70,7 @@ public class RequestsFragment extends Fragment {
             getRequests();
         }
         catch (Exception e) { System.out.println(e.getMessage()); }
+
         return view;
     }
 

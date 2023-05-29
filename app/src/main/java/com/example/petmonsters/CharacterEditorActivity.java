@@ -180,8 +180,6 @@ public class CharacterEditorActivity extends AppCompatActivity {
 
 
     private void savePet() throws Exception {
-
-
         Pet pet = new Pet(app.getUser().getUsername(), modelSprites.get(currentSprite), modelColors.get(currentColor), "", "", namePetEt.getText().toString(), modelTags);
         if(DatabaseHandler.createPet(pet)){
             Utilities.ShowShortToast(getApplicationContext(), Constants.pet_created_succesfully);

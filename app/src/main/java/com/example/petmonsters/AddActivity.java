@@ -153,7 +153,6 @@ public class AddActivity extends AppCompatActivity {
         }
 
         max = Collections.max(somehowReduced.entrySet(), Map.Entry.comparingByValue()).getKey();
-        System.out.println(max);
     }
 
     private void getAdd(String theme) throws Exception {
