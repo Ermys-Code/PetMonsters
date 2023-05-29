@@ -19,7 +19,6 @@ public class PetMonstersApplication extends Application {
 
     private User user;
     private Pet pet;
-    private Board board;
     private User currentFriend;
     private Pet currentFriendPet;
     private ArrayList<Item> store = new ArrayList<Item>();

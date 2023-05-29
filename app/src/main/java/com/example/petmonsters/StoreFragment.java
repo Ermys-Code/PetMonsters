@@ -16,38 +16,21 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link StoreFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class StoreFragment extends Fragment {
 
     private LinearLayout layout, currentBox;
     private PetMonstersApplication app;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM1 = Constants.params_1;
+    private static final String ARG_PARAM2 = Constants.params_2;
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     public StoreFragment() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment StoreFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static StoreFragment newInstance(String param1, String param2) {
         StoreFragment fragment = new StoreFragment();
         Bundle args = new Bundle();
@@ -69,7 +52,6 @@ public class StoreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_store, container, false);
 
         getAppContext();
@@ -109,7 +91,7 @@ public class StoreFragment extends Fragment {
         }
 
         Resources res = app.getResources();
-        int drawableId = res.getIdentifier(sprite, "drawable", getContext().getApplicationContext().getPackageName());
+        int drawableId = res.getIdentifier(sprite, Constants.identifier_type_drawable, getContext().getApplicationContext().getPackageName());
         Drawable img = app.getContext().getResources().getDrawable(drawableId);
         ImageView image = new ImageView(context);
         LinearLayout.LayoutParams contentParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
@@ -152,12 +134,12 @@ public class StoreFragment extends Fragment {
     }
 
     private void UpdatePet(String owner, int type, String sprite) throws ExecutionException, InterruptedException {
-        if(DatabaseHandler.updatePet(owner, type, sprite)) Utilities.ShowShortToast(getContext().getApplicationContext(), "Item saved");
-        else Utilities.ShowShortToast(getContext().getApplicationContext(), "Item not saved");
+        if(DatabaseHandler.updatePet(owner, type, sprite)) Utilities.ShowShortToast(getContext().getApplicationContext(), Constants.item_saved);
+        else Utilities.ShowShortToast(getContext().getApplicationContext(), Constants.item_not_saved);
     }
 
     private void UpdateUser(String username, ArrayList<String> items) throws ExecutionException, InterruptedException {
-        if(DatabaseHandler.updateUser(username, items)) Utilities.ShowShortToast(getContext().getApplicationContext(), "Item purchased");
-        else Utilities.ShowShortToast(getContext().getApplicationContext(), "Item not purchased");
+        if(DatabaseHandler.updateUser(username, items)) Utilities.ShowShortToast(getContext().getApplicationContext(), Constants.item_purchased);
+        else Utilities.ShowShortToast(getContext().getApplicationContext(), Constants.item_not_purchased);
     }
 }

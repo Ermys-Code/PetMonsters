@@ -4,6 +4,7 @@ public class Constants {
     //-- Symbols --//
     public static final String coma = ",";
     public static final String slash = "/";
+    public static final String at = "@";
 
     //-- Utilities --//
     public static final String hash_algorithm = "MD5";
@@ -41,6 +42,20 @@ public class Constants {
     public static final String error_deleting_note = "Error deleting note";
     public static final String pet_created_succesfully = "Pet created succesfully";
     public static final String error_creating_pet = "Error creating pet";
+    public static final String note_posted = "Note posted";
+    public static final String error_posting_note = "Error posting note";
+    public static final String failed_create_user = "Failed to create user";
+    public static final String user_created = "User created succesfully";
+    public static final String unable_to_send_request = "Unable to send request. Make sure this user exists";
+    public static final String friend_request_sent = "Friend request sent";
+    public static final String item_saved = "Item saved";
+    public static final String item_purchased = "Item purchased";
+    public static final String item_not_saved = "Item not saved";
+    public static final String item_not_purchased = "Item not purchased";
+
+    //-- Fragments --//
+    public static final String params_1 = "param1";
+    public static final String params_2 = "param2";
 
     //-- Pet names --//
     public static final String pet_name_e = "e";

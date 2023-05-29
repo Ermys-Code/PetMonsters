@@ -94,10 +94,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         User newUser = createUser();
         if(!DatabaseHandler.createUser(newUser)){
-            Utilities.ShowShortToast(getApplicationContext(), "Failed to create user");
+            Utilities.ShowShortToast(getApplicationContext(), Constants.failed_create_user);
             return;
         } else {
-            Utilities.ShowShortToast(getApplicationContext(), "User created succesfully");
+            Utilities.ShowShortToast(getApplicationContext(), Constants.user_created);
 
             PetMonstersApplication app = (PetMonstersApplication) getApplicationContext();
             app.setUser(newUser);
@@ -113,7 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean validateEmail(){
-        if(!emailEt.getText().toString().contains("@")){
+        if(!emailEt.getText().toString().contains(Constants.at)){
             return false;
         }
         return true;

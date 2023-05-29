@@ -87,7 +87,7 @@ public class SocialActivity extends AppCompatActivity {
                     addFriend();
                 } catch (JSONException | ExecutionException | InterruptedException e) {
                     e.printStackTrace();
-                    Utilities.ShowShortToast(getApplicationContext(), "Unable to send request. Make sure this user exists.");
+                    Utilities.ShowShortToast(getApplicationContext(), Constants.unable_to_send_request);
                 }
             }
         };
@@ -113,7 +113,7 @@ public class SocialActivity extends AppCompatActivity {
     private void addFriend() throws JSONException, ExecutionException, InterruptedException {
         User tempUser = DatabaseHandler.readUser(addFriend_et.getText().toString(), false);
         DatabaseHandler.CreateRequest(new Request(app.getUser().getUsername(), tempUser.getUsername()));
-        Utilities.ShowShortToast(this, "Friend request sent.");
+        Utilities.ShowShortToast(this, Constants.friend_request_sent);
     }
 
     private void generateFriends() throws JSONException, ExecutionException, InterruptedException {
@@ -169,7 +169,7 @@ public class SocialActivity extends AppCompatActivity {
 
                 if (Utilities.showAdd()){
                     Intent a = new Intent(SocialActivity.this, AddActivity.class);
-                    a.putExtra("nextActivity", FriendActivity.class);
+                    a.putExtra(Constants.next_activity_key, FriendActivity.class);
                     startActivity(a);
                 } else {
                     Intent intent = new Intent(SocialActivity.this, FriendActivity.class);
@@ -196,7 +196,7 @@ public class SocialActivity extends AppCompatActivity {
 
 
         Resources res = app.getResources();
-        int drawableId = res.getIdentifier(sprite, "drawable", getApplicationContext().getPackageName());
+        int drawableId = res.getIdentifier(sprite, Constants.identifier_type_drawable, getApplicationContext().getPackageName());
 
         Drawable friendPet = getResources().getDrawable(drawableId);
         ImageView imagePet = new ImageView(this);
