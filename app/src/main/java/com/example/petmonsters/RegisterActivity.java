@@ -51,14 +51,11 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void setButtonListeners(){
-        registerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    register();
-                }
-                catch (Exception e) { System.out.println(e.getMessage()); }
+        registerBtn.setOnClickListener(v -> {
+            try {
+                register();
             }
+            catch (Exception e) { System.out.println(e.getMessage()); }
         });
     }
 

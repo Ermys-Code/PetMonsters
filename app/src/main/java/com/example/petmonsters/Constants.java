@@ -35,19 +35,49 @@ public class Constants {
     public static final String query_update_user_end = "]}}}";
     public static final String query_create_pet = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{";
     public static final String query_create_pet_end = "}}";
+    public static final String query_read_pet = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"owner\":\"";
+    public static final String query_read_pet_end = "\"}}";
+    public static final String query_update_pet = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"owner\":\"";
+    public static final String query_update_pet_middle_1 = "\"}, \"update\":{\"$set\":{\"";
+    public static final String query_update_pet_middle_2 = "\":\"";
+    public static final String query_update_pet_end = "\"}}}";
     public static final String query_create_request = "{\"collection\":\"request\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{";
     public static final String query_create_request_end = "}}";
+    public static final String query_read_request = "{\"collection\":\"request\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"to\":\"";
+    public static final String query_read_request_end = "\"}}";
+    public static final String query_delete_request = "{\"collection\":\"request\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"from\":\"";
+    public static final String query_delete_request_middle = "\", \"to\":\"";
+    public static final String query_delete_request_end = "\"}}";
+    public static final String query_read_items = "{\"collection\":\"item\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\"}";
+    public static final String query_read_item_tags = "{\"collection\":\"item\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"sprite\":\"";
+    public static final String query_read_item_tags_end = "\"}}";
+    public static final String query_get_models = "{\"collection\":\"pet_selector\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\"}";
+    public static final String query_create_message = "{\"collection\":\"message\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{";
+    public static final String query_create_message_end = "}}";
+    public static final String query_read_message = "{\"collection\":\"message\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"to\":\"";
+    public static final String query_read_message_end = "\"}}";
+    public static final String query_delete_message = "{\"collection\":\"message\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"from\":\"";
+    public static final String query_delete_message_middle_1 = "\", \"to\":\"";
+    public static final String query_delete_message_middle_2 = "\", \"title\":\"";
+    public static final String query_delete_message_middle_3 = "\", \"message\":\"";
+    public static final String query_delete_message_end = "\"}}";
+    public static final String query_get_add = "{\"collection\":\"advertisement\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"theme\":\"";
+    public static final String query_get_add_end = "\"}}";
 
 
     //-- Query actions --//
     public static final String query_action_insert_one = "insertOne";
     public static final String query_action_find_one = "findOne";
     public static final String query_action_update_one = "updateOne";
+    public static final String query_action_delete_one = "deleteOne";
+    public static final String query_action_find = "find";
 
     //-- Json keys --//
     public static final String json_key_inserted_id = "insertedId";
     public static final String json_key_modified_count = "modifiedCount";
+    public static final String json_key_deleted_count = "deletedCount";
     public static final String json_key_document = "document";
+    public static final String json_key_documents = "documents";
     public static final String json_key_name = "name";
     public static final String json_key_surname = "surname";
     public static final String json_key_email = "email";
@@ -57,6 +87,21 @@ public class Constants {
     public static final String json_key_money = "money";
     public static final String json_key_items = "items";
     public static final String json_key_friends = "friends";
+    public static final String json_key_from = "friends";
+    public static final String json_key_to = "to";
+    public static final String json_key_owner = "owner";
+    public static final String json_key_sprite = "sprite";
+    public static final String json_key_color = "color";
+    public static final String json_key_shoes = "shoes";
+    public static final String json_key_hat = "hat";
+    public static final String json_key_tags = "tags";
+    public static final String json_key_type = "type";
+    public static final String json_key_colors = "colors";
+    public static final String json_key_title = "title";
+    public static final String json_key_message = "message";
+    public static final String json_key_add = "add";
+    public static final String json_key_value = "value";
+
 
     //-- Query documents --//
     public static final String user_document_name_field = "\"name\":\"";
@@ -76,6 +121,15 @@ public class Constants {
     public static final String request_document_from_field = "\"from\":\"";
     public static final String request_document_to_field = "\", \"to\":\"";
     public static final String request_document_to_field_end = "\"";
+    public static final String message_document_form = "\"from\":\"";
+    public static final String message_document_to = "\", \"to\":\"";
+    public static final String message_document_title = "\", \"title\":\"";
+    public static final String message_document_message = "\", \"message\":\"";
+    public static final String message_document_message_end = "\"";
+
+    //-- Switch cases --//
+    public static final String type_case_hat = "hat";
+    public static final String type_case_shoes = "shoes";
 
     //-- Database --//
     public static final String collection_user = "user";

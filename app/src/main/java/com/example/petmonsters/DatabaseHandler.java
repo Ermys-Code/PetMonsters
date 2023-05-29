@@ -163,39 +163,39 @@ public class DatabaseHandler {
     }
 
     public static ArrayList<Request> readRequest(String recipient) throws Exception {
-        String query = "{\"collection\":\"request\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"to\":\"" + recipient + "\"}}";
-        String queryAction = "find";
+        String query = Constants.query_read_request + recipient + Constants.query_read_request_end;
+        String queryAction = Constants.query_action_find;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
         JSONObject jsonObject = new JSONObject(jsonData);
-        JSONArray doc = jsonObject.getJSONArray("documents");
+        JSONArray doc = jsonObject.getJSONArray(Constants.json_key_documents);
 
         ArrayList<Request> requests = new ArrayList<>();
 
         for(int i = 0; i < doc.length(); i++){
             JSONObject req = doc.getJSONObject(i);
-            requests.add(new Request(req.getString("from"), req.getString("to")));
+            requests.add(new Request(req.getString(Constants.json_key_from), req.getString(Constants.json_key_to)));
         }
 
         return requests;
     }
 
     public static Pet readPet(String _owner) throws Exception {
-        String query = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"owner\":\"" + _owner + "\"}}";
-        String queryAction = "findOne";
+        String query = Constants.query_read_pet + _owner + Constants.query_read_pet_end;
+        String queryAction = Constants.query_action_find_one;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
         JSONObject jsonObject = new JSONObject(jsonData);
-        JSONObject doc = jsonObject.getJSONObject("document");
+        JSONObject doc = jsonObject.getJSONObject(Constants.json_key_document);
 
-        String owner = doc.getString("owner");
-        String sprite = doc.getString("sprite");
-        String color = doc.getString("color");
-        String shoes = doc.getString("shoes");
-        String hat = doc.getString("hat");
-        String name = doc.getString("name");
+        String owner = doc.getString(Constants.json_key_owner);
+        String sprite = doc.getString(Constants.json_key_sprite);
+        String color = doc.getString(Constants.json_key_color);
+        String shoes = doc.getString(Constants.json_key_shoes);
+        String hat = doc.getString(Constants.json_key_hat);
+        String name = doc.getString(Constants.json_key_name);
         ArrayList<String> tags = new ArrayList<>();
-        JSONArray tagsArray = doc.getJSONArray("tags");
+        JSONArray tagsArray = doc.getJSONArray(Constants.json_key_tags);
         for (int i = 0; i < tagsArray.length(); i++){
             tags.add(tagsArray.getString(i));
         }
@@ -209,20 +209,20 @@ public class DatabaseHandler {
         String type = "";
         switch (_type){
             case 0:
-                type = "hat";
+                type = Constants.type_case_hat;
                 break;
             case 1:
-                type = "shoes";
+                type = Constants.type_case_shoes;
                 break;
         }
 
-        String query = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"owner\":\"" + _owner + "\"}, \"update\":{\"$set\":{\"" + type + "\":\"" + _spriteName + "\"}}}";
-        String queryAction = "updateOne";
+        String query = Constants.query_update_pet + _owner + Constants.query_update_pet_middle_1 + type + Constants.query_update_pet_middle_2 + _spriteName + Constants.query_update_pet_end;
+        String queryAction = Constants.query_action_update_one;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
         try{
             JSONObject jsonObject = new JSONObject(jsonData);
-            int count = jsonObject.getInt("modifiedCount");
+            int count = jsonObject.getInt(Constants.json_key_modified_count);
             if (count <= 0) return false;
             return true;
         }
@@ -230,23 +230,23 @@ public class DatabaseHandler {
     }
 
     public static ArrayList<Item> readItems() throws Exception {
-        String query = "{\"collection\":\"item\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\"}";
-        String queryAction = "find";
+        String query = Constants.query_read_items;
+        String queryAction = Constants.query_action_find;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
         JSONObject jsonObject = new JSONObject(jsonData);
-        JSONArray doc = jsonObject.getJSONArray("documents");
+        JSONArray doc = jsonObject.getJSONArray(Constants.json_key_documents);
 
         ArrayList<Item> items = new ArrayList<Item>();
 
         for(int i = 0; i < doc.length(); i++){
             String itemString = doc.getString(i);
             JSONObject itemObject = new JSONObject(itemString);
-            int type = itemObject.getInt("type");
-            String name  = itemObject.getString("name");
-            String sprite = itemObject.getString("sprite");
-            int value = itemObject.getInt("value");
-            JSONArray tags = itemObject.getJSONArray("tags");
+            int type = itemObject.getInt(Constants.json_key_type);
+            String name  = itemObject.getString(Constants.json_key_name);
+            String sprite = itemObject.getString(Constants.json_key_sprite);
+            int value = itemObject.getInt(Constants.json_key_value);
+            JSONArray tags = itemObject.getJSONArray(Constants.json_key_tags);
             ArrayList<String> tagStrings = new ArrayList<>();
             for (int j = 0; j < tags.length(); j++){
                 String tag = tags.getString(j);
@@ -260,14 +260,14 @@ public class DatabaseHandler {
     }
 
     public static ArrayList<String> readItemTags(String sprite) throws Exception {
-        String query = "{\"collection\":\"item\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"sprite\":\"" + sprite + "\"}}";
-        String queryAction = "findOne";
+        String query = Constants.query_read_item_tags + sprite + Constants.query_read_item_tags_end;
+        String queryAction = Constants.query_action_find_one;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
         JSONObject jsonObject = new JSONObject(jsonData);
-        JSONObject doc = jsonObject.getJSONObject("document");
+        JSONObject doc = jsonObject.getJSONObject(Constants.json_key_document);
 
-        JSONArray tags = doc.getJSONArray("tags");
+        JSONArray tags = doc.getJSONArray(Constants.json_key_tags);
         ArrayList<String> tagStrings = new ArrayList<>();
         for (int i = 0; i < tags.length(); i++){
             String tag = tags.getString(i);
@@ -302,24 +302,24 @@ public class DatabaseHandler {
     public static ArrayList<Model> getModels() throws Exception {
         ArrayList<Model> modelsArray = new ArrayList<>();
 
-        String query = "{\"collection\":\"pet_selector\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\"}";
-        String queryAction = "find";
+        String query = Constants.query_get_models;
+        String queryAction = Constants.query_action_find;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
         JSONObject jsonObject = new JSONObject(jsonData);
-        JSONArray docs = jsonObject.getJSONArray("documents");
+        JSONArray docs = jsonObject.getJSONArray(Constants.json_key_documents);
 
         for (int i = 0; i < docs.length(); i++){
             JSONObject doc = docs.getJSONObject(i);
 
-            String name = doc.getString("name");
-            JSONArray colorsArray = doc.getJSONArray("colors");
+            String name = doc.getString(Constants.json_key_name);
+            JSONArray colorsArray = doc.getJSONArray(Constants.json_key_colors);
             ArrayList<String> colors = new ArrayList<>();
             for (int j = 0; j < colorsArray.length(); j++){
                 colors.add(colorsArray.getString(j));
             }
             ArrayList<String> tags = new ArrayList<>();
-            JSONArray tagsArray = doc.getJSONArray("tags");
+            JSONArray tagsArray = doc.getJSONArray(Constants.json_key_tags);
             for (int j = 0; j < tagsArray.length(); j++){
                 tags.add(tagsArray.getString(j));
             }
@@ -332,14 +332,14 @@ public class DatabaseHandler {
     }
 
     public static Boolean createMessage(Message message) throws Exception {
-        String messageDocument = "\"from\":\"" + message.getFrom() + "\", \"to\":\"" + message.getTo() + "\", \"title\":\"" + message.getTitle() + "\", \"message\":\""+ message.getMessage() + "\"";
-        String query = "{\"collection\":\"message\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + messageDocument + "}}";
-        String queryAction = "insertOne";
+        String messageDocument = Constants.message_document_form + message.getFrom() + Constants.message_document_to + message.getTo() + Constants.message_document_title + message.getTitle() + Constants.message_document_message + message.getMessage() + Constants.message_document_message_end;
+        String query = Constants.query_create_message + messageDocument + Constants.query_create_message_end;
+        String queryAction = Constants.query_action_insert_one;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
         try{
             JSONObject jsonObject = new JSONObject(jsonData);
-            jsonObject.getString("insertedId");
+            jsonObject.getString(Constants.json_key_inserted_id);
             return true;
         }
         catch (Exception e) { return false; }
@@ -348,19 +348,19 @@ public class DatabaseHandler {
     public static ArrayList<Message> readMessages(String _to) throws Exception {
         ArrayList<Message> messagesArray = new ArrayList<>();
 
-        String query = "{\"collection\":\"message\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"to\":\"" + _to + "\"}}";
-        String queryAction = "find";
+        String query = Constants.query_read_message + _to + Constants.query_read_message_end;
+        String queryAction = Constants.query_action_find;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
         JSONObject jsonObject = new JSONObject(jsonData);
-        JSONArray docs = jsonObject.getJSONArray("documents");
+        JSONArray docs = jsonObject.getJSONArray(Constants.json_key_documents);
 
         for (int i = 0; i < docs.length(); i++){
             JSONObject doc = docs.getJSONObject(i);
-            String from = doc.getString("from");
-            String to = doc.getString("to");
-            String title = doc.getString("title");
-            String message = doc.getString("message");
+            String from = doc.getString(Constants.json_key_from);
+            String to = doc.getString(Constants.json_key_to);
+            String title = doc.getString(Constants.json_key_title);
+            String message = doc.getString(Constants.json_key_message);
 
             messagesArray.add(new Message(from, to, title, message));
         }
@@ -370,14 +370,14 @@ public class DatabaseHandler {
 
     public static Boolean deleteMessage(String from, String to, String title, String message) throws Exception {
 
-        String query = "{\"collection\":\"message\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"from\":\"" + from + "\", \"to\":\"" + to + "\", \"title\":\"" + title + "\", \"message\":\"" + message + "\"}}";
-        String queryAction = "deleteOne";
+        String query = Constants.query_delete_message + from + Constants.query_delete_message_middle_1 + to + Constants.query_delete_message_middle_2 + title + Constants.query_delete_message_middle_3 + message + Constants.query_delete_message_end;
+        String queryAction = Constants.query_action_delete_one;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
 
         try{
             JSONObject jsonObject = new JSONObject(jsonData);
-            int count = jsonObject.getInt("deletedCount");
+            int count = jsonObject.getInt(Constants.json_key_deleted_count);
             if (count <= 0) return false;
             return true;
         }
@@ -386,14 +386,14 @@ public class DatabaseHandler {
 
     public static Boolean deleteRequest(String from, String to) throws Exception {
 
-        String query = "{\"collection\":\"request\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"from\":\"" + from + "\", \"to\":\"" + to + "\"}}";
-        String queryAction = "deleteOne";
+        String query = Constants.query_delete_request + from + Constants.query_delete_request_middle + to + Constants.query_delete_request_end;
+        String queryAction = Constants.query_action_delete_one;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
 
         try{
             JSONObject jsonObject = new JSONObject(jsonData);
-            int count = jsonObject.getInt("deletedCount");
+            int count = jsonObject.getInt(Constants.json_key_deleted_count);
             if (count <= 0) return false;
             return true;
         }
@@ -401,14 +401,14 @@ public class DatabaseHandler {
     }
 
     public static String getAdd(String theme) throws Exception {
-        String query = "{\"collection\":\"advertisement\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"theme\":\"" + theme + "\"}}";
-        String queryAction = "findOne";
+        String query = Constants.query_get_add + theme + Constants.query_get_add_end;
+        String queryAction = Constants.query_action_find_one;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
         JSONObject jsonObject = new JSONObject(jsonData);
-        JSONObject doc = jsonObject.getJSONObject("document");
+        JSONObject doc = jsonObject.getJSONObject(Constants.json_key_document);
 
-        String add = doc.getString("add");
+        String add = doc.getString(Constants.json_key_add);
 
         return add;
     }
