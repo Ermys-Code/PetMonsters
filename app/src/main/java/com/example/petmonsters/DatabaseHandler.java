@@ -37,15 +37,15 @@ import java.util.concurrent.ExecutionException;
 public class DatabaseHandler {
 
     public static Boolean createUser(User user) throws ExecutionException, InterruptedException {
-        String userDocument = "\"name\":\"" + user.getName() + "\", \"surname\":\"" + user.getSurname() + "\", \"email\":\"" + user.getEmail() + "\", \"username\":\"" + user.getUsername() + "\", \"password\":\"" + user.getPassword() + "\", \"money\":\"" + user.getMoney() + "\", \"items\":[], \"age\":\"" + user.getAge() + "\", \"friends\":[]";
-        String query = "{\"collection\":\"user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + userDocument + "}}";
-        String queryAction = "insertOne";
+        String userDocument = Constants.user_document_name_field + user.getName() + Constants.user_document_surname_field + user.getSurname() + Constants.user_document_email_field + user.getEmail() + Constants.user_document_username_field + user.getUsername() + Constants.user_document_password_field + user.getPassword() + Constants.user_document_money_field + user.getMoney() + Constants.user_document_items_age_field + user.getAge() + Constants.user_document_friends_field;
+        String query = Constants.query_create_user + userDocument + Constants.query_create_user_end;
+        String queryAction = Constants.query_action_insert_one;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
         try{
             System.out.println(jsonData);
             JSONObject jsonObject = new JSONObject(jsonData);
-            jsonObject.getString("insertedId");
+            jsonObject.getString(Constants.json_key_inserted_id);
             return true;
         } catch (JSONException e) {
             return false;
@@ -53,21 +53,21 @@ public class DatabaseHandler {
     }
 
     public static User readUser(String _username, Boolean getFriends) throws ExecutionException, InterruptedException, JSONException {
-        String query = "{\"collection\":\"user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"username\":\"" + _username + "\"}}";
-        String queryAction = "findOne";
+        String query = Constants.query_read_user + _username + Constants.query_read_user_end;
+        String queryAction = Constants.query_action_find_one;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
         JSONObject jsonObject = new JSONObject(jsonData);
-        JSONObject doc = jsonObject.getJSONObject("document");
+        JSONObject doc = jsonObject.getJSONObject(Constants.json_key_document);
 
-        String name = doc.getString("name");
-        String surname = doc.getString("surname");
-        String email = doc.getString("email");
-        String username = doc.getString("username");
-        String password = doc.getString("password");
-        int age = doc.getInt("age");
-        int money = doc.getInt("money");
-        JSONArray itemsArray = doc.getJSONArray("items");
+        String name = doc.getString(Constants.json_key_name);
+        String surname = doc.getString(Constants.json_key_surname);
+        String email = doc.getString(Constants.json_key_email);
+        String username = doc.getString(Constants.json_key_username);
+        String password = doc.getString(Constants.json_key_password);
+        int age = doc.getInt(Constants.json_key_age);
+        int money = doc.getInt(Constants.json_key_money);
+        JSONArray itemsArray = doc.getJSONArray(Constants.json_key_items);
 
         ArrayList<String> items = new ArrayList<>();
         for (int i = 0; i < itemsArray.length(); i++){
@@ -78,7 +78,7 @@ public class DatabaseHandler {
             User user = new User(name, surname, email, username, password, age, items, money, null);
             return user;
         } else {
-            JSONArray friendsArray = doc.getJSONArray("friends");
+            JSONArray friendsArray = doc.getJSONArray(Constants.json_key_friends);
             ArrayList<User> usersArray = new ArrayList<>();
             for (int i = 0; i < friendsArray.length(); i++){
                 String friendUsername = friendsArray.getString(i);
@@ -92,17 +92,17 @@ public class DatabaseHandler {
     public static Boolean updateUser(String _username, ArrayList<String> _items) throws ExecutionException, InterruptedException {
         String items = "";
         for(int i = 0; i < _items.size(); i++){
-            items += "\"" + _items.get(i) + "\"";
-            if (i < _items.size()-1) items += ", ";
+            items += Constants.doblequote + _items.get(i) + Constants.doblequote;
+            if (i < _items.size()-1) items += Constants.spaced_coma;
         }
 
-        String query = "{\"collection\":\"user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"username\":\"" + _username + "\"}, \"update\":{\"$set\":{\"items\":[" + items + "]}}}";
-        String queryAction = "updateOne";
+        String query = Constants.query_update_user + _username + Constants.query_update_user_middle + items + Constants.query_update_user_end;
+        String queryAction = Constants.query_action_update_one;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
         try{
             JSONObject jsonObject = new JSONObject(jsonData);
-            int count = jsonObject.getInt("modifiedCount");
+            int count = jsonObject.getInt(Constants.json_key_modified_count);
             if (count <= 0) return false;
             return true;
         } catch (JSONException e) {
@@ -113,17 +113,17 @@ public class DatabaseHandler {
     public static Boolean updateUserFriends(String _username, ArrayList<String> _friends) throws ExecutionException, InterruptedException {
         String friends = "";
         for(int i = 0; i < _friends.size(); i++){
-            friends += "\"" + _friends.get(i) + "\"";
-            if (i != _friends.size()-1) friends += ", ";
+            friends += Constants.doblequote + _friends.get(i) + Constants.doblequote;
+            if (i != _friends.size()-1) friends += Constants.spaced_coma;
         }
 
-        String query = "{\"collection\":\"user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"username\":\"" + _username + "\"}, \"update\":{\"$set\":{\"friends\":[" + friends + "]}}}";
-        String queryAction = "updateOne";
+        String query = Constants.query_update_user + _username + Constants.query_update_user_frends_middle + friends + Constants.query_update_user_end;
+        String queryAction = Constants.query_action_update_one;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
         try{
             JSONObject jsonObject = new JSONObject(jsonData);
-            int count = jsonObject.getInt("modifiedCount");
+            int count = jsonObject.getInt(Constants.json_key_modified_count);
             if (count <= 0) return false;
             return true;
         } catch (JSONException e) {
@@ -134,18 +134,18 @@ public class DatabaseHandler {
     public static Boolean createPet(Pet pet) throws ExecutionException, InterruptedException {
         String tags = "";
         for (int i = 0; i < pet.getTags().size(); i++){
-            tags += "\"" + pet.getTags().get(i) + "\"";
-            if (i < pet.getTags().size()-1) tags += ", ";
+            tags += Constants.doblequote + pet.getTags().get(i) + Constants.doblequote;
+            if (i < pet.getTags().size()-1) tags += Constants.spaced_coma;
         }
 
-        String userDocument = "\"owner\":\"" + pet.getOwner() + "\", \"sprite\":\"" + pet.getSprite() + "\", \"color\":\"" + pet.getColor() + "\", \"shoes\":\"\", \"hat\":\"\", \"name\":\"" + pet.getName() + "\", \"tags\":[" + tags + "]";
-        String query = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + userDocument + "}}";
-        String queryAction = "insertOne";
+        String userDocument = Constants.pet_document_owner_field + pet.getOwner() + Constants.pet_document_sprite_field + pet.getSprite() + Constants.pet_document_color_field + pet.getColor() + Constants.pet_document_shoes_hat_name_field + pet.getName() + Constants.pet_document_tags_field + tags + Constants.pet_document_tags_field_end;
+        String query = Constants.query_create_pet + userDocument + Constants.query_create_pet_end;
+        String queryAction = Constants.query_action_insert_one;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
         try{
             JSONObject jsonObject = new JSONObject(jsonData);
-            jsonObject.getString("insertedId");
+            jsonObject.getString(Constants.json_key_inserted_id);
             return true;
         } catch (JSONException e) {
             return false;
@@ -153,14 +153,14 @@ public class DatabaseHandler {
     }
 
     public static Boolean CreateRequest(Request request) throws ExecutionException, InterruptedException {
-        String requestDocument = "\"from\":\"" + request.getFrom() + "\", \"to\":\"" + request.getTo() + "\"";
-        String query = "{\"collection\":\"request\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + requestDocument + "}}";
-        String queryAction = "insertOne";
+        String requestDocument = Constants.request_document_from_field + request.getFrom() + Constants.request_document_to_field + request.getTo() + Constants.request_document_to_field_end;
+        String query = Constants.query_create_request + requestDocument + Constants.query_create_request_end;
+        String queryAction = Constants.query_action_insert_one;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 
         try{
             JSONObject jsonObject = new JSONObject(jsonData);
-            jsonObject.getString("insertedId");
+            jsonObject.getString(Constants.json_key_inserted_id);
             return true;
         } catch (JSONException e) {
             return false;

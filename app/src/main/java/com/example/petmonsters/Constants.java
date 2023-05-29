@@ -3,8 +3,10 @@ package com.example.petmonsters;
 public class Constants {
     //-- Symbols --//
     public static final String coma = ",";
+    public static final String spaced_coma = ", ";
     public static final String slash = "/";
     public static final String at = "@";
+    public static final String doblequote = "\"";
 
     //-- Utilities --//
     public static final String hash_algorithm = "MD5";
@@ -21,6 +23,59 @@ public class Constants {
     public static final String header_all = "Access-Control-Request-Headers";
     public static final String header_api_key = "api-key";
     public static final String api_key = "sucE6UfBivnhG4Iwg6sNPhluANRUqrDWApBAxpV7hG0SKOYmWWBXBlRcni1ehqOU";
+
+    //-- Querys --//
+    public static final String query_create_user = "{\"collection\":\"user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{";
+    public static final String query_create_user_end = "}}";
+    public static final String query_read_user = "{\"collection\":\"user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"username\":\"";
+    public static final String query_read_user_end = "\"}}";
+    public static final String query_update_user = "{\"collection\":\"user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"username\":\"";
+    public static final String query_update_user_middle = "\"}, \"update\":{\"$set\":{\"items\":[";
+    public static final String query_update_user_frends_middle = "\"}, \"update\":{\"$set\":{\"friends\":[";
+    public static final String query_update_user_end = "]}}}";
+    public static final String query_create_pet = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{";
+    public static final String query_create_pet_end = "}}";
+    public static final String query_create_request = "{\"collection\":\"request\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{";
+    public static final String query_create_request_end = "}}";
+
+
+    //-- Query actions --//
+    public static final String query_action_insert_one = "insertOne";
+    public static final String query_action_find_one = "findOne";
+    public static final String query_action_update_one = "updateOne";
+
+    //-- Json keys --//
+    public static final String json_key_inserted_id = "insertedId";
+    public static final String json_key_modified_count = "modifiedCount";
+    public static final String json_key_document = "document";
+    public static final String json_key_name = "name";
+    public static final String json_key_surname = "surname";
+    public static final String json_key_email = "email";
+    public static final String json_key_username = "username";
+    public static final String json_key_password = "password";
+    public static final String json_key_age = "age";
+    public static final String json_key_money = "money";
+    public static final String json_key_items = "items";
+    public static final String json_key_friends = "friends";
+
+    //-- Query documents --//
+    public static final String user_document_name_field = "\"name\":\"";
+    public static final String user_document_surname_field = "\", \"surname\":\"";
+    public static final String user_document_email_field = "\", \"email\":\"";
+    public static final String user_document_username_field = "\", \"username\":\"";
+    public static final String user_document_password_field = "\", \"password\":\"";
+    public static final String user_document_money_field = "\", \"money\":\"";
+    public static final String user_document_items_age_field = "\", \"items\":[], \"age\":\"";
+    public static final String user_document_friends_field = "\", \"friends\":[]";
+    public static final String pet_document_owner_field = "\"owner\":\"";
+    public static final String pet_document_sprite_field = "\", \"sprite\":\"";
+    public static final String pet_document_color_field = "\", \"color\":\"";
+    public static final String pet_document_shoes_hat_name_field = "\", \"shoes\":\"\", \"hat\":\"\", \"name\":\"";
+    public static final String pet_document_tags_field = "\", \"tags\":[";
+    public static final String pet_document_tags_field_end = "]";
+    public static final String request_document_from_field = "\"from\":\"";
+    public static final String request_document_to_field = "\", \"to\":\"";
+    public static final String request_document_to_field_end = "\"";
 
     //-- Database --//
     public static final String collection_user = "user";
