@@ -108,6 +108,7 @@ public class Constants {
     public static final String item_not_saved = "Item not saved";
     public static final String item_not_purchased = "Item not purchased";
     public static final String already_in_friends = "You already have this user added as friend";
+    public static final String not_enough_currency = "You don't have enough coins to buy this item";
 
     //-- Fragments --//
     public static final String params_1 = "param1";

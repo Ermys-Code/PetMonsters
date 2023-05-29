@@ -13,13 +13,13 @@ public class User {
     private ArrayList<String> items = new ArrayList<String>();
     private ArrayList<User> friends = new ArrayList<>();
 
-    public User(String name, String surname, String email, String username, String password, int age, ArrayList<String> items, int money, ArrayList<User> friends){
+    public User(String name, String surname, String email, String username, String password, int age, ArrayList<String> items, ArrayList<User> friends, int money){
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.money = 0;
+        this.money = money;
         this.age = age;
         this.items = items;
         this.friends = friends;

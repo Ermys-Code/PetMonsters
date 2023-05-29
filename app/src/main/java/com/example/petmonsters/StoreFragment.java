@@ -69,8 +69,9 @@ public class StoreFragment extends Fragment {
             String name = app.getStore().get(i).getName();
             System.out.println(name);
             int type =  app.getStore().get(i).getType();
+            int value = app.getStore().get(i).getValue();
 
-            generateImage(sprite, i, app.getContext(), name, type);
+            generateImage(sprite, i, app.getContext(), name, type, value);
         }
     }
 
@@ -78,7 +79,7 @@ public class StoreFragment extends Fragment {
         app = (PetMonstersApplication) getActivity().getApplicationContext();
     }
 
-    public void generateImage(String sprite, int index, Context context, String name, int type) {
+    public void generateImage(String sprite, int index, Context context, String name, int type, int value) {
 
         if (index % 3 == 0) {
             currentBox = new LinearLayout(context);
@@ -101,25 +102,34 @@ public class StoreFragment extends Fragment {
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (type){
-                    case 0:
-                        app.getPet().setHat(sprite);
-                        break;
-                    case 1:
-                        app.getPet().setShoes(sprite);
-                        break;
-                }
-
-                try {
-                    UpdatePet(app.getPet().getOwner(), type, sprite);
-                }
-                catch (Exception e) { System.out.println(e.getMessage()); }
 
                 if(!app.getUser().getItems().contains(sprite)){
-                    app.getUser().getItems().add(sprite);
+                    if(app.getUser().getMoney() > value) {
 
+                        try {
+                            UpdateUser(app.getUser().getUsername(), app.getUser().getItems());
+                            app.getUser().setMoney(app.getUser().getMoney() - value);
+                            app.getUser().getItems().add(sprite);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
+                    else{
+                        Utilities.ShowShortToast(getContext().getApplicationContext(), Constants.not_enough_currency);
+                    }
+                }
+
+                if(app.getUser().getItems().contains(sprite)){
                     try {
-                        UpdateUser(app.getUser().getUsername(), app.getUser().getItems());
+                        UpdatePet(app.getPet().getOwner(), type, sprite);
+                        switch (type){
+                            case 0:
+                                app.getPet().setHat(sprite);
+                                break;
+                            case 1:
+                                app.getPet().setShoes(sprite);
+                                break;
+                        }
                     }
                     catch (Exception e) { System.out.println(e.getMessage()); }
                 }

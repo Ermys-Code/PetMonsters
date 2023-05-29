@@ -74,7 +74,7 @@ public class DatabaseHandler {
         }
 
         if(!getFriends){
-            User user = new User(name, surname, email, username, password, age, items, money, null);
+            User user = new User(name, surname, email, username, password, age, items, null, money);
             return user;
         } else {
             JSONArray friendsArray = doc.getJSONArray(Constants.json_key_friends);
@@ -83,7 +83,7 @@ public class DatabaseHandler {
                 String friendUsername = friendsArray.getString(i);
                 usersArray.add(readUser(friendUsername, false));
             }
-            User user = new User(name, surname, email, username, password, age, items, money, usersArray);
+            User user = new User(name, surname, email, username, password, age, items, usersArray, money);
             return user;
         }
     }
@@ -245,6 +245,7 @@ public class DatabaseHandler {
             int type = itemObject.getInt("type");
             String name  = itemObject.getString("name");
             String sprite = itemObject.getString("sprite");
+            int value = itemObject.getInt("value");
             JSONArray tags = itemObject.getJSONArray("tags");
             ArrayList<String> tagStrings = new ArrayList<>();
             for (int j = 0; j < tags.length(); j++){
@@ -252,7 +253,7 @@ public class DatabaseHandler {
                 tagStrings.add(tag);
             }
 
-            items.add(new Item(type,name,sprite, tagStrings));
+            items.add(new Item(type,name,sprite, tagStrings, value));
         }
 
         return items;

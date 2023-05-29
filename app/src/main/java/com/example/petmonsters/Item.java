@@ -9,12 +9,14 @@ public class Item {
     private String name;
     private String sprite;
     private ArrayList<String> tags;
+    private int value;
 
-    Item(int type, String name, String sprite, ArrayList<String> tags){
+    Item(int type, String name, String sprite, ArrayList<String> tags, int value){
         this.type = type;
         this.name = name;
         this.sprite = sprite;
         this.tags = tags;
+        this.value = value;
     }
 
     public int getType() {
@@ -31,5 +33,9 @@ public class Item {
 
     public ArrayList<String> getTags() {
         return tags;
+    }
+
+    public int getValue() {
+        return value;
     }
 }
