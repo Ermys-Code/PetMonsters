@@ -3,6 +3,8 @@ package com.example.petmonsters;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Debug;
 import android.provider.ContactsContract;
@@ -20,6 +22,7 @@ public class AddActivity extends AppCompatActivity {
     private ImageView backgroundIv, closeIv;
     private Class<?> nextClass;
     private ArrayList<String> tagsArray = new ArrayList<>();
+    private Drawable add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +52,7 @@ public class AddActivity extends AppCompatActivity {
 
         getAdd();
 
-        loadAdd();
+        loadAdd(add);
     }
 
     private void getAppContext(){
@@ -83,9 +86,13 @@ public class AddActivity extends AppCompatActivity {
         ArrayList<String> hatTags = DatabaseHandler.readItemTags(app.getPet().getHat());
         ArrayList<String> shoesTags = DatabaseHandler.readItemTags(app.getPet().getShoes());
 
-        itemTags.addAll(hatTags);
-        itemTags.addAll(shoesTags);
-        petTags.addAll(app.getPet().getTags());
+        for (int i = 0; i < 4; i++) {
+            itemTags.addAll(hatTags);
+            itemTags.addAll(shoesTags);
+        }
+        for (int i = 0; i < 3; i++){
+            petTags.addAll(app.getPet().getTags());
+        }
 
         String stringItemTags = String.join(",", itemTags);
         String stringPetTags = String.join(",", petTags);
@@ -131,9 +138,6 @@ public class AddActivity extends AppCompatActivity {
         for(int i=0; i < tags.size(); i++){
             newTagsList.add(new AsyncMap().execute(tags.get(i)).get());
         }
-
-        System.out.println(newTagsList);
-        System.out.println(newTagsList);
     }
 
     private void shuffle(){
@@ -144,11 +148,15 @@ public class AddActivity extends AppCompatActivity {
 
     }
 
-    private void getAdd(){
+    private void getAdd(String theme) throws JSONException, ExecutionException, InterruptedException {
+        String addString = DatabaseHandler.getAdd(theme);
 
+        Resources res = app.getResources();
+        int drawableId = res.getIdentifier(addString, "drawable", app.getContext().getApplicationContext().getPackageName());
+        add = app.getContext().getResources().getDrawable(drawableId);
     }
 
-    private void loadAdd(){
-
+    private void loadAdd(Drawable add){
+        backgroundIv.setImageDrawable(add);
     }
 }

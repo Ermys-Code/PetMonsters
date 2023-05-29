@@ -410,4 +410,17 @@ public class DatabaseHandler {
         }
     }
 
+    public static String getAdd(String theme) throws ExecutionException, InterruptedException, JSONException {
+        String query = "{\"collection\":\"item\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"theme\":\"" + theme + "\"}}";
+        String queryAction = "findOne";
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
+
+        JSONObject jsonObject = new JSONObject(jsonData);
+        JSONObject doc = jsonObject.getJSONObject("document");
+
+        String add = doc.getString("add");
+
+        return add;
+    }
+
 }
