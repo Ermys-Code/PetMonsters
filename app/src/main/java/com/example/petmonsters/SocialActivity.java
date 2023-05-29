@@ -167,8 +167,14 @@ public class SocialActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                Intent intent = new Intent(SocialActivity.this, FriendActivity.class);
-                startActivity(intent);
+                if (Utilities.showAdd()){
+                    Intent a = new Intent(SocialActivity.this, AddActivity.class);
+                    a.putExtra("nextActivity", FriendActivity.class);
+                    startActivity(a);
+                } else {
+                    Intent intent = new Intent(SocialActivity.this, FriendActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

@@ -142,8 +142,15 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void visitFriends(){
-        Intent intent = new Intent(HomeActivity.this, SocialActivity.class);
-        startActivity(intent);
+        if (Utilities.showAdd()){
+            Intent a = new Intent(HomeActivity.this, AddActivity.class);
+            a.putExtra("nextActivity", SocialActivity.class);
+            startActivity(a);
+        } else {
+            Intent intent = new Intent(HomeActivity.this, SocialActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     private void useBoard(){

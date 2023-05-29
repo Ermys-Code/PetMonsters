@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 
 public class Utilities {
 
@@ -22,6 +23,11 @@ public class Utilities {
         for (int i=0; i<messageDigest.length; i++)
             hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
         return hexString.toString();
+    }
+
+    public static Boolean showAdd(){
+        int result = new Random().nextInt(3-0);
+        return result == 1;
     }
 
 }

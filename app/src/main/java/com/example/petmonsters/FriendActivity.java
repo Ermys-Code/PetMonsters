@@ -21,7 +21,8 @@ public class FriendActivity extends AppCompatActivity {
 
     private TextView name_tv, petname_tv;
 
-    private BoardFragment boardFragment;
+    private BoardFriendFragment boardFragment;
+    private NoteFragment noteFragment;
     private FragmentTransaction fragmentTransaction;
 
     private PetMonstersApplication app;
@@ -47,7 +48,8 @@ public class FriendActivity extends AppCompatActivity {
     }
 
     private void assignFragments(){
-        boardFragment = new BoardFragment();
+        boardFragment = new BoardFriendFragment();
+        noteFragment = new NoteFragment();
     }
 
     private void createListeners() {
@@ -110,5 +112,22 @@ public class FriendActivity extends AppCompatActivity {
             fragmentTransaction.show(boardFragment);}
         fragmentTransaction.commit();
 
+    }
+
+    public void addNote(){
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (noteFragment.isAdded()) { fragmentTransaction.remove(noteFragment);}
+        else{fragmentTransaction.add(R.id.fragment_container_create_note, noteFragment);
+            fragmentTransaction.show(noteFragment);}
+        fragmentTransaction.commit();
+    }
+
+    public BoardFriendFragment getBoardFragment(){
+        return boardFragment;
+    }
+
+    public void closeNoteFragment(){
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.remove(noteFragment).commit();
     }
 }

@@ -24,7 +24,7 @@
             android:layout_height="75dp"
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="40dp"
-            android:layout_marginBottom="125dp"/>
+            android:layout_marginBottom="175dp"/>
 
     </FrameLayout>
 
@@ -98,6 +98,18 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_height="300dp">
+
+
+
+    </androidx.fragment.app.FragmentContainerView>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container_create_note"
         android:layout_width="match_parent"
         android:layout_gravity="center"
         android:layout_marginRight="50dp"

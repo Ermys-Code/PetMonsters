@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -114,7 +115,7 @@ public class BoardFragment extends Fragment {
 
     @SuppressLint("ResourceAsColor")
     private void generateMessage(int index, Context context, String _name, String _to, String _title, String _message){
-        if (index % 3 == 0) {
+        if (index % 2 == 0) {
             horizontalLayout = new LinearLayout(context);
             LinearLayout.LayoutParams boxParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
             horizontalLayout.setLayoutParams(boxParameters);
@@ -123,45 +124,60 @@ public class BoardFragment extends Fragment {
             mainLayout.addView(horizontalLayout);
         }
 
+
         verticalLayout = new LinearLayout(context);
-        LinearLayout.LayoutParams verticalLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+        LinearLayout.LayoutParams verticalLayoutParams = new LinearLayout.LayoutParams(250, 400, 1.0f);
         verticalLayout.setLayoutParams(verticalLayoutParams);
         verticalLayoutParams.setMargins(5, 0, 5, 0);
         verticalLayout.setOrientation(LinearLayout.VERTICAL);
         verticalLayout.setBackgroundColor(R.color.purple_700);
 
+        ScrollView scrollView = new ScrollView(context);
+        LinearLayout.LayoutParams scrollParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        scrollView.setLayoutParams(scrollParams);
+
         LinearLayout miniLayout = new LinearLayout(context);
-        LinearLayout.LayoutParams miniParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
+        LinearLayout.LayoutParams miniParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         miniLayout.setLayoutParams(miniParameters);
         miniLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         TextView name = new TextView(context);
         name.setText(_name);
-        LinearLayout.LayoutParams nameParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
+        LinearLayout.LayoutParams nameParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         name.setLayoutParams(nameParameters);
         name.setGravity(Gravity.CENTER);
         name.setTextColor(R.color.black);
         name.setTextSize(20);
 
-        miniLayout.addView(name);
 
         ImageView deleteIv = new ImageView(context);
         deleteIv.setImageDrawable(app.getDrawable(R.drawable.color_selector));
-        LinearLayout.LayoutParams deleteIvParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 0.1f);
-        deleteIvParams.gravity = Gravity.LEFT;
+        LinearLayout.LayoutParams deleteIvParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        deleteIvParams.width = 50;
+        deleteIvParams.height = 50;
+        deleteIvParams.gravity = Gravity.CENTER;
         deleteIv.setLayoutParams(deleteIvParams);
 
         deleteIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try { DatabaseHandler.deleteMessage(_name, _to, _title, _message); }
-                catch (ExecutionException | InterruptedException | JSONException e) { e.printStackTrace(); }
+                try {
+                    DatabaseHandler.deleteMessage(_name, _to, _title, _message);
+                    Utilities.ShowShortToast(app.getContext(), "Message deleted succesfully");
+                    horizontalLayout.removeView(verticalLayout);
+                    reload();
+                }
+                catch (ExecutionException | InterruptedException | JSONException e) {
+                    e.printStackTrace();
+                    Utilities.ShowShortToast(app.getContext(), "Error deleting message");
+                }
             }
         });
 
 
-        miniLayout.addView(deleteIv);
-        verticalLayout.addView(miniLayout);
+        verticalLayout.addView(deleteIv);
+        verticalLayout.addView(name);
+        //verticalLayout.addView(miniLayout);
 
         TextView title = new TextView(context);
         title.setText(_title);
@@ -180,8 +196,18 @@ public class BoardFragment extends Fragment {
         message.setGravity(Gravity.LEFT);
         message.setTextColor(R.color.black);
 
-        verticalLayout.addView(message);
+        scrollView.addView(message);
 
+        verticalLayout.addView(scrollView);
         horizontalLayout.addView(verticalLayout);
+    }
+
+    private void reload(){
+        try {
+            getMessages();
+            loadMessages();
+        }
+        catch (ExecutionException | InterruptedException | JSONException e) { e.printStackTrace(); }
+
     }
 }

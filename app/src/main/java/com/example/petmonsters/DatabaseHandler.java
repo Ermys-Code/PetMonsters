@@ -240,11 +240,35 @@ public class DatabaseHandler {
             int type = itemObject.getInt("type");
             String name  = itemObject.getString("name");
             String sprite = itemObject.getString("sprite");
+            JSONArray tags = itemObject.getJSONArray("tags");
+            ArrayList<String> tagStrings = new ArrayList<>();
+            for (int j = 0; j < tags.length(); j++){
+                String tag = tags.getString(j);
+                tagStrings.add(tag);
+            }
 
-            items.add(new Item(type,name,sprite));
+            items.add(new Item(type,name,sprite, tagStrings));
         }
 
         return items;
+    }
+
+    public static ArrayList<String> readItemTags(String sprite) throws ExecutionException, InterruptedException, JSONException {
+        String query = "{\"collection\":\"item\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"sprite\":\"" + sprite + "\"}}";
+        String queryAction = "findOne";
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
+
+        JSONObject jsonObject = new JSONObject(jsonData);
+        JSONObject doc = jsonObject.getJSONObject("document");
+
+        JSONArray tags = doc.getJSONArray("tags");
+        ArrayList<String> tagStrings = new ArrayList<>();
+        for (int i = 0; i < tags.length(); i++){
+            String tag = tags.getString(i);
+            tagStrings.add(tag);
+        }
+
+        return tagStrings;
     }
 
 
@@ -296,6 +320,21 @@ public class DatabaseHandler {
         }
 
         return modelsArray;
+    }
+
+    public static Boolean createMessage(Message message) throws ExecutionException, InterruptedException {
+        String messageDocument = "\"from\":\"" + message.getFrom() + "\", \"to\":\"" + message.getTo() + "\", \"title\":\"" + message.getTitle() + "\", \"message\":\""+ message.getMessage() + "\"";
+        String query = "{\"collection\":\"message\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + messageDocument + "}}";
+        String queryAction = "insertOne";
+        String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
+
+        try{
+            JSONObject jsonObject = new JSONObject(jsonData);
+            jsonObject.getString("insertedId");
+            return true;
+        } catch (JSONException e) {
+            return false;
+        }
     }
 
     public static ArrayList<Message> readMessages(String _to) throws ExecutionException, InterruptedException, JSONException {
