@@ -17,10 +17,11 @@ public class AsyncMap extends AsyncTask<String, String, String> {
             for(int i = 0; i < strings.size(); i++){
                 if(strings.get(i).contains(s)){
                     strings.get(i).add(s);
+                    flag=1;
                 }
             }
 
-            if(flag == 1){
+            if(flag == 0){
                 ArrayList<String> tempString = new ArrayList<String>();
                 tempString.add(s);
                 strings.add(tempString);
@@ -31,7 +32,8 @@ public class AsyncMap extends AsyncTask<String, String, String> {
 
         for(int i = 0; i < strings.size(); i++){
             String listString = String.join(",", strings.get(i));
-            output = output + listString + "/";
+            output += listString;
+            if(i < strings.size()-1) output += "/";
         }
 
         return output;

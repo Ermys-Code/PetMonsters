@@ -27,7 +27,8 @@ public class Utilities {
 
     public static Boolean showAdd(){
         int result = new Random().nextInt(3-0);
-        return result == 1;
+        return true;
+        //return result == 1;
     }
 
 }

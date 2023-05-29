@@ -132,7 +132,13 @@ public class DatabaseHandler {
     }
 
     public static Boolean createPet(Pet pet) throws ExecutionException, InterruptedException {
-        String userDocument = "\"owner\":\"" + pet.getOwner() + "\", \"sprite\":\"" + pet.getSprite() + "\", \"color\":\"" + pet.getColor() + "\", \"shoes\":\"\", \"hat\":\"\", \"name\":\"" + pet.getName() + "\"";
+        String tags = "";
+        for (int i = 0; i < pet.getTags().size(); i++){
+            tags += "\"" + pet.getTags().get(i) + "\"";
+            if (i < pet.getTags().size()-1) tags += ", ";
+        }
+
+        String userDocument = "\"owner\":\"" + pet.getOwner() + "\", \"sprite\":\"" + pet.getSprite() + "\", \"color\":\"" + pet.getColor() + "\", \"shoes\":\"\", \"hat\":\"\", \"name\":\"" + pet.getName() + "\", \"tags\":[" + tags + "]";
         String query = "{\"collection\":\"pet_user\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"document\":{" + userDocument + "}}";
         String queryAction = "insertOne";
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
@@ -193,8 +199,13 @@ public class DatabaseHandler {
         String shoes = doc.getString("shoes");
         String hat = doc.getString("hat");
         String name = doc.getString("name");
+        ArrayList<String> tags = new ArrayList<>();
+        JSONArray tagsArray = doc.getJSONArray("tags");
+        for (int i = 0; i < tagsArray.length(); i++){
+            tags.add(tagsArray.getString(i));
+        }
 
-        Pet pet = new Pet(owner, sprite, color, shoes, hat, name);
+        Pet pet = new Pet(owner, sprite, color, shoes, hat, name, tags);
 
         return pet;
     }
@@ -314,8 +325,13 @@ public class DatabaseHandler {
             for (int j = 0; j < colorsArray.length(); j++){
                 colors.add(colorsArray.getString(j));
             }
+            ArrayList<String> tags = new ArrayList<>();
+            JSONArray tagsArray = doc.getJSONArray("tags");
+            for (int j = 0; j < tagsArray.length(); j++){
+                tags.add(tagsArray.getString(j));
+            }
 
-            Model newModel = new Model(name, colors);
+            Model newModel = new Model(name, colors, tags);
             modelsArray.add(newModel);
         }
 

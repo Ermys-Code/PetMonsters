@@ -1,6 +1,8 @@
 package com.example.petmonsters;
 import android.graphics.Bitmap;
 
+import java.util.ArrayList;
+
 public class Pet {
     private String owner;
     private String sprite;
@@ -8,15 +10,17 @@ public class Pet {
     private String shoes;
     private String hat;
     private String name;
+    private ArrayList<String> tags;
 
 
-    Pet(String owner, String sprite, String color, String shoes, String hat, String name){
+    Pet(String owner, String sprite, String color, String shoes, String hat, String name, ArrayList<String> tags){
         this.owner = owner;
         this.sprite = sprite;
         this.color = color;
         this.shoes = shoes;
         this.hat = hat;
         this.name = name;
+        this.tags = tags;
     }
 
     public String getOwner() {
@@ -65,6 +69,14 @@ public class Pet {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(ArrayList<String> tags) {
+        this.tags = tags;
     }
 }
 

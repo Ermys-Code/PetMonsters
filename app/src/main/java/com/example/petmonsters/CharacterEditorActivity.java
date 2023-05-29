@@ -40,6 +40,7 @@ public class CharacterEditorActivity extends AppCompatActivity {
     private int currentSprite = 0;
     private ArrayList<String> modelColors = new ArrayList<>();
     private int currentColor = 0;
+    private ArrayList<String> modelTags = new ArrayList<>();
 
     private int currentPet = 0;
 
@@ -155,6 +156,7 @@ public class CharacterEditorActivity extends AppCompatActivity {
         modelName = model.getName();
         modelSprites = model.getSprites();
         modelColors = model.getColors();
+        modelTags = model.getTags();
 
         currentSprite = 0;
         currentColor = 0;
@@ -177,7 +179,7 @@ public class CharacterEditorActivity extends AppCompatActivity {
     private void savePet() throws ExecutionException, InterruptedException {
 
 
-        Pet pet = new Pet(app.getUser().getUsername(), modelSprites.get(currentSprite), modelColors.get(currentColor), "", "", namePetEt.getText().toString());
+        Pet pet = new Pet(app.getUser().getUsername(), modelSprites.get(currentSprite), modelColors.get(currentColor), "", "", namePetEt.getText().toString(), modelTags);
         if(DatabaseHandler.createPet(pet)){
             Utilities.ShowShortToast(getApplicationContext(), "Pet created successfully");
             app.setPet(pet);

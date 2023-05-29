@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -17,6 +19,7 @@ public class AddActivity extends AppCompatActivity {
     private PetMonstersApplication app;
     private ImageView backgroundIv, closeIv;
     private Class<?> nextClass;
+    private ArrayList<String> tagsArray = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +34,14 @@ public class AddActivity extends AppCompatActivity {
 
         setOnClickListeners();
 
-        try { getUserTags(); }
+        try {
+            getUserTags();
+            getFriendsTags();
+            map(tagsArray);
+        }
         catch (JSONException | ExecutionException | InterruptedException e) { e.printStackTrace(); }
 
-        getFriendsTags();
-
-        map();
-
-        joinTags();
+        input();
 
         shuffle();
 
@@ -77,15 +80,48 @@ public class AddActivity extends AppCompatActivity {
         ArrayList<String> itemTags = new ArrayList<>();
         ArrayList<String> petTags = new ArrayList<>();
 
-        DatabaseHandler.readItemTags(app.getPet().getHat());
-        //get tags shoes
+        ArrayList<String> hatTags = DatabaseHandler.readItemTags(app.getPet().getHat());
+        ArrayList<String> shoesTags = DatabaseHandler.readItemTags(app.getPet().getShoes());
+
+        itemTags.addAll(hatTags);
+        itemTags.addAll(shoesTags);
+        petTags.addAll(app.getPet().getTags());
+
+        String stringItemTags = String.join(",", itemTags);
+        String stringPetTags = String.join(",", petTags);
+
+        tagsArray.add(stringItemTags);
+        tagsArray.add(stringPetTags);
+
     }
 
-    private void getFriendsTags(){
+    private void getFriendsTags() throws JSONException, ExecutionException, InterruptedException {
+        for (User friend : app.getUser().getFriends()){
+            Pet pet = DatabaseHandler.readPet(friend.getUsername());
+
+            ArrayList<String> itemTags = new ArrayList<>();
+            ArrayList<String> petTags = new ArrayList<>();
+
+            ArrayList<String> hatTags = DatabaseHandler.readItemTags(pet.getHat());
+            ArrayList<String> shoesTags = DatabaseHandler.readItemTags(pet.getShoes());
+
+            itemTags.addAll(hatTags);
+            itemTags.addAll(shoesTags);
+            petTags.addAll(pet.getTags());
+
+            String stringItemTags = String.join(",", itemTags);
+            String stringPetTags = String.join(",", petTags);
+
+            tagsArray.add(stringItemTags);
+            tagsArray.add(stringPetTags);
+        }
+
+        System.out.println(tagsArray);
+        System.out.println(tagsArray);
 
     }
 
-    private void joinTags(){
+    private void input(){
 
     }
 
@@ -96,6 +132,7 @@ public class AddActivity extends AppCompatActivity {
             newTagsList.add(new AsyncMap().execute(tags.get(i)).get());
         }
 
+        System.out.println(newTagsList);
         System.out.println(newTagsList);
     }
 

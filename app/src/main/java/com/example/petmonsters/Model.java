@@ -10,8 +10,9 @@ public class Model {
     private String name;
     private ArrayList<String> sprites = new ArrayList<>();
     private ArrayList<String> colors = new ArrayList<>();
+    private ArrayList<String> tags = new ArrayList<>();
 
-    Model(String name, ArrayList<String> colors ){
+    Model(String name, ArrayList<String> colors, ArrayList<String> tags){
         this.name = name;
 
         switch (name){
@@ -42,6 +43,7 @@ public class Model {
         }
 
         this.colors = colors;
+        this.tags = tags;
     }
 
     public ArrayList<String> getSprites() {
@@ -54,5 +56,9 @@ public class Model {
 
     public String getName() {
         return name;
+    }
+
+    public ArrayList<String> getTags() {
+        return tags;
     }
 }
