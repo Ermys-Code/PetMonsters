@@ -135,4 +135,5 @@ public class Constants {
     public static final String pet_sprite_carlos_1 = "carlos_1";
     public static final String pet_sprite_carlos_2 = "carlos_2";
     public static final String pet_sprite_carlos_3 = "carlos_3";
+    
 }
