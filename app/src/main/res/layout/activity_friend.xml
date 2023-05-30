@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@drawable/background_house">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -10,18 +10,18 @@
 
         <ImageView
             android:id="@+id/friends_iv"
-            android:layout_width="100dp"
-            android:layout_height="250dp"
+            android:layout_width="150dp"
+            android:layout_height="425dp"
             android:layout_gravity="left|center_vertical"
             android:layout_marginLeft="40dp"
-            android:src="@drawable/color_selector"
-            android:layout_marginBottom="50dp"/>
+            android:src="@drawable/door"
+            android:layout_marginBottom="43dp"/>
 
         <ImageView
             android:id="@+id/board_iv"
-            android:src="@drawable/color_selector"
-            android:layout_width="100dp"
-            android:layout_height="75dp"
+            android:src="@drawable/board"
+            android:layout_width="125dp"
+            android:layout_height="97dp"
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="40dp"
             android:layout_marginBottom="175dp"/>
@@ -67,31 +67,28 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
-            android:fontFamily="@font/g"
+            android:fontFamily="@font/grobold"
             android:text="@string/name"
+            android:textColor="@color/pet_name_letter"
             android:gravity="center"
             android:textAlignment="center"
-            android:textSize="25dp"/>
+            android:textSize="40dp"
+            android:background="@drawable/name_fondo"/>
 
         <TextView
             android:id="@+id/petname_tv"
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="50dp"
             android:fontFamily="@font/g"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="70dp"
-            android:layout_gravity="right"
-            android:text="00000"
-            android:textSize="25dp"
-            android:gravity="center"
-            android:textAlignment="center"/>
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            android:layout_gravity="right"/>
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="right"
+            android:textSize="35dp"
+            android:textColor="@color/money_letter"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:background="@drawable/money_fondo"/>
 
     </FrameLayout>
 

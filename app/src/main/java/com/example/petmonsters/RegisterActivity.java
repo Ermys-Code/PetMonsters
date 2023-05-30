@@ -153,7 +153,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
-        User newUser = new User(name, surname, email, username, password, age, items, friends, 500);
+        User newUser = new User(name, surname, email, username, password, age, items, friends, 1500);
 
         return newUser;
     }

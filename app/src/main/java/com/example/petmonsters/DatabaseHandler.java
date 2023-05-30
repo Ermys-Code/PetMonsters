@@ -109,7 +109,7 @@ public class DatabaseHandler {
     }
 
     public static Boolean updateUserMoney(String _username, int money) throws Exception {
-        String query = Constants.query_update_user + _username + "\"}, \"update\":{\"$set\":{\"money\":" + money + "}}}";
+        String query = Constants.query_update_user + _username + Constants.query_update_user_money_middle + money + Constants.query_update_user_money_end;
         String queryAction = Constants.query_action_update_one;
         String jsonData = new AsyncConnectWithApi().execute(query, queryAction).get();
 

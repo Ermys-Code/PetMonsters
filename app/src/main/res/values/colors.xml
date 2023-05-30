@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="main_background">#C4A6C5</color>
+    <color name="social_background">#97E6C5</color>
+    <color name="note_background">#F5B94E</color>
     <color name="font_color">#670732</color>
+    <color name="unactive_tint">#999999</color>
+    <color name="note_letter">#461F48</color>
+    <color name="pet_name_letter">#FF6CAB</color>
+    <color name="money_letter">#97E6C5</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>

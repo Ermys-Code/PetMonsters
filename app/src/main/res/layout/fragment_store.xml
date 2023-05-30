@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StoreFragment"
-    android:background="@color/teal_700">
+    android:background="@drawable/board_panel_background">
 
     <ScrollView
         android:layout_width="match_parent"

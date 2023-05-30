@@ -103,11 +103,16 @@ public class RequestsFragment extends Fragment {
         LinearLayout.LayoutParams textParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         name.setLayoutParams(textParameters);
         name.setTextColor(getResources().getColor(R.color.black));
+        name.setTypeface(getResources().getFont(R.font.grobold));
         name.setTextSize(40);
         textParameters.setMargins(20,0,0,0);
 
+        View view_space = new View(context);
+        LinearLayout.LayoutParams viewParam = new LinearLayout.LayoutParams(0, 0, 1);
+        view_space.setLayoutParams(viewParam);
+
         ImageView accept = new ImageView(context);
-        Drawable a = getResources().getDrawable(R.drawable.color_selector);
+        Drawable a = getResources().getDrawable(R.drawable.accept_firend_iv);
         accept.setImageDrawable(a);
         LinearLayout.LayoutParams contentParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         accept.setLayoutParams(contentParameters);
@@ -125,16 +130,17 @@ public class RequestsFragment extends Fragment {
 
 
         ImageView deny = new ImageView(context);
-        Drawable b = getResources().getDrawable(R.drawable.color_selector);
+        Drawable b = getResources().getDrawable(R.drawable.deny_firend_iv);
         deny.setImageDrawable(b);
         deny.setLayoutParams(contentParameters);
         deny.isClickable();
         deny.setOnClickListener(view -> deleteRequest(from));
         contentParameters.width = 120;
         contentParameters.height = 120;
-        contentParameters.setMargins(10,10,0,0);
+        contentParameters.setMargins(10,10,20,0);
 
         container.addView(name);
+        container.addView(view_space);
         container.addView(accept);
         container.addView(deny);
         layout.addView(container);

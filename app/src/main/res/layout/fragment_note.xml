@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NoteFragment"
-    android:background="@color/purple_200">
+    android:background="@color/note_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,24 +14,24 @@
 
         <EditText
             android:id="@+id/title_et"
-            android:layout_width="300dp"
+            android:layout_width="250dp"
             android:layout_height="70dp"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/grobold"
-            android:textColor="@color/black"
+            android:textColor="@color/note_letter"
             android:textSize="30dp"
             android:hint="@string/title"/>
 
         <EditText
             android:id="@+id/message_et"
-            android:layout_width="300dp"
-            android:layout_height="70dp"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
             android:hint="@string/message"
             android:fontFamily="@font/grobold"
-            android:textColor="@color/black"
+            android:textColor="@color/note_letter"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_gravity="center_horizontal"
@@ -40,12 +40,12 @@
         <ImageView
             android:id="@+id/send_iv"
             android:layout_width="300dp"
-            android:layout_height="70dp"
+            android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:src="@drawable/color_selector"/>
+            android:src="@drawable/upload_note_iv"/>
 
 
 

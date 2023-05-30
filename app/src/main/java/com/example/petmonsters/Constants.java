@@ -63,6 +63,8 @@ public class Constants {
     public static final String query_delete_message_end = "\"}}";
     public static final String query_get_add = "{\"collection\":\"advertisement\", \"database\":\"ClubNoPenguin\", \"dataSource\":\"ClubNoPenguin\", \"filter\":{\"theme\":\"";
     public static final String query_get_add_end = "\"}}";
+    public static final String query_update_user_money_middle = "\"}, \"update\":{\"$set\":{\"money\":";
+    public static final String query_update_user_money_end = "}}}";
 
 
     //-- Query actions --//
@@ -87,7 +89,7 @@ public class Constants {
     public static final String json_key_money = "money";
     public static final String json_key_items = "items";
     public static final String json_key_friends = "friends";
-    public static final String json_key_from = "friends";
+    public static final String json_key_from = "from";
     public static final String json_key_to = "to";
     public static final String json_key_owner = "owner";
     public static final String json_key_sprite = "sprite";

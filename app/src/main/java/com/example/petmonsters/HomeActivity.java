@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -48,7 +49,13 @@ public class HomeActivity extends AppCompatActivity {
         createListeners();
         assignListeners();
 
+        unactiveButton();
+
         showPet();
+    }
+
+    private void unactiveButton(){
+        play_iv.setColorFilter(getColor(R.color.unactive_tint), PorterDuff.Mode.MULTIPLY);
     }
 
     private void getAppContext(){
@@ -71,7 +78,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void assignListeners(){
-        play_iv.setOnClickListener(playListener);
+        //play_iv.setOnClickListener(playListener);
         store_iv.setOnClickListener(storeListener);
         friends_iv.setOnClickListener(friendsListener);
         board_iv.setOnClickListener(boardListener);

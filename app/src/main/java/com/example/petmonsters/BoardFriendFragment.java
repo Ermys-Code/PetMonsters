@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 
 import org.json.JSONException;
@@ -120,11 +121,11 @@ public class BoardFriendFragment extends Fragment {
         verticalLayout = new LinearLayout(context);
         LinearLayout.LayoutParams verticalLayoutParams = new LinearLayout.LayoutParams(250, 400, 1.0f);
         verticalLayout.setLayoutParams(verticalLayoutParams);
-        verticalLayoutParams.setMargins(5, 0, 5, 0);
+        verticalLayoutParams.setMargins(50, 50, 50, 50);
         verticalLayout.setOrientation(LinearLayout.VERTICAL);
-        verticalLayout.setBackgroundColor(getContext().getColor(R.color.purple_700));
+        verticalLayout.setBackgroundColor(getContext().getColor(R.color.note_background));
 
-        ScrollView scrollView = new ScrollView(context);
+        NestedScrollView scrollView = new NestedScrollView(context);
         LinearLayout.LayoutParams scrollParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         scrollView.setLayoutParams(scrollParams);
 
@@ -136,10 +137,15 @@ public class BoardFriendFragment extends Fragment {
         TextView name = new TextView(context);
         name.setText(_name);
         LinearLayout.LayoutParams nameParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        nameParameters.bottomMargin = 30;
+        nameParameters.leftMargin = 20;
+        nameParameters.rightMargin = 20;
         name.setLayoutParams(nameParameters);
         name.setGravity(Gravity.CENTER);
-        name.setTextColor(getContext().getColor(R.color.black));
+        name.setTextColor(getContext().getColor(R.color.note_letter));
         name.setTextSize(20);
+        name.setTypeface(getResources().getFont(R.font.grobold));
+
 
 
         verticalLayout.addView(name);
@@ -147,9 +153,14 @@ public class BoardFriendFragment extends Fragment {
         TextView title = new TextView(context);
         title.setText(_title);
         LinearLayout.LayoutParams titleParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        titleParameters.bottomMargin = 15;
+        titleParameters.leftMargin = 20;
+        titleParameters.rightMargin = 20;
         title.setLayoutParams(titleParameters);
         title.setGravity(Gravity.LEFT);
-        title.setTextColor(getContext().getColor(R.color.black));
+        title.setTextColor(getContext().getColor(R.color.note_letter));
+        title.setTextSize(20);
+        title.setTypeface(getResources().getFont(R.font.grobold));
 
 
         verticalLayout.addView(title);
@@ -157,9 +168,13 @@ public class BoardFriendFragment extends Fragment {
         TextView message = new TextView(context);
         message.setText(_message);
         LinearLayout.LayoutParams messageParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        messageParameters.leftMargin = 20;
+        messageParameters.rightMargin = 20;
         message.setLayoutParams(messageParameters);
         message.setGravity(Gravity.LEFT);
-        message.setTextColor(getContext().getColor(R.color.black));
+        message.setTextColor(getContext().getColor(R.color.note_letter));
+        message.setTypeface(getResources().getFont(R.font.grobold));
+
 
         scrollView.addView(message);
 

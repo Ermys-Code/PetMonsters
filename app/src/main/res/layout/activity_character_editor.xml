@@ -19,7 +19,7 @@
             android:layout_height="70dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="75dp"
             android:fontFamily="@font/g"
             android:textAlignment="center"
             android:hint="@string/name"
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="75dp">
 
             <ImageView
                 android:id="@+id/formerPet_iv"
@@ -126,11 +126,12 @@
         <ImageView
             android:id="@+id/savePet_iv"
             android:layout_width="350dp"
+            android:src="@drawable/save_pet_iv"
             android:layout_height="70dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_gravity="center"
-            android:layout_marginTop="50dp"/>
+            android:layout_marginTop="75dp"/>
 
     </LinearLayout>
 

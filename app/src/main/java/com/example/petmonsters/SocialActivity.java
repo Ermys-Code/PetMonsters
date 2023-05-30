@@ -161,7 +161,7 @@ public class SocialActivity extends AppCompatActivity {
         friendName.setGravity(Gravity.CENTER);
 
 
-        Drawable img = getResources().getDrawable(R.drawable.hat_halo);
+        Drawable img = getResources().getDrawable(R.drawable.house);
         ImageView image = new ImageView(this);
         LinearLayout.LayoutParams contentParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -179,7 +179,7 @@ public class SocialActivity extends AppCompatActivity {
 
         imagePet.setLayoutParams(petParameters);
         imagePet.setImageDrawable(friendPet);
-        petParameters.setMargins(35, 40, 0, 0);
+        petParameters.setMargins(35, 80, 0, 0);
         petParameters.width = 200;
         petParameters.height = 200;
 

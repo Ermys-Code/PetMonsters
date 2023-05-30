@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@drawable/background_social">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,13 +21,14 @@
                 android:layout_height="70dp"
                 android:layout_marginLeft="20dp"
                 android:hint="@string/add_friend"
-                android:fontFamily="@font/grobold"/>
+                android:fontFamily="@font/grobold" />
 
             <ImageView
                 android:id="@+id/add_iv"
-                android:src="@drawable/color_selector"
-                android:layout_width="70dp"
-                android:layout_height="70dp"/>
+                android:src="@drawable/add_friend"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"/>
 
             <View
                 android:layout_width="0dp"
@@ -36,7 +37,7 @@
 
             <ImageView
                 android:id="@+id/requests_iv"
-                android:src="@drawable/color_selector"
+                android:src="@drawable/requests_iv"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginRight="20dp"/>

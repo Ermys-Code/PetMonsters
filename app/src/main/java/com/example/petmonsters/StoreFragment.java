@@ -98,7 +98,7 @@ public class StoreFragment extends Fragment {
         }
 
         LinearLayout layout = new LinearLayout(context);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(500, 500, 1.0f);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(500, 300, 1.0f);
         params.bottomMargin = 50;
         layout.setLayoutParams(params);
         layout.setOrientation(LinearLayout.VERTICAL);
